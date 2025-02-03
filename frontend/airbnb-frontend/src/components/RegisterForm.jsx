@@ -1,7 +1,8 @@
 import { useState } from "react";
 import styles from "../styles/RegisterForm.module.css";
+import SocialSignIn from "./SocialSignIn"; 
 
-const RegisterForm = ({ onSubmit }) => {
+const RegisterForm = ({ onSubmit, onToggleLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -40,6 +41,14 @@ const RegisterForm = ({ onSubmit }) => {
         required 
       />
       <button type="submit">Зарегистрироваться</button>
+
+      <div className={styles.orDivider}>или</div>
+
+      <SocialSignIn /> {/* google, facebook, apple */}
+
+      <p className={styles.loginLink}>
+        Уже есть аккаунт? <span onClick={onToggleLogin}>Войти</span>
+      </p>
     </form>
   );
 };

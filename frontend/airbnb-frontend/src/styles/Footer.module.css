@@ -1,27 +1,70 @@
 .footer {
-    background-color: #211e1a;
-    color: white;
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .links {
-    margin-bottom: 10px;
-  }
-  
-  .links a {
-    color: white;
-    text-decoration: none;
-    margin: 0 10px;
-  }
-  
-  .links a:hover {
-    text-decoration: underline;
-  }
-  
-  .social a {
-    font-size: 20px;
-    margin: 0 5px;
-    color: white;
-  }
-  
+  background: #2D2D2D;
+  color: white;
+  padding: 40px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.footerTop {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #444;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.column h4 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.column a {
+  color: #AAAAAA;
+  text-decoration: none;
+}
+
+.column a:hover {
+  color: white;
+}
+
+/* Соц. сети */
+.footerMiddle {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.social {
+  font-size: 24px;
+  text-decoration: none;
+  color: white;
+}
+
+.social:hover {
+  color: #FF385C;
+}
+
+/* Нижний блок */
+.footerBottom {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #AAAAAA;
+}
+
+.footerBottom span {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.footerBottom span:hover {
+  color: white;
+}
