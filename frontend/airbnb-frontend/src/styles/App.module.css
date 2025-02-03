@@ -1,0 +1,11 @@
+/* styles/App.module.css */
+.app {
+    font-family: 'Nunito Sans', sans-serif;
+    background-color: #F8F7F5;
+    color: #211E1A;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
