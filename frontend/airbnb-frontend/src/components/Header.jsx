@@ -1,24 +1,24 @@
 import { Link } from "react-router-dom";
 import styles from "../styles/Header.module.css";
 
-const Header = ({ onOpenModal }) => { // Получаем функцию из App.jsx
+const Header = ({ onOpenModal }) => {
   return (
     <header className={styles.header}>
-      <div className={styles.logo}>
-        <Link to="/">HomeFU</Link>
-      </div>
+      {/* Логотип */}
+      <Link to="/" className={styles.logo}>HomeFU</Link>
 
+      {/* Поисковая строка */}
       <div className={styles.searchBar}>
-        <input type="text" placeholder="Поиск жилья..." />
+        <input type="text" placeholder="Поиск помещения" />
         <button>🔍</button>
       </div>
 
-      <nav className={styles.nav}>
-        <Link to="/listings">Каталог</Link>
-        <Link to="/about">О нас</Link>
-        <Link to="/contact">Контакты</Link>
-        <button className={styles.signIn} onClick={onOpenModal}>Войти</button> {/* Вызываем onOpenModal */}
-      </nav>
+      {/* Кнопки справа */}
+      <div className={styles.rightButtons}>
+        <Link to="/listings" className={styles.offerBtn}>Запропонувати помещение</Link>
+        <button className={styles.profileIcon} onClick={onOpenModal}>👤</button>
+        <button className={styles.menuIcon}>☰</button>
+      </div>
     </header>
   );
 };

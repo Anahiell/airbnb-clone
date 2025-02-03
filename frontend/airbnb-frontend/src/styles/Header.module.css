@@ -1,58 +1,89 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #211e1a;
-    color: white;
-    padding: 15px 20px;
-  }
-  
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .searchBar {
-    display: flex;
-    align-items: center;
-    background: white;
-    border-radius: 20px;
-    padding: 5px;
-  }
-  
-  .searchBar input {
-    border: none;
-    padding: 8px;
-    outline: none;
-  }
-  
-  .searchBar button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 18px;
-  }
-  
-  .nav {
-    display: flex;
-    gap: 15px;
-  }
-  
-  .nav a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .signIn {
-    background: #6f6558;
-    color: white;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .signIn:hover {
-    background: #433d35;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2D2D2D;
+  padding: 15px 40px;
+  color: white;
+  font-size: 16px;
+}
+
+/* Логотип */
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+
+/* Поисковая строка */
+.searchBar {
+  display: flex;
+  background: white;
+  padding: 8px 12px;
+  border-radius: 25px;
+  width: 400px;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.searchBar input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+}
+
+.searchBar button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Правая часть */
+.rightButtons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Кнопка "Запропонувати помещение" */
+.offerBtn {
+  background: #FF385C;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.offerBtn:hover {
+  background: #e11b45;
+}
+
+/* Иконка профиля */
+.profileIcon {
+  background: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+}
+
+.profileIcon:hover {
+  background: #F0F0F0;
+}
+
+/* Меню */
+.menuIcon {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: white;
+}
