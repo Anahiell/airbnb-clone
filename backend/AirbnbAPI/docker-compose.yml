@@ -1,0 +1,42 @@
+version: "3.7"
+
+services:
+
+services:
+  airbnb-api:
+    build:
+      context: .
+      dockerfile: Airbnb.API/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - airbnb-sqlserver-db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    restart: always
+    networks:
+      - airbnb-network
+
+  airbnb-sqlserver-db:
+    image: mcr.microsoft.com/mssql/server:latest
+    restart: always
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_DATABASE: 'Airbnb'
+      MSSQL_USER: 'sa'
+      MSSQL_PASSWORD: 'Str0ngP@ss!'
+      SA_PASSWORD: 'Str0ngP@ss!'
+    ports:
+      - '1433:1433'
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    networks:
+      - airbnb-network
+      
+volumes:
+  sqlserver-data:
+  
+  
+networks:
+  airbnb-network:
+    driver: bridge
