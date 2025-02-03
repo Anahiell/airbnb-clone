@@ -1,0 +1,61 @@
+.propertyPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .image {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+  }
+  
+  .details {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .location {
+    font-size: 18px;
+    color: #777;
+  }
+  
+  .price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff385c;
+  }
+  
+  .rating {
+    font-size: 18px;
+    color: #ffa500;
+  }
+  
+  .description {
+    margin-top: 10px;
+    font-size: 16px;
+  }
+  
+  .bookButton {
+    background: #ff385c;
+    color: white;
+    padding: 12px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .bookButton:hover {
+    background: #e11b45;
+  }
+  
+  .notFound {
+    text-align: center;
+    color: #777;
+    font-size: 20px;
+    margin-top: 50px;
+  }
+  

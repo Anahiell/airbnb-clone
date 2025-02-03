@@ -7,8 +7,10 @@ const PropertyCard = ({ image, title, location, price, rating }) => {
       <div className={styles.info}>
         <h3>{title}</h3>
         <p>{location}</p>
-        <p>{price} / ночь</p>
-        <p>⭐ {rating}</p>
+        <div className={styles.footer}>
+          <span className={styles.price}>{price} / ночь</span>
+          <span className={styles.rating}>⭐ {rating}</span>
+        </div>
       </div>
     </div>
   );

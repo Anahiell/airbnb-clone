@@ -3,28 +3,37 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
-import Modal from "./components/Modal";
-import SignInForm from "./components/SignInForm";
 import ListingPage from "./pages/ListingPage";
 import PropertyPage from "./pages/PropertyPage";
+import ProfilePage from "./pages/ProfilePage";
+import Modal from "./components/Modal";
+import SignInForm from "./components/SignInForm";
+import RegisterForm from "./components/RegisterForm";
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRegister, setIsRegister] = useState(false);
 
   return (
     <div className="app">
-      <Header onOpenModal={() => setIsModalOpen(true)} /> {/* Передаём функцию открытия */}
+      <Header onOpenModal={() => { 
+        setIsModalOpen(true);
+        setIsRegister(false);
+      }} />
 
-      {/* Модальное окно */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <SignInForm onSubmit={(data) => console.log("Вход:", data)} />
+        {isRegister ? (
+          <RegisterForm onToggleLogin={() => setIsRegister(false)} />
+        ) : (
+          <SignInForm onToggleRegister={() => setIsRegister(true)} />
+        )}
       </Modal>
 
-      {/* Роутинг */}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/listings" element={<ListingPage />} />
         <Route path="/property/:id" element={<PropertyPage />} />
+        <Route path="/profile" element={<ProfilePage />} /> {/* ✅ Новый маршрут */}
       </Routes>
 
       <Footer />
