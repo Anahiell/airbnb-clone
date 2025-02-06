@@ -1,61 +1,77 @@
 .propertyPage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .image {
-    width: 100%;
-    max-width: 600px;
-    border-radius: 10px;
-  }
-  
-  .details {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .location {
-    font-size: 18px;
-    color: #777;
-  }
-  
-  .price {
-    font-size: 20px;
-    font-weight: bold;
-    color: #ff385c;
-  }
-  
-  .rating {
-    font-size: 18px;
-    color: #ffa500;
-  }
-  
-  .description {
-    margin-top: 10px;
-    font-size: 16px;
-  }
-  
-  .bookButton {
-    background: #ff385c;
-    color: white;
-    padding: 12px 20px;
-    font-size: 18px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-  }
-  
-  .bookButton:hover {
-    background: #e11b45;
-  }
-  
-  .notFound {
-    text-align: center;
-    color: #777;
-    font-size: 20px;
-    margin-top: 50px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  padding: 40px 80px;
+}
+
+.imageGallery {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.mainImage {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 10px;
+}
+
+.propertyInfo {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.location {
+  font-size: 16px;
+  color: #777;
+}
+
+.rating {
+  font-size: 18px;
+  color: #FFD700;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 20px;
+}
+
+.booking {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.price {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.bookButton {
+  background: #FF385C;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.bookButton:hover {
+  background: #e11b45;
+}
+
+.notFound {
+  text-align: center;
+  font-size: 24px;
+  color: #888;
+  margin-top: 50px;
+}

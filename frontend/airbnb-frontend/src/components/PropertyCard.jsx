@@ -1,6 +1,6 @@
 import styles from "../styles/PropertyCard.module.css";
 
-const PropertyCard = ({ image, title, location, price, rating }) => {
+const PropertyCard = ({ id, image, title, location, price, rating }) => {
   return (
     <div className={styles.card}>
       <img src={image} alt={title} className={styles.image} />

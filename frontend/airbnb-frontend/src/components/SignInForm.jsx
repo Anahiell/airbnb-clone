@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../utils/auth";
 import styles from "../styles/SignInForm.module.css";
-import SocialSignIn from "./SocialSignIn"; 
+import SocialSignIn from "./SocialSignIn";
 
-const SignInForm = ({ onToggleRegister }) => {
+const SignInForm = ({ onClose }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -13,6 +13,7 @@ const SignInForm = ({ onToggleRegister }) => {
     e.preventDefault();
     if (login(username, password)) {
       navigate("/profile"); // ✅ Переход в профиль после входа
+      onClose();
     } else {
       alert("❌ Неверные данные! Попробуйте user / user");
     }
@@ -26,11 +27,10 @@ const SignInForm = ({ onToggleRegister }) => {
       <button type="submit" className={styles.submitBtn}>Войти</button>
 
       <div className={styles.orDivider}>или</div>
-
-      <SocialSignIn /> {/* ✅ Кнопки соцсетей */}
+      <SocialSignIn />
 
       <p className={styles.registerLink}>
-        Нет аккаунта? <span onClick={onToggleRegister}>Зарегистрируйтесь</span>
+        Нет аккаунта? <span onClick={() => navigate("/register")}>Зарегистрируйтесь</span>
       </p>
     </form>
   );
