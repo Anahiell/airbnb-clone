@@ -1,22 +1,71 @@
 
 .header {
   display: flex;
+  flex-direction: column; /* Размещение в колонку (по вертикали) */
   justify-content: space-between;
-  align-items: center;
   background: #433D35;
   color: #FFFFFF;
   font-size: 16px;
+  padding-top: 60px;
+  padding-right: 96px;
 }
 
 /* Логотип */
 .logo {
-  padding-left: 77px;
-  padding-top: 60px;
+  padding-left: 4vw;
   font-size: 32px;
   color: #FFFFFF;
   font-weight: 500;
   line-height: 82px;
   text-decoration: none;
+}
+
+/* Верхняя строка */
+.row.top-row {
+  display: flex;
+  flex-direction: row; /* Элементы в строку */
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Нижняя строка */
+.row.bottom-row {
+  display: flex;
+  flex-direction: row; /* Элементы в строку */
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px; /* Отступ сверху для нижней строки */
+}
+
+.nav {
+  display: inline-flex;
+  gap: 25px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #6F6558;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 31px;
+}
+
+.nav a:hover {
+  border-bottom: 2px solid white;
+  /* text-decoration: underline;
+  text-underline-offset: 15px; */
+  line-height: 43.84px;
+  font-size: 17px;
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.bottom-row {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
 /* Поисковая строка */
@@ -67,24 +116,25 @@
 
 /* Кнопка "Запропонувати помещение" */
 .offerBtn {
-  background: #FF385C;
-  color: white;
+  color:#FFFFFF;
   padding: 10px 15px;
-  border-radius: 20px;
-  font-size: 14px;
-  text-decoration: none;
+  font-size: 12px;
+  line-height: 31px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .offerBtn:hover {
-  background: #e11b45;
+  font-size: 1rem;
 }
-
-/* Контейнер профиля */
+/*
+/* Контейнер профиля 
 .profileContainer {
   position: relative;
 }
 
-/* Иконка профиля */
+/* Иконка профиля 
 .profileIcon {
   background: white;
   border-radius: 50%;
@@ -100,6 +150,69 @@
 
 .profileIcon:hover {
   background: #F0F0F0;
+}
+*/
+.ovalButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  padding: 10px 20px;
+  border: 1px solid white;
+  border-radius: 50px; /* Овальная форма */
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Три полоски слева */
+.ovalButton::before {
+  content: "";
+  display: block;
+  width: 16px;
+  height: 12px;
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: 
+    linear-gradient(white 1.5px, transparent 1.5px) 0px 0px / 100% 4px,
+    linear-gradient(white 1.5px, transparent 1.5px) 0px 4px / 100% 4px,
+    linear-gradient(white 1.5px, transparent 1.5px) 0px 8px / 100% 4px;
+  background-repeat: no-repeat;
+}
+
+/* Контейнер человечка */
+.personContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 24px;
+  height: 28px;
+  margin-left: 20px;
+}
+
+/* Голова */
+.personHead {
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid white;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+}
+
+/* Тело (половина круга) */
+.personBody {
+  width: 25px;
+  height: 15.5px;
+  border-top: 1.5px solid white;
+  
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
 }
 
 /* Меню профиля */
