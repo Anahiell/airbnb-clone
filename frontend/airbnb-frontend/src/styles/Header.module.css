@@ -1,19 +1,22 @@
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #2D2D2D;
-  padding: 15px 40px;
-  color: white;
+  background: #433D35;
+  color: #FFFFFF;
   font-size: 16px;
 }
 
 /* Логотип */
 .logo {
-  font-size: 22px;
-  font-weight: bold;
+  padding-left: 77px;
+  padding-top: 60px;
+  font-size: 32px;
+  color: #FFFFFF;
+  font-weight: 500;
+  line-height: 82px;
   text-decoration: none;
-  color: white;
 }
 
 /* Поисковая строка */
@@ -122,5 +125,5 @@
   background: #6f6558;
   color: white;
   padding: 8px 12px;
-  border-radius:
+  border-radius: 5px;
 }
