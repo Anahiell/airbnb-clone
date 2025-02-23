@@ -38,7 +38,10 @@ public static class SqlServerExtensions
 
     public static IApplicationBuilder UseSqlServerMigration(this IApplicationBuilder app, AirbnbDbContext context)
     {
-        context.Database.Migrate();
+        if (!context.Database.CanConnect())  // Проверяем, существует ли база
+        {
+            context.Database.Migrate(); // Выполняем миграции только если базы нет
+        }
         return app;
     }
 }
