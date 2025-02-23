@@ -1,9 +1,14 @@
 using System.Reflection;
+using System.Text;
 using Airbnb.Infrastructure.Configuration;
 using Airbnb.Infrastructure.DataContext;
 using AirbnbAPI.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 // Add services to the container.
 //CORS
@@ -23,6 +28,25 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSqlServerServices(builder.Configuration.GetSection("SqlServerConnection").Get<SqlServerSettings>() 
                                       ?? throw new NullReferenceException());
+//JWT cognito
+// JWT - временная конфигурация без Cognito
+var key = "super_secret_key_12345"; // В проде нужно вынести в env-переменные
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+       options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ClockSkew = TimeSpan.Zero
+        };
+    });
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -42,6 +66,7 @@ if (app.Environment.IsDevelopment())
 // app.UseHttpsRedirection();
 app.UseCors("AllowFrontend");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
