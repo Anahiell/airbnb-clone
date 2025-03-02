@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="BoundedContext\Projections\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Airbnb.QueryRepository\Airbnb.MongoRepository\Airbnb.MongoRepository.csproj" />
+      <ProjectReference Include="..\..\Airbnb.SharedKernelManagement\Airbnb.Application\Airbnb.Application.csproj" />
+      <ProjectReference Include="..\Airbnb.ProductManagement.Domain\Airbnb.ProductManagement.Domain.csproj" />
+    </ItemGroup>
+
+</Project>
