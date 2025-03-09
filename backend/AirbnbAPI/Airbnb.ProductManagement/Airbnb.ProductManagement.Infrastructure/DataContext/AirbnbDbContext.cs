@@ -14,7 +14,7 @@ public class AirbnbDbContext(DbContextOptions<AirbnbDbContext> options) : DbCont
     public DbSet<DomainProduct> DomainProduct { get; private set; }
     public DbSet<AddressLegal> AddressLegal { get; private set; }
     public DbSet<AddressLegal> ProductType { get; private set; }
-    public DbSet<UserEntity> Users { get; private set; } // add Users table
+    public DbSet<UserEntity> Users { get; private set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -8,15 +8,13 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
     {
         RuleFor(c => c.ProductTitle)
             .NotEmpty().WithMessage("Название не может быть пустым")
-            .MinimumLength(10).WithMessage("Название не может быть короче 6 символов")
-            .MaximumLength(12).WithMessage("Название не может быть длиннее 20 символов")
-            .Must(t => long.TryParse(t, out _)).WithMessage("ИНН должен содержать только числа");
+            .MinimumLength(6).WithMessage("Название не может быть короче 6 символов")
+            .MaximumLength(20).WithMessage("Название не может быть длиннее 20 символов");
 
         RuleFor(c => c.ProductDescription)
             .NotEmpty().WithMessage("Описание не может быть пустым")
             .MinimumLength(20).WithMessage("Описание не может быть короче 20 символов")
-            .MaximumLength(500).WithMessage("Описание не может быть длиннее 500 символов")
-            .Must(t => long.TryParse(t, out _)).WithMessage("ИНН должен содержать только числа");
+            .MaximumLength(500).WithMessage("Описание не может быть длиннее 500 символов");
 
         RuleFor(c => c.ProductPrice)
             .NotEmpty().WithMessage("Цена не может быть пустой")

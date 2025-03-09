@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AirbnbAPI.Extensions;
 
-public static class SqlServerExtensions
+public static class SqlServerServiceExtensions
 {
     public static IServiceCollection AddSqlServerServices(this IServiceCollection services, SqlServerSettings settings)
     {

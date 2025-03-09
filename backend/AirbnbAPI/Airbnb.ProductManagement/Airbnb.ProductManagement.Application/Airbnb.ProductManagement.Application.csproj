@@ -13,7 +13,12 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Airbnb.QueryRepository\Airbnb.MongoRepository\Airbnb.MongoRepository.csproj" />
       <ProjectReference Include="..\..\Airbnb.SharedKernelManagement\Airbnb.Application\Airbnb.Application.csproj" />
+      <ProjectReference Include="..\..\Airbnb.SharedKernel\Airbnb.Application\Airbnb.Application.csproj" />
       <ProjectReference Include="..\Airbnb.ProductManagement.Domain\Airbnb.ProductManagement.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="7.3.1" />
     </ItemGroup>
 
 </Project>

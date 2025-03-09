@@ -13,9 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.ProductManagement.In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.ProductManagement.UnitTesting", "Airbnb.ProductManagement\Airbnb.ProductManagement.UnitTesting\Airbnb.ProductManagement.UnitTesting.csproj", "{0C8D91D4-E4D4-419D-90E0-1372B0EB5C05}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Airbnb.SharedKernelManagement", "Airbnb.SharedKernelManagement", "{29D652EB-2C79-4F5F-9256-A0EE564ACC76}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.SharedKernel", "Airbnb.SharedKernelManagement\Airbnb.SharedKernelManagement\Airbnb.SharedKernel.csproj", "{CE44778E-E518-4C52-B75A-A58C4FFFD17B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Airbnb.SharedKernel", "Airbnb.SharedKernel", "{29D652EB-2C79-4F5F-9256-A0EE564ACC76}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Airbnb.OrderManagement", "Airbnb.OrderManagement", "{BC8AF310-8D68-4B1A-AEF4-8AC70FAE3AB2}"
 EndProject
@@ -31,8 +29,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.OrderManagement.Infr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.OrderManagement.Domain", "Airbnb.OrderManagement\Airbnb.OrderManagement.Domain\Airbnb.OrderManagement.Domain.csproj", "{2C827058-0A18-4535-9556-E5621C2A1C3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.Connection", "Airbnb.SharedKernelManagement\Airbnb.Connection\Airbnb.Connection.csproj", "{A985272C-125C-47FF-8B65-92E5AF7340B3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.ProductManagement.Application", "Airbnb.ProductManagement\Airbnb.ProductManagement.Application\Airbnb.ProductManagement.Application.csproj", "{FFCC6AD9-1D66-4ED3-A265-EFCDD01186F8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.OrderManagement.Application", "Airbnb.OrderManagement\Airbnb.OrderManagement.Application\Airbnb.OrderManagement.Application.csproj", "{3BA65A02-A999-48A6-B2FD-BDDE0BDD7785}"
@@ -43,13 +39,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Airbnb.UserManagement", "Ai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.UserManagement.API", "Airbnb.UserManagement\Airbnb.UserManagement.API\Airbnb.UserManagement.API.csproj", "{CE61E86D-0264-4C79-AA0D-89BDF7630BFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.Application", "Airbnb.SharedKernelManagement\Airbnb.Application\Airbnb.Application.csproj", "{2C706773-5F63-4AB3-AAB5-A53F0E219058}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Airbnb.QueryRepository", "Airbnb.QueryRepository", "{B0AAAD9B-5F9F-48E4-9731-A6305A847C4D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.MongoRepository", "Airbnb.QueryRepository\Airbnb.MongoRepository\Airbnb.MongoRepository.csproj", "{837209B4-D963-49BB-805D-B3398C98F840}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.CassandraRepository", "Airbnb.QueryRepository\Airbnb.CassandraRepository\Airbnb.CassandraRepository.csproj", "{2154345B-5F2C-4755-A953-9F2636E649BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.Application", "Airbnb.SharedKernel\Airbnb.Application\Airbnb.Application.csproj", "{0544D68D-178E-493C-8242-A11F32F3F8BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.Connection", "Airbnb.SharedKernel\Airbnb.Connection\Airbnb.Connection.csproj", "{B9B1126A-6EB0-4403-939E-D1A8BB9CB9C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.Domain", "Airbnb.SharedKernel\Airbnb.Domain\Airbnb.Domain.csproj", "{C99ADC22-DBE8-4EE5-B990-9CD62EB2732F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.Infrastructure", "Airbnb.SharedKernel\Airbnb.Infrastructure\Airbnb.Infrastructure.csproj", "{7DD6EA81-2AB4-41AA-B5FD-E081AEB50F57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.Cache", "Airbnb.SharedKernel\Airbnb.Cache\Airbnb.Cache.csproj", "{C970F62B-AE07-4C31-ACD5-6C8E22B24B26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,10 +77,6 @@ Global
 		{0C8D91D4-E4D4-419D-90E0-1372B0EB5C05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C8D91D4-E4D4-419D-90E0-1372B0EB5C05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C8D91D4-E4D4-419D-90E0-1372B0EB5C05}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CE44778E-E518-4C52-B75A-A58C4FFFD17B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE44778E-E518-4C52-B75A-A58C4FFFD17B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CE44778E-E518-4C52-B75A-A58C4FFFD17B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CE44778E-E518-4C52-B75A-A58C4FFFD17B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AA4CEE2E-B0A1-43DE-ABED-159A93C21DF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AA4CEE2E-B0A1-43DE-ABED-159A93C21DF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA4CEE2E-B0A1-43DE-ABED-159A93C21DF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -89,10 +89,6 @@ Global
 		{2C827058-0A18-4535-9556-E5621C2A1C3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C827058-0A18-4535-9556-E5621C2A1C3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C827058-0A18-4535-9556-E5621C2A1C3B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A985272C-125C-47FF-8B65-92E5AF7340B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A985272C-125C-47FF-8B65-92E5AF7340B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A985272C-125C-47FF-8B65-92E5AF7340B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A985272C-125C-47FF-8B65-92E5AF7340B3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FFCC6AD9-1D66-4ED3-A265-EFCDD01186F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FFCC6AD9-1D66-4ED3-A265-EFCDD01186F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFCC6AD9-1D66-4ED3-A265-EFCDD01186F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -105,10 +101,6 @@ Global
 		{CE61E86D-0264-4C79-AA0D-89BDF7630BFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE61E86D-0264-4C79-AA0D-89BDF7630BFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE61E86D-0264-4C79-AA0D-89BDF7630BFE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2C706773-5F63-4AB3-AAB5-A53F0E219058}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2C706773-5F63-4AB3-AAB5-A53F0E219058}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2C706773-5F63-4AB3-AAB5-A53F0E219058}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2C706773-5F63-4AB3-AAB5-A53F0E219058}.Release|Any CPU.Build.0 = Release|Any CPU
 		{837209B4-D963-49BB-805D-B3398C98F840}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{837209B4-D963-49BB-805D-B3398C98F840}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{837209B4-D963-49BB-805D-B3398C98F840}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -117,6 +109,26 @@ Global
 		{2154345B-5F2C-4755-A953-9F2636E649BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2154345B-5F2C-4755-A953-9F2636E649BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2154345B-5F2C-4755-A953-9F2636E649BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0544D68D-178E-493C-8242-A11F32F3F8BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0544D68D-178E-493C-8242-A11F32F3F8BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0544D68D-178E-493C-8242-A11F32F3F8BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0544D68D-178E-493C-8242-A11F32F3F8BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9B1126A-6EB0-4403-939E-D1A8BB9CB9C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9B1126A-6EB0-4403-939E-D1A8BB9CB9C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9B1126A-6EB0-4403-939E-D1A8BB9CB9C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9B1126A-6EB0-4403-939E-D1A8BB9CB9C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C99ADC22-DBE8-4EE5-B990-9CD62EB2732F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C99ADC22-DBE8-4EE5-B990-9CD62EB2732F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C99ADC22-DBE8-4EE5-B990-9CD62EB2732F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C99ADC22-DBE8-4EE5-B990-9CD62EB2732F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DD6EA81-2AB4-41AA-B5FD-E081AEB50F57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DD6EA81-2AB4-41AA-B5FD-E081AEB50F57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DD6EA81-2AB4-41AA-B5FD-E081AEB50F57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DD6EA81-2AB4-41AA-B5FD-E081AEB50F57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C970F62B-AE07-4C31-ACD5-6C8E22B24B26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C970F62B-AE07-4C31-ACD5-6C8E22B24B26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C970F62B-AE07-4C31-ACD5-6C8E22B24B26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C970F62B-AE07-4C31-ACD5-6C8E22B24B26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -126,16 +138,18 @@ Global
 		{ACB2CE3F-2BDB-4BCF-82A0-659A53D3C910} = {EB71FC4D-1A0C-492A-AF3F-3FDA1771480D}
 		{0E7A2B10-6C32-4E37-A93C-08EBCB842FA3} = {EB71FC4D-1A0C-492A-AF3F-3FDA1771480D}
 		{0C8D91D4-E4D4-419D-90E0-1372B0EB5C05} = {EB71FC4D-1A0C-492A-AF3F-3FDA1771480D}
-		{CE44778E-E518-4C52-B75A-A58C4FFFD17B} = {29D652EB-2C79-4F5F-9256-A0EE564ACC76}
 		{AA4CEE2E-B0A1-43DE-ABED-159A93C21DF5} = {BC8AF310-8D68-4B1A-AEF4-8AC70FAE3AB2}
 		{D0B3E02B-793E-4AC6-B1ED-FCBE0F3B7B81} = {BC8AF310-8D68-4B1A-AEF4-8AC70FAE3AB2}
 		{2C827058-0A18-4535-9556-E5621C2A1C3B} = {BC8AF310-8D68-4B1A-AEF4-8AC70FAE3AB2}
-		{A985272C-125C-47FF-8B65-92E5AF7340B3} = {29D652EB-2C79-4F5F-9256-A0EE564ACC76}
 		{FFCC6AD9-1D66-4ED3-A265-EFCDD01186F8} = {EB71FC4D-1A0C-492A-AF3F-3FDA1771480D}
 		{3BA65A02-A999-48A6-B2FD-BDDE0BDD7785} = {BC8AF310-8D68-4B1A-AEF4-8AC70FAE3AB2}
 		{CE61E86D-0264-4C79-AA0D-89BDF7630BFE} = {6DE54475-F661-4065-BF9D-15C7D6CBDE43}
-		{2C706773-5F63-4AB3-AAB5-A53F0E219058} = {29D652EB-2C79-4F5F-9256-A0EE564ACC76}
 		{837209B4-D963-49BB-805D-B3398C98F840} = {B0AAAD9B-5F9F-48E4-9731-A6305A847C4D}
 		{2154345B-5F2C-4755-A953-9F2636E649BD} = {B0AAAD9B-5F9F-48E4-9731-A6305A847C4D}
+		{0544D68D-178E-493C-8242-A11F32F3F8BF} = {29D652EB-2C79-4F5F-9256-A0EE564ACC76}
+		{B9B1126A-6EB0-4403-939E-D1A8BB9CB9C1} = {29D652EB-2C79-4F5F-9256-A0EE564ACC76}
+		{C99ADC22-DBE8-4EE5-B990-9CD62EB2732F} = {29D652EB-2C79-4F5F-9256-A0EE564ACC76}
+		{7DD6EA81-2AB4-41AA-B5FD-E081AEB50F57} = {29D652EB-2C79-4F5F-9256-A0EE564ACC76}
+		{C970F62B-AE07-4C31-ACD5-6C8E22B24B26} = {29D652EB-2C79-4F5F-9256-A0EE564ACC76}
 	EndGlobalSection
 EndGlobal

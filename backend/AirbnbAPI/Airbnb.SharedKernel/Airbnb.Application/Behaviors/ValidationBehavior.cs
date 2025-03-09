@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using ValidationException = System.ComponentModel.DataAnnotations.ValidationException;
 
 namespace Airbnb.Application.Behaviors;
 
@@ -21,9 +20,11 @@ public class ValidationBehavior<TRequest, TResponse>(
 
         if (failures.Any())
         {
+            var exception = new CustomValidationException(failures.Select(f => f.ErrorMessage).ToList());
+
             logger.LogError("Completed request {RequestName} with errors {Errors}", typeof(TRequest).Name, failures);
 
-            throw new ValidationException(string.Join("; ", failures.Select(f => f.ErrorMessage)));
+            throw exception;
         }
 
         return await next();

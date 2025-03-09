@@ -1,5 +1,4 @@
 ﻿using Airbnb.Domain.BoundedContexts.AddressManagement.Aggregates;
-using Airbnb.Domain.BoundedContexts.ProductManagement.ValueObjects.Address;
 using Airbnb.Domain.BoundedContexts.PropertyTypeManagement.Aggregates;
 using Airbnb.SharedKernel;
 
@@ -22,8 +21,9 @@ public class DomainProduct : AggregateRoot
     public AddressLegal AddressLegal { get; private set; }
 
     public int AddressLegalId { get; private set; }
+
     public ApartmentType ApartmentType { get; private set; }
-    
+
     public int ApartmentTypeId { get; private set; }
 
     public DomainProduct()
@@ -31,7 +31,7 @@ public class DomainProduct : AggregateRoot
     }
 
     public DomainProduct(string productTitle, string productDescription, int productPrice,
-         DateTime orderDate, int userId, int apartmentTypeId, int addressLegalId, bool productAvailability = true)
+        DateTime orderDate, int userId, int apartmentTypeId, int addressLegalId, bool productAvailability = true)
     {
         Title = productTitle;
         Description = productDescription;
