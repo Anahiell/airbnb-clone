@@ -1,19 +1,44 @@
+import { Link } from "react-router-dom";
 import styles from "../styles/Footer.module.css";
 
 const Footer = () => {
   return (
     <footer className={styles.footer}>
-      <div className={styles.links}>
-        <a href="/privacy">Политика конфиденциальности</a>
-        <a href="/terms">Условия использования</a>
+      {/* Верхний блок: разделы */}
+      <div className={styles.footerTop}>
+        <div className={styles.column}>
+          <h4>Поддержка</h4>
+          <Link to="/help">Центр помощи</Link>
+          <Link to="/safety">Безопасность</Link>
+          <Link to="/support">Свяжитесь с нами</Link>
+        </div>
+
+        <div className={styles.column}>
+          <h4>Правила</h4>
+          <Link to="/terms">Условия использования</Link>
+          <Link to="/privacy">Политика конфиденциальности</Link>
+          <Link to="/refunds">Возврат средств</Link>
+        </div>
+
+        <div className={styles.column}>
+          <h4>HomeFU</h4>
+          <Link to="/about">О нас</Link>
+          <Link to="/careers">Карьера</Link>
+          <Link to="/blog">Блог</Link>
+        </div>
       </div>
 
-      <p>&copy; 2024 HomeFU. Все права защищены.</p>
+      {/* Средний блок: Соц. сети */}
+      <div className={styles.footerMiddle}>
+        <Link to="https://facebook.com" className={styles.social}>📘</Link>
+        <Link to="https://instagram.com" className={styles.social}>📸</Link>
+        <Link to="https://twitter.com" className={styles.social}>🐦</Link>
+      </div>
 
-      <div className={styles.social}>
-        <a href="https://facebook.com">📘</a>
-        <a href="https://twitter.com">🐦</a>
-        <a href="https://instagram.com">📷</a>
+      {/* Нижний блок: Копирайт и язык */}
+      <div className={styles.footerBottom}>
+        <p>© 2024 HomeFU, Inc.</p>
+        <p>🌍 Язык: <span>Українська (UA) | USD</span></p>
       </div>
     </footer>
   );

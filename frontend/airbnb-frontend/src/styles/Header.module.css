@@ -1,58 +1,245 @@
+
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #211e1a;
-    color: white;
-    padding: 15px 20px;
-  }
+  display: flex;
+  flex-direction: column; /* Размещение в колонку (по вертикали) */
+  justify-content: space-between;
+  background: #433D35;
+  color: #FFFFFF;
+  font-size: 16px;
+  padding-top: 60px;
+  padding-right: 96px;
+}
+
+/* Логотип */
+.logo {
+  padding-left: 4vw;
+  font-size: 32px;
+  color: #FFFFFF;
+  font-weight: 500;
+  line-height: 82px;
+  text-decoration: none;
+}
+
+/* Верхняя строка */
+.row.top-row {
+  display: flex;
+  flex-direction: row; /* Элементы в строку */
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Нижняя строка */
+.row.bottom-row {
+  display: flex;
+  flex-direction: row; /* Элементы в строку */
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px; /* Отступ сверху для нижней строки */
+}
+
+.nav {
+  display: inline-flex;
+  gap: 25px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #6F6558;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 31px;
+}
+
+.nav a:hover {
+  border-bottom: 2px solid white;
+  /* text-decoration: underline;
+  text-underline-offset: 15px; */
+  line-height: 43.84px;
+  font-size: 17px;
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.bottom-row {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Поисковая строка */
+.searchBar {
+  display: flex;
+  background: white;
+  padding: 8px 12px;
+  border-radius: 25px;
+  width: 400px;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.searchBar input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+}
+
+.searchBar button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Правая часть */
+.rightButtons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Кнопка "Показать карту" */
+.mapBtn {
+  background: #6f6558;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+}
+
+.mapBtn:hover {
+  background: #433d35;
+}
+
+/* Кнопка "Запропонувати помещение" */
+.offerBtn {
+  color:#FFFFFF;
+  padding: 10px 15px;
+  font-size: 12px;
+  line-height: 31px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.offerBtn:hover {
+  font-size: 1rem;
+}
+/*
+/* Контейнер профиля 
+.profileContainer {
+  position: relative;
+}
+
+/* Иконка профиля 
+.profileIcon {
+  background: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+}
+
+.profileIcon:hover {
+  background: #F0F0F0;
+}
+*/
+.ovalButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  padding: 10px 15px 3px 20px;
+  background-color: inherit;
+  border: 1.5px solid white;
+  border-radius: 26px; 
+  cursor: pointer;
+  position: relative;
+}
+
+/* Три полоски слева */
+.ovalButton::before {
+  content: "";
+  display: block;
+  width: 16px;
+  height: 12px;
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: 
+    linear-gradient(white 1.5px, transparent 1.5px) 0px 0px / 100% 4px,
+    linear-gradient(white 1.5px, transparent 1.5px) 0px 4px / 100% 4px,
+    linear-gradient(white 1.5px, transparent 1.5px) 0px 8px / 100% 4px;
+  background-repeat: no-repeat;
+}
+
+.ovalButton:hover{
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Контейнер человечка */
+.personContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 24px;
+  height: 28px;
+  margin-left: 30px;
+}
+
+/* Голова */
+.personHead {
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid white;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+}
+
+/* Тело (половина круга) */
+.personBody {
+  width: 30px;
+  height: 15px;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
   
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .searchBar {
-    display: flex;
-    align-items: center;
-    background: white;
-    border-radius: 20px;
-    padding: 5px;
-  }
-  
-  .searchBar input {
-    border: none;
-    padding: 8px;
-    outline: none;
-  }
-  
-  .searchBar button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 18px;
-  }
-  
-  .nav {
-    display: flex;
-    gap: 15px;
-  }
-  
-  .nav a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .signIn {
-    background: #6f6558;
-    color: white;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .signIn:hover {
-    background: #433d35;
-  }
-  
+}
+
+/* Меню профиля */
+.profileMenu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  color: black;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+  width: 120px;
+}
+
+/* Кнопка "Войти" */
+.loginBtn {
+  background: #6f6558;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+}
