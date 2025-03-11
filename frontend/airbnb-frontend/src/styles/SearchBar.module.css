@@ -1,33 +1,99 @@
+.searchContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
 .searchBar {
   display: flex;
-  gap: 10px;
-  background: white;
-  padding: 10px 15px;
-  border-radius: 25px;
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0px 10px;
+  border-radius: 50px;
+  width:fit-content;
+  border: 1px solid #433d35;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  justify-content: space-between;
 }
 
-.searchBar input,
-.searchBar select {
-  border: 1px solid #ddd;
-  padding: 8px;
-  font-size: 14px;
-  border-radius: 5px;
+/* Поля ввода */
+.searchField {
+  flex: 1;
+  position: relative;
+  text-align: center;
 }
 
-.searchBar button {
+.searchBar input {
   border: none;
-  background: #FF385C;
-  color: white;
-  font-size: 14px;
-  padding: 8px 12px;
-  border-radius: 5px;
+  outline: none;
+  font-size: 16px;
+  background: transparent;
+  width: 100%;
+  color: #433d35;
+  text-align: center;
+}
+
+/* Гости */
+.searchBar select {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  background: transparent;
+  text-align: center;
   cursor: pointer;
+  width: fit-content;
+}
+
+/* Кнопка поиска */
+.searchBar button {
+  background: #433d35;
+  border: none;
+  color: white;
+  font-size: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  margin: 0px 0px 0px 25px ;
+  display: flex;
+  align-items: center;
 }
 
 .searchBar button:hover {
-  background: #e11b45;
+  background: #5a5147;
+}
+
+/* Разделители */
+.divider {
+  width: 1px;
+  height: 30px;
+  background: #6f6558;
+}
+
+/* Выпадающие списки */
+.dropdown,
+.calendar {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+  width: 250px;
+  z-index: 10;
+}
+
+.option {
+  padding: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.option:hover {
+  background: #ddd;
 }

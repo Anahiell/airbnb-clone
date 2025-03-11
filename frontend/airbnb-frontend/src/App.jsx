@@ -9,34 +9,26 @@ import ProfilePage from "./pages/ProfilePage";
 import VerificationPage from "./pages/VerificationPage";
 import Modal from "./components/Modal";
 import SignInForm from "./components/SignInForm";
+import RegisterForm from "./components/RegisterForm";
 import { getUser, logout } from "./utils/auth";
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isMapVisible, setIsMapVisible] = useState(false); // Переключение карты
+  const [isRegistering, setIsRegistering] = useState(false);
   const navigate = useNavigate();
   const user = getUser();
 
-  const handleLogout = () => {
-    logout();
-    navigate("/");
-  };
-
   return (
     <div className="app">
-      <Header 
-        onOpenModal={() => !user && setIsModalOpen(true)} 
-        user={user}
-        onLogout={handleLogout}
-        onToggleMap={() => setIsMapVisible(!isMapVisible)} // Переключаем карту
-      />
+      <Header onOpenModal={() => setIsModalOpen(true)} user={user} onLogout={logout} />
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <SignInForm onClose={() => setIsModalOpen(false)} />
+        {isRegistering ? (
+          <RegisterForm onClose={() => setIsModalOpen(false)} toggleAuth={() => setIsRegistering(false)} />
+        ) : (
+          <SignInForm onClose={() => setIsModalOpen(false)} toggleAuth={() => setIsRegistering(true)} />
+        )}
       </Modal>
-
-      {/* Отображение карты, если включено */}
-      {isMapVisible && <div className="mapContainer">ЗДЕСЬ БУДЕТ КАРТА</div>}
 
       <Routes>
         <Route path="/" element={<HomePage />} />

@@ -1,13 +1,29 @@
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import SearchBar from "../components/SearchBar";
 import styles from "../styles/Header.module.css";
 
 const Header = ({ onOpenModal, user, onLogout, onToggleMap }) => {
-  const location = useLocation(); // Получаем текущий URL
+  const location = useLocation();
+  const [isActive, setIsActive] = useState(false);
+  let timer;
+
+  const handleFocus = () => {
+    clearTimeout(timer);
+    setIsActive(true);
+  };
+
+  const handleBlur = () => {
+    timer = setTimeout(() => setIsActive(false), 5000);
+  };
+
+  useEffect(() => {
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <header className={styles.header}>
-      <div className={styles.row + " " + styles["top-row"]}>
-        {/* Логотип */}
+    <header className={`${styles.header} ${isActive ? styles.active : ""}`}>
+      <div className={styles.row}>
         <Link to="/" className={styles.logo}>HomeFU</Link>
 
         <nav className={styles.nav}>
@@ -16,40 +32,25 @@ const Header = ({ onOpenModal, user, onLogout, onToggleMap }) => {
           <a href="#">Онлайн-враження</a>
         </nav>
 
-        {/* Кнопки справа */}
         <div className={styles.rightButtons}>
-          <Link to="/listings" className={styles.offerBtn}>Запропонувати помешкання на HomeFU</Link>
-          {/* Кнопка "Показать на карте" видна только на странице listing */}
+          <Link to="/listings" className={styles.offerBtn}>Запропонувати помешкання</Link>
           {location.pathname === "/listings" && (
-            <button className={styles.mapButton} onClick={onToggleMap}>📍 Показать на карте</button>
+            <button className={styles.mapButton} onClick={onToggleMap}>📍 Показати на карті</button>
           )}
-
           {user ? (
             <div className={styles.userMenu}>
               <span>Привет, {user.username}</span>
               <button className={styles.logoutBtn} onClick={onLogout}>Выйти</button>
             </div>
           ) : (
-            // <button className={styles.profileIcon} onClick={onOpenModal}>👤</button>
-            <button className={styles.ovalButton} onClick={onOpenModal}>
-              <span></span>
-              <div className={styles.personContainer}>
-                <div class={styles.personHead}></div>
-                <div class={styles.personBody}></div>
-              </div>
-            </button>
+            <button className={styles.ovalButton} onClick={onOpenModal}>👤</button>
           )}
         </div>
       </div>
-      <div className={styles.row + " " + styles["bottom-row"]}>
-        {/* Поисковая строка */}
-        <div className={styles.searchBar}>
-          <input type="text" placeholder="Поиск помещения" />
-          <button>🔍</button>
-        </div>
 
+      <div className={styles.searchContainer} onMouseEnter={handleFocus} onMouseLeave={handleBlur}>
+        <SearchBar onFocus={handleFocus} onBlur={handleBlur} />
       </div>
-
     </header>
   );
 };

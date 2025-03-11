@@ -1,101 +1,89 @@
-/* Фон всей страницы */
-.profilePage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: #F5F5F5;
-  }
-  
-  /* Карточка профиля */
-  .profileCard {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    width: 100%;
-    text-align: center;
-  }
-  
-  /* Аватар */
-  .avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #ddd;
-    cursor: pointer;
-    transition: opacity 0.3s;
-  }
-  
-  .avatarUpload input {
-    display: none;
-  }
-  
-  .avatarUpload:hover .avatar {
-    opacity: 0.7;
-  }
-  
-  /* Заголовок (Имя) */
-  h1 {
-    font-size: 22px;
-    margin: 15px 0;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  /* Биография */
-  .bio {
-    font-size: 14px;
-    color: #777;
-    margin-bottom: 20px;
-  }
-  
-  /* Поля ввода */
-  input, textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  /* Кнопка Сохранить */
-  .saveBtn {
-    background: #007BFF;
-    color: white;
-    padding: 10px;
-    width: 100%;
-    margin-top: 15px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .saveBtn:hover {
-    background: #0056b3;
-  }
-  
-  /* Кнопка Выйти */
-  .logoutBtn {
-    background: #FF385C;
-    color: white;
-    padding: 10px;
-    width: 100%;
-    margin-top: 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .logoutBtn:hover {
-    background: #e11b45;
-  }
-  
+.profileContainer {
+  max-width: 800px;
+  margin: auto;
+  padding: 40px;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.profileHeader {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.profileImage {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  background-color: #6c5c4e;
+  color: white;
+  font-size: 50px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.uploadBtn {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  border-radius: 5px;
+}
+
+.profileInfo h1 {
+  font-size: 24px;
+}
+
+.profileInfo p {
+  font-size: 14px;
+  color: #666;
+}
+
+.profileForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.profileForm label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.profileForm input,
+.profileForm textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.profileForm textarea {
+  height: 100px;
+  resize: none;
+}
+
+.saveBtn {
+  background: #6c5c4e;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.saveBtn:hover {
+  background: #4d4237;
+}
