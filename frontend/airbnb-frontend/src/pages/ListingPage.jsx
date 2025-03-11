@@ -28,7 +28,6 @@ const ListingPage = () => {
   return (
     <div className={styles.listingPage}>
       <h1 className={styles.title}>Все варианты жилья</h1>
-      <SearchBar onSearch={handleSearch} />
       <CategoryFilters selectedCategory={selectedCategory} onSelectCategory={handleCategorySelect} />
 
       <div className={styles.grid}>

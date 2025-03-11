@@ -1,22 +1,25 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../utils/auth";
 import styles from "../styles/SignInForm.module.css";
 import SocialSignIn from "./SocialSignIn";
 
-const SignInForm = ({ onClose }) => {
+const SignInForm = ({ onClose, toggleAuth }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (login(username, password)) {
-      navigate("/profile"); // ✅ Переход в профиль после входа
-      onClose();
-    } else {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+
+    if (!storedUser || username !== "user" || password !== "user") {
       alert("❌ Неверные данные! Попробуйте user / user");
+      return;
     }
+
+    localStorage.setItem("user", JSON.stringify({ username, isNew: false }));
+    onClose();
+    navigate("/profile");
   };
 
   return (
@@ -30,7 +33,7 @@ const SignInForm = ({ onClose }) => {
       <SocialSignIn />
 
       <p className={styles.registerLink}>
-        Нет аккаунта? <span onClick={() => navigate("/register")}>Зарегистрируйтесь</span>
+        Нет аккаунта? <span onClick={toggleAuth}>Зарегистрируйтесь</span>
       </p>
     </form>
   );
