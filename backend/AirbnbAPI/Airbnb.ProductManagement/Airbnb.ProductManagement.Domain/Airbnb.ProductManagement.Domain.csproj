@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Airbnb.Domain</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="BoundedContexts\AddressManagement\Events\" />
+      <Folder Include="BoundedContexts\AddressManagement\Interfaces\" />
+      <Folder Include="BoundedContexts\ProductManagement\Events\" />
+      <Folder Include="BoundedContexts\ProductManagement\ValueObjects\" />
+      <Folder Include="BoundedContexts\PropertyTypeManagement\Events\" />
+      <Folder Include="BoundedContexts\PropertyTypeManagement\Interfaces\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Airbnb.SharedKernelManagement\Airbnb.SharedKernelManagement\Airbnb.SharedKernel.csproj" />
+      <ProjectReference Include="..\..\Airbnb.SharedKernel\Airbnb.Domain\Airbnb.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

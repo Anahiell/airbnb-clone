@@ -1,16 +1,18 @@
-version: "3.7"
+version: "3.8"
 
 services:
   airbnb-api:
     build:
       context: .
-      dockerfile: Airbnb.API/Dockerfile
+      dockerfile: Airbnb.ProductManagement/Airbnb.ProductManagement.API/Dockerfile
+      args:
+        BUILD_CONFIG: ${BUILD_CONFIG}
     ports:
       - "8080:8080"
     depends_on:
       - airbnb-sqlserver-db
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=${BUILD_CONFIG:-Production}
     restart: always
     networks:
       - airbnb-network

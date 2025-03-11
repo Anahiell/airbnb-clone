@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="BoundedContexts\OrderManagement\Events\" />
+      <Folder Include="BoundedContexts\OrderManagement\Interfaces\" />
+      <Folder Include="BoundedContexts\OrderManagement\ValueObjects\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Airbnb.SharedKernelManagement\Airbnb.SharedKernelManagement\Airbnb.SharedKernel.csproj" />
+    </ItemGroup>
+
+</Project>
