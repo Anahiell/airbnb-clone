@@ -8,18 +8,15 @@ const SignInForm = ({ onClose, toggleAuth }) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-
-    if (!storedUser || username !== "user" || password !== "user") {
-      alert("❌ Неверные данные! Попробуйте user / user");
-      return;
+    try {
+      await loginUser(email, password);
+      onClose();
+      navigate("/profile");
+    } catch (error) {
+      alert(error.message);
     }
-
-    localStorage.setItem("user", JSON.stringify({ username, isNew: false }));
-    onClose();
-    navigate("/profile");
   };
 
   return (
