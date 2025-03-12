@@ -12,8 +12,4 @@
       <Folder Include="BoundedContexts\OrderManagement\ValueObjects\" />
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\..\Airbnb.SharedKernelManagement\Airbnb.SharedKernelManagement\Airbnb.SharedKernel.csproj" />
-    </ItemGroup>
-
 </Project>
