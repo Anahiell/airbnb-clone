@@ -21,6 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Airbnb.SharedKernel\Airbnb.Infrastructure\Airbnb.Infrastructure.csproj" />
       <ProjectReference Include="..\Airbnb.ProductManagement.Domain\Airbnb.ProductManagement.Domain.csproj" />
     </ItemGroup>
 

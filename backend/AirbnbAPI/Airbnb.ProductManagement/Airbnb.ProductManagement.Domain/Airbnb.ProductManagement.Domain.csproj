@@ -17,7 +17,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Airbnb.SharedKernelManagement\Airbnb.SharedKernelManagement\Airbnb.SharedKernel.csproj" />
       <ProjectReference Include="..\..\Airbnb.SharedKernel\Airbnb.Domain\Airbnb.Domain.csproj" />
     </ItemGroup>
 
