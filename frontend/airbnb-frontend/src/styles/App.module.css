@@ -1,9 +1,18 @@
 /* styles/App.module.css */
+/* @import url('https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&display=swap'); */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inknut Antiqua", serif;
+}
+
 .app {
-    font-family: 'Nunito Sans', sans-serif;
-    background-color: #F8F7F5;
-    color: #211E1A;
+    background-color: #DDDBD7;
+    color: #433D35;
     min-height: 100vh;
+    max-width: 1920px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

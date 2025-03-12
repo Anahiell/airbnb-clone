@@ -1,58 +1,120 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #211e1a;
-    color: white;
-    padding: 15px 20px;
-  }
-  
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .searchBar {
-    display: flex;
-    align-items: center;
-    background: white;
-    border-radius: 20px;
-    padding: 5px;
-  }
-  
-  .searchBar input {
-    border: none;
-    padding: 8px;
-    outline: none;
-  }
-  
-  .searchBar button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 18px;
-  }
-  
-  .nav {
-    display: flex;
-    gap: 15px;
-  }
-  
-  .nav a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .signIn {
-    background: #6f6558;
-    color: white;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .signIn:hover {
-    background: #433d35;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--body-bg-color, white);
+  color: var(--text-color,  #433D35);
+  font-size: 16px;
+  padding-top: 20px;
+  padding-right: 96px;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* Хедер активен при фокусе на поиске или наведении */
+.header.active,
+.header:hover {
+  background: #433D35;
+  --text-color: white;
+}
+
+/* Возвращаем стандартные цвета */
+.header:not(.active):not(:hover) {
+  --text-color:  #433D35;
+}
+
+/* Логотип */
+.logo {
+  padding-left: 4vw;
+  font-size: 32px;
+  color: var(--text-color);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+/* Навигация */
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.nav {
+  display: inline-flex;
+  gap: 25px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-size: 12px;
+  font-weight: 500;
+  transition: color 0.3s ease, font-size 0.2s ease;
+}
+
+.nav a:hover {
+  border-bottom: 2px solid var(--text-color);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+/* Контейнер для поиска */
+.searchContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Правая часть */
+.rightButtons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Кнопка "Показать карту" */
+.mapButton {
+  background: #6f6558;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  border: none;
+  transition: background 0.3s ease;
+}
+
+.mapButton:hover {
+  background: #433d35;
+}
+
+/* Кнопка "Запропонувати помешкання" */
+.offerBtn {
+  color: var(--text-color);
+  padding: 10px 15px;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.offerBtn:hover {
+  font-size: 1rem;
+}
+
+/* Кнопка входа */
+.ovalButton {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background: inherit;
+  border: 1.5px solid var(--text-color);
+  border-radius: 26px;
+  cursor: pointer;
+  position: relative;
+  transition: border 0.3s ease;
+}
+
+.ovalButton:hover {
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}

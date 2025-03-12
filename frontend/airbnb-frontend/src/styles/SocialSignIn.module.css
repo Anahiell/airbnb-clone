@@ -1,0 +1,40 @@
+.socialButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .socialButtons button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .socialButtons button img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+  
+  .google {
+    background: #db4437;
+    color: white;
+  }
+  
+  .facebook {
+    background: #1877f2;
+    color: white;
+  }
+  
+  .apple {
+    background: black;
+    color: white;
+  }
+  

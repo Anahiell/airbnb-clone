@@ -1,6 +1,44 @@
+import { useState } from "react";
+import PropertyCard from "../components/PropertyCard";
+import SearchBar from "../components/SearchBar";
+import CategoryFilters from "../components/CategoryFilters";
+import propertiesData from "../data/properties"; // ✅ Импортируем данные
+import styles from "../styles/ListingPage.module.css";
+
 const ListingPage = () => {
-    return <h1>Список объявлений</h1>;
+  const [properties, setProperties] = useState(propertiesData);
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
+  const handleSearch = ({ location }) => {
+    let filtered = propertiesData.filter((p) =>
+      p.location.toLowerCase().includes(location.toLowerCase())
+    );
+    if (selectedCategory !== "all") {
+      filtered = filtered.filter((p) => p.category === selectedCategory);
+    }
+    setProperties(filtered);
   };
-  
-  export default ListingPage;
-  
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+    let filtered = category === "all" ? propertiesData : propertiesData.filter((p) => p.category === category);
+    setProperties(filtered);
+  };
+
+  return (
+    <div className={styles.listingPage}>
+      <h1 className={styles.title}>Все варианты жилья</h1>
+      <CategoryFilters selectedCategory={selectedCategory} onSelectCategory={handleCategorySelect} />
+
+      <div className={styles.grid}>
+        {properties.length > 0 ? (
+          properties.map((property) => <PropertyCard key={property.id} {...property} />)
+        ) : (
+          <p className={styles.noResults}>Ничего не найдено 😞</p>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default ListingPage;
