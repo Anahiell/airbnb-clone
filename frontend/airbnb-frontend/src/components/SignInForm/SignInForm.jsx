@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../utils/auth";
-import styles from "../styles/SignInForm.module.css";
-import SocialSignIn from "./SocialSignIn";
+import { login } from "../../utils/auth";
+import styles from "./SignInForm.module.css";
+import SocialSignIn from "../SocialSignIn/SocialSignIn";
+import PropTypes from "prop-types";
 
 const SignInForm = ({ onClose }) => {
   const [username, setUsername] = useState("");
@@ -34,6 +35,10 @@ const SignInForm = ({ onClose }) => {
       </p>
     </form>
   );
+};
+
+SignInForm.propTypes={
+  onClose: PropTypes.func.isRequired,
 };
 
 export default SignInForm;

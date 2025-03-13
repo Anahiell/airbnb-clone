@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import HomePage from "./pages/HomePage";
-import ListingPage from "./pages/ListingPage";
-import PropertyPage from "./pages/PropertyPage";
-import ProfilePage from "./pages/ProfilePage";
-import VerificationPage from "./pages/VerificationPage";
-import Modal from "./components/Modal";
-import SignInForm from "./components/SignInForm";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import HomePage from "./pages/HomePage/HomePage";
+import ListingPage from "./pages/ListingPage/ListingPage";
+import PropertyPage from "./pages/PropertyPage/PropertyPage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import VerificationPage from "./pages/VerificationPage/VerificationPage";
+import Modal from "./components/Modal/Modal";
+import SignInForm from "./components/SignInForm/SignInForm";
 import { getUser, logout } from "./utils/auth";
 
 function App() {

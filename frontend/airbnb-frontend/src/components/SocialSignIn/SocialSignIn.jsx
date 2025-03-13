@@ -1,4 +1,4 @@
-import styles from "../styles/SocialSignIn.module.css";
+import styles from "./SocialSignIn.module.css";
 
 const SocialSignIn = () => {
   const handleSocialSignIn = (provider) => {

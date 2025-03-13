@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
-import properties from "../data/properties";
-import styles from "../styles/PropertyPage.module.css";
+import properties from "../../data/properties";
+import styles from "./PropertyPage.module.css";
 
 const PropertyPage = () => {
   const { id } = useParams();

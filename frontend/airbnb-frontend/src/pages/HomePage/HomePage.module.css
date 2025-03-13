@@ -1,4 +1,4 @@
-@import url(App.module.css);
+@import url(../../styles/App.module.css);
 .home {
   padding: 60px 80px;
 }

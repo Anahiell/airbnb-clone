@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUser, logout } from "../utils/auth";
-import styles from "../styles/ProfilePage.module.css";
+import { getUser, logout } from "../../utils/auth";
+import styles from "./ProfilePage.module.css";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);

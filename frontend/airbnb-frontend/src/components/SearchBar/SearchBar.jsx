@@ -1,5 +1,6 @@
 import { useState } from "react";
-import styles from "../styles/SearchBar.module.css";
+import styles from "./SearchBar.module.css";
+import PropTypes from "prop-types";
 
 const SearchBar = ({ onSearch }) => {
   const [location, setLocation] = useState("");
@@ -40,6 +41,10 @@ const SearchBar = ({ onSearch }) => {
       <button type="submit">🔍</button>
     </form>
   );
+};
+
+SearchBar.propTypes={
+  onSearch: PropTypes.func.isRequired,
 };
 
 export default SearchBar;

@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
-import styles from "../styles/Header.module.css";
+import styles from "./Header.module.css";
+import PropTypes from "prop-types";
 
 const Header = ({ onOpenModal, user, onLogout, onToggleMap }) => {
   const location = useLocation(); // Получаем текущий URL
@@ -34,8 +35,8 @@ const Header = ({ onOpenModal, user, onLogout, onToggleMap }) => {
             <button className={styles.ovalButton} onClick={onOpenModal}>
               <span></span>
               <div className={styles.personContainer}>
-                <div class={styles.personHead}></div>
-                <div class={styles.personBody}></div>
+                <div className={styles.personHead}></div>
+                <div className={styles.personBody}></div>
               </div>
             </button>
           )}
@@ -53,5 +54,14 @@ const Header = ({ onOpenModal, user, onLogout, onToggleMap }) => {
     </header>
   );
 };
+
+// Валидация пропсов
+Header.propTypes = {
+  onOpenModal: PropTypes.func.isRequired,
+  user: PropTypes.object,
+  onLogout: PropTypes.func.isRequired,
+  onToggleMap: PropTypes.func.isRequired,
+};
+
 
 export default Header;

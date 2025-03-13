@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "../styles/RegisterForm.module.css";
-import SocialSignIn from "./SocialSignIn";
+import styles from "./RegisterForm.module.css";
+import SocialSignIn from "../SocialSignIn/SocialSignIn";
+import PropTypes from "prop-types";
 
 const RegisterForm = ({ onClose }) => {
   const [email, setEmail] = useState("");
@@ -38,4 +39,8 @@ const RegisterForm = ({ onClose }) => {
   );
 };
 
+
+RegisterForm.propTypes={
+  onClose: PropTypes.func.isRequired,
+};
 export default RegisterForm;

@@ -1,9 +1,9 @@
 import { useState } from "react";
-import PropertyCard from "../components/PropertyCard";
-import SearchBar from "../components/SearchBar";
-import CategoryFilters from "../components/CategoryFilters";
-import propertiesData from "../data/properties"; // ✅ Импортируем данные
-import styles from "../styles/ListingPage.module.css";
+import PropertyCard from "../../components/PropertyCards/PropertyCard";
+import SearchBar from "../../components/SearchBar/SearchBar";
+import CategoryFilters from "../../components/CategoryFilters/CategoryFilters";
+import propertiesData from "../../data/properties"; // ✅ Импортируем данные
+import styles from "./ListingPage.module.css";
 
 const ListingPage = () => {
   const [properties, setProperties] = useState(propertiesData);

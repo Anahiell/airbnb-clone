@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "../styles/VerificationPage.module.css";
+import styles from "./VerificationPage.module.css";
 
 const VerificationPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
