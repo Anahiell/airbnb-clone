@@ -12,4 +12,8 @@
       <Folder Include="BoundedContexts\OrderManagement\ValueObjects\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="8.0.0" />
+    </ItemGroup>
+
 </Project>

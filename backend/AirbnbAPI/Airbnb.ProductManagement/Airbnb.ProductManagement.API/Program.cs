@@ -39,7 +39,15 @@ public class Program
         builder.Services.AddSqlServerServices(
             builder.Configuration.GetSection(builder.Environment.EnvironmentName).Get<SqlServerSettings>()
             ?? throw new NullReferenceException());
-        
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAll", policy =>
+            {
+                policy.AllowAnyOrigin()
+                      .AllowAnyHeader()
+                      .AllowAnyMethod();
+            });
+        });
         var app = builder.Build();
 
         // Костыль с заполнением БД
@@ -52,10 +60,15 @@ public class Program
 
         // Настройка HTTP запроса
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Product API");
+        });
         app.UseCors("AllowFrontend");
+        
         app.UseExceptionHandler();
         app.UseAuthorization();
+        app.UseCors("AllowAll");
         app.MapControllers();
 
         app.Run();

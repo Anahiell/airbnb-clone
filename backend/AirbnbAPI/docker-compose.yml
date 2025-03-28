@@ -17,6 +17,56 @@ services:
     networks:
       - airbnb-network
 
+  airbnb-user:
+    build:
+      context: .
+      dockerfile: Airbnb.UserManagement/Airbnb.UserManagement.API/Dockerfile
+      args:
+        BUILD_CONFIGURATION: ${BUILD_CONFIG}
+    ports:
+      - "8081:8080"
+    depends_on:
+      - airbnb-sqlserver-db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${BUILD_CONFIG:-Production}
+    restart: always
+    networks:
+      - airbnb-network
+
+  airbnb-order:
+    build:
+      context: .
+      dockerfile: Airbnb.OrderManagement/Airbnb.OrderManagement.API/Dockerfile
+      args:
+        BUILD_CONFIGURATION: ${BUILD_CONFIG}
+    ports:
+      - "8082:8080"
+    depends_on:
+      - airbnb-sqlserver-db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${BUILD_CONFIG:-Production}
+    restart: always
+    networks:
+      - airbnb-network
+
+  airbnb-gateway:
+    build:
+      context: .
+      dockerfile: Airbnb.Gateway/Dockerfile
+      args:
+        BUILD_CONFIGURATION: ${BUILD_CONFIG}
+    ports:
+      - "5001:8080"
+    depends_on:
+      - airbnb-user
+      - airbnb-order
+      - airbnb-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${BUILD_CONFIG:-Production}
+    restart: always
+    networks:
+      - airbnb-network
+
   airbnb-sqlserver-db:
     image: mcr.microsoft.com/mssql/server:latest
     restart: always
@@ -32,11 +82,10 @@ services:
       - sqlserver-data:/var/opt/mssql
     networks:
       - airbnb-network
-      
+
 volumes:
   sqlserver-data:
-  
-  
+
 networks:
   airbnb-network:
     driver: bridge

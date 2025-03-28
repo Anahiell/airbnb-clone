@@ -55,6 +55,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.Infrastructure", "Ai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.Cache", "Airbnb.SharedKernel\Airbnb.Cache\Airbnb.Cache.csproj", "{C970F62B-AE07-4C31-ACD5-6C8E22B24B26}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.Gateway", "Airbnb.Gateway\Airbnb.Gateway.csproj", "{2CC28E00-43D5-4E0F-9F10-2399A777FFDD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,10 @@ Global
 		{C970F62B-AE07-4C31-ACD5-6C8E22B24B26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C970F62B-AE07-4C31-ACD5-6C8E22B24B26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C970F62B-AE07-4C31-ACD5-6C8E22B24B26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CC28E00-43D5-4E0F-9F10-2399A777FFDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CC28E00-43D5-4E0F-9F10-2399A777FFDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CC28E00-43D5-4E0F-9F10-2399A777FFDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CC28E00-43D5-4E0F-9F10-2399A777FFDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -151,5 +157,8 @@ Global
 		{C99ADC22-DBE8-4EE5-B990-9CD62EB2732F} = {29D652EB-2C79-4F5F-9256-A0EE564ACC76}
 		{7DD6EA81-2AB4-41AA-B5FD-E081AEB50F57} = {29D652EB-2C79-4F5F-9256-A0EE564ACC76}
 		{C970F62B-AE07-4C31-ACD5-6C8E22B24B26} = {29D652EB-2C79-4F5F-9256-A0EE564ACC76}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2BF43C0B-64E1-475E-A0DF-C8F7EF760ABB}
 	EndGlobalSection
 EndGlobal
