@@ -6,14 +6,13 @@ abstract public class AggregateRoot
 
     protected List<string> _businessLogicErrors = new List<string>();
 
-    // protected abstract void When(IDomainEvent @event);
+    protected abstract void When(IDomainEvent @event);
 
-    /*
     public void RaiseEvent(IDomainEvent @event)
     {
         When(@event);
     }
-    */
+
 
     public IValueObject CheckAndAssign(ValueObjectValidationResult validatedValueObject)
     {

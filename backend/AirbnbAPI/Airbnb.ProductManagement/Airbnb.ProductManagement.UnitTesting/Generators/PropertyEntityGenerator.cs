@@ -8,6 +8,7 @@ public class PropertyEntityGenerator : DataGenerator<PropertyEntity>
     {
         return GetData().ToList();
     }
+
     protected override IEnumerable<PropertyEntity> GetData()
     {
         yield return new PropertyEntity()

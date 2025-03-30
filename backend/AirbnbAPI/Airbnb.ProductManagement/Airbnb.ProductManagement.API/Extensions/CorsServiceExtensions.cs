@@ -2,7 +2,6 @@
 
 public static class CorsServiceExtensions
 {
-    
     public static IServiceCollection AddCustomCors(this IServiceCollection services)
     {
         services.AddCors(options =>

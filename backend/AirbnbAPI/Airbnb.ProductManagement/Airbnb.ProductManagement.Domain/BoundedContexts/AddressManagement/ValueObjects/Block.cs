@@ -8,8 +8,8 @@ public class Block : ValueObject
 
     public Block()
     {
-        
     }
+
     public Block(string value)
     {
         Value = value;

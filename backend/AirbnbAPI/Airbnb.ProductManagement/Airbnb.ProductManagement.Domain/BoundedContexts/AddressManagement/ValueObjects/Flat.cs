@@ -8,7 +8,6 @@ public class Flat : ValueObject
 
     public Flat()
     {
-        
     }
 
     public Flat(string value)

@@ -1,5 +1,4 @@
-﻿using Airbnb.Domain;
-using Airbnb.Domain.BoundedContexts.AddressManagement.Aggregates;
+﻿using Airbnb.Domain.BoundedContexts.AddressManagement.Aggregates;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

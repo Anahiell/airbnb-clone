@@ -8,10 +8,10 @@ namespace Airbnb.ProductManagement.Application.BoundedContext.Commands.CreatePro
 public class CreateProductCommand : ICommand<Result<int>>
 {
     [SwaggerSchema("Название продукта")]
-    public string? ProductTitle { get; init; }
+    public string ProductTitle { get; init; } = string.Empty;
 
     [SwaggerSchema("Описание продукта")]
-    public string? ProductDescription { get; init; }
+    public string ProductDescription { get; init; } = string.Empty;
 
     [SwaggerSchema("Цена продукта")]
     public int ProductPrice { get; init; }

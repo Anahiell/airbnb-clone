@@ -15,13 +15,15 @@ public class GlobalExceptionHandler : IExceptionHandler
         _logger = logger;
     }
 
-    public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception exception, CancellationToken cancellationToken)
+    public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception exception,
+        CancellationToken cancellationToken)
     {
-        _logger.LogError("Error message: {exceptionMessage}, Time of occurrence {time}", exception.Message, DateTime.UtcNow);
+        _logger.LogError("Error message: {exceptionMessage}, Time of occurrence {time}", exception.Message,
+            DateTime.UtcNow);
 
         (string Detail, string Title, int StatusCode) details = exception switch
         {
-            CustomValidationException  =>
+            CustomValidationException =>
             (
                 exception.Message,
                 exception.GetType().Name,

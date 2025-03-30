@@ -1,6 +1,7 @@
 version: "3.8"
 
 services:
+
   airbnb-api:
     build:
       context: .
@@ -33,9 +34,36 @@ services:
     networks:
       - airbnb-network
       
+  airbnb-mongo-db:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_DATABASE: 'airbnb'
+      MONGO_INITDB_ROOT_USERNAME: 'root'
+      MONGO_INITDB_ROOT_PASSWORD: 'rootpassword'
+    ports:
+      - 27010:27017
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - airbnb-network
+
+  redis:
+    image: redis:latest
+    container_name: redis-cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: ["redis-server", "--appendonly", "yes"]
+    restart: always
+    networks:
+      - airbnb-network
+
 volumes:
   sqlserver-data:
-  
+  redis-data:
+    driver: local
+  mongodb-data:
   
 networks:
   airbnb-network:

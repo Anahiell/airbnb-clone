@@ -8,7 +8,6 @@ public class District : ValueObject
 
     public District()
     {
-        
     }
 
     public District(string value)

@@ -8,7 +8,6 @@ public class Country : ValueObject
 
     public Country()
     {
-        
     }
 
     public Country(string value)

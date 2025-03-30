@@ -1,6 +1,5 @@
 ﻿namespace Airbnb.Domain.BoundedContexts.ProductManagement.Interfaces;
 
-
 public interface IProductRepository
 {
     Task<int> CreateProductAsync(DomainProduct propertyEntity, CancellationToken cancellationToken = default);

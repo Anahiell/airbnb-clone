@@ -1,11 +1,16 @@
-﻿using Airbnb.Domain;
+﻿using Airbnb.Application.Messaging.Cache;
+using Airbnb.Application.Results;
+using Airbnb.Domain;
 using Airbnb.ProductManagement.Application.BoundedContext.QueryObjects;
 using MediatR;
 
 namespace Airbnb.ProductManagement.Application.BoundedContext.Queries;
 
-public class GetProductPaginatedQuery : IRequest<(IEnumerable<ProductEntityInfo> Items, long TotalCount)>
+public class GetProductPaginatedQuery : ICachedQuery<Result<IEnumerable<ProductEntityInfo>>>
 {
+    public string Key => $"product-list-{Page}-{PageSize}";
+    public TimeSpan? Expiration => null;
+
     public string? Country { get; set; }
     public string? City { get; set; }
     public decimal? MinPrice { get; set; }
@@ -18,4 +23,9 @@ public class GetProductPaginatedQuery : IRequest<(IEnumerable<ProductEntityInfo>
     public int Page { get; set; }
     public int PageSize { get; set; }
     public SortState SortOrder { get; set; }
+    
+    public IEnumerable<object> ExtractCacheableItems(Result<IEnumerable<ProductEntityInfo>> response)
+    {
+        return response.Value?.Select(p => (object)p.Id) ?? [];
+    }
 }

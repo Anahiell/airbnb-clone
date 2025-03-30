@@ -8,7 +8,6 @@ public class House : ValueObject
 
     public House()
     {
-        
     }
 
     public House(string value)

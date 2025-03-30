@@ -11,8 +11,8 @@ namespace AirbnbAPI.Controllers
     /// </summary>
     /// <param name="mediator"></param>
     [ApiController]
-    [Route("api/[controller]")]
-    public class HelloController(IMediator mediator) : ControllerBase
+    [Route("api/v1/[controller]")]
+    public class ProductController(IMediator mediator) : ControllerBase
     {
         [HttpGet]
         [Route("/GetHello")]
@@ -38,7 +38,7 @@ namespace AirbnbAPI.Controllers
         {
             var result = await mediator.Send(query, cancellationToken);
 
-            return Ok(result);
+            return Ok(result.Value);
         }
 
         /// <summary>

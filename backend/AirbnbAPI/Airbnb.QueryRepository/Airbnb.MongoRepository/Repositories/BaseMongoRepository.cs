@@ -42,18 +42,20 @@ public abstract class BaseMongoRepository<T> where T : IQueryEntity
     /// Выполняет запрос с фильтрацией, сортировкой и пагинацией.
     /// </summary>
     public async Task<(IEnumerable<T> Items, long TotalCount)> GetFilteredPaginatedAsync(
-        Expression<Func<T, bool>>? filter = null,
+        FilterDefinition<T>? filter = null,
         SortDefinition<T>? sort = null,
         int page = 1,
         int pageSize = 10)
     {
         var collection = _mongoDatabase.GetCollection<T>(CollectionName);
 
-        var totalCount = await collection.CountDocumentsAsync(filter ?? (_ => true)); // Считаем количество записей
+        filter ??= Builders<T>.Filter.Empty;
 
-        var query = collection.Find(filter ?? (_ => true)); // Применяем фильтр
-        query = ApplySorting(query, sort); // Применяем сортировку
-        query = ApplyPagination(query, page, pageSize); // Применяем пагинацию
+        var totalCount = await collection.CountDocumentsAsync(filter);
+
+        var query = collection.Find(filter);
+        query = ApplySorting(query, sort);
+        query = ApplyPagination(query, page, pageSize);
 
         var result = await query.ToListAsync();
         return (result, totalCount);

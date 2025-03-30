@@ -13,6 +13,7 @@ public static class MediatRServiceExtensions
         {
             config.RegisterServicesFromAssembly(typeof(CreateProductCommand).GetTypeInfo().Assembly);
             config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            config.AddOpenBehavior(typeof(QueryCachingPipelineBehaviour<,>));
         });
 
         services.AddValidatorsFromAssembly(typeof(CreateProductCommand).Assembly);

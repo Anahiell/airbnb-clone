@@ -1,15 +1,19 @@
 using System.Reflection;
 using Airbnb.Application.Behaviors;
 using Airbnb.Application.Results;
+using Airbnb.Domain;
 using Airbnb.Domain.BoundedContexts.ProductManagement.Interfaces;
 using Airbnb.Infrastructure.Configuration;
 using Airbnb.Infrastructure.DataContext;
 using Airbnb.Infrastructure.Repositories;
+using Airbnb.MongoRepository.Configuration;
 using Airbnb.ProductManagement.Application.BoundedContext.Commands.CreateProduct;
+using Airbnb.SharedKernel.Repositories;
 using AirbnbAPI.Extensions;
 using AirbnbAPI.Middleware;
 using FluentValidation;
 using FluentValidation.Validators;
+
 public class Program
 {
     public static void Main(string[] args)
@@ -21,8 +25,12 @@ public class Program
         builder.Services.AddCustomCors();
         builder.Services.AddMediatRServices();
         builder.Services.AddExceptionHandling();
-        
-        builder.Services.AddTransient<IProductRepository, ProductRepository>();
+        builder.Services.AddMemoryCache();
+        builder.Services.AddReddisCacheServices();
+        builder.Services.AddMongoDbService(builder.Configuration.GetSection("MongoDb").Get<MongoDbSettings>() ??
+                                           throw new ApplicationException("MongoDb settings not found."));
+
+        builder.Services.AddTransient<IRepository<DomainProduct>, ProductRepository>();
 
         // Добавляем стандартные сервисы
         builder.Services.AddControllers();
@@ -35,11 +43,11 @@ public class Program
             .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json")
             .AddEnvironmentVariables();
         builder.Services.AddProblemDetails();
-        
+
         builder.Services.AddSqlServerServices(
             builder.Configuration.GetSection(builder.Environment.EnvironmentName).Get<SqlServerSettings>()
             ?? throw new NullReferenceException());
-        
+
         var app = builder.Build();
 
         // Костыль с заполнением БД

@@ -40,10 +40,10 @@ public static class DataSeeder
                     new Block("A"),
                     new Flat("12B"))
             );
-            
+
             context.SaveChanges();
         }
-        
+
         if (!context.Set<ApartmentType>().Any())
         {
             context.Set<ApartmentType>().AddRange(
@@ -51,7 +51,7 @@ public static class DataSeeder
                 new ApartmentType(PropertyTypeEnum.House),
                 new ApartmentType(PropertyTypeEnum.Townhouse)
             );
-            
+
             context.SaveChanges();
         }
 
@@ -60,7 +60,7 @@ public static class DataSeeder
             var addresses = context.Set<AddressLegal>().Take(3).ToList();
             var types = context.Set<ApartmentType>().Take(3).ToList();
 
-            
+
             context.Set<DomainProduct>().AddRange(
                 new DomainProduct("Cozy Apartment", "Nice place", 100, DateTime.Now, 1,
                     types[0].Id, addresses[0].Id),

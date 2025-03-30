@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Airbnb.Infrastructure.Entities;
 
-
 public class DomainProductConfiguration : IEntityTypeConfiguration<DomainProduct>
 {
     public void Configure(EntityTypeBuilder<DomainProduct> builder)

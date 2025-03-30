@@ -1,13 +1,17 @@
 ﻿using Airbnb.Application.Messaging;
 using Airbnb.Application.Results;
 using Airbnb.Domain;
+using Airbnb.Domain.BoundedContexts.ProductManagement.Events;
 using Airbnb.Domain.BoundedContexts.ProductManagement.Interfaces;
+using MediatR;
 
 namespace Airbnb.ProductManagement.Application.BoundedContext.Commands.CreateProduct;
 
-public class CreateProductCommandHandler(IProductRepository productRepository)
+public class CreateProductCommandHandler(IProductRepository productRepository,
+    IMediator mediator)
     : ICommandHandler<CreateProductCommand, Result<int>>
 {
+    
     public async Task<Result<int>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         var product = new DomainProduct(request.ProductTitle, request.ProductDescription, request.ProductPrice,
@@ -15,6 +19,10 @@ public class CreateProductCommandHandler(IProductRepository productRepository)
         );
 
         var result = await productRepository.CreateProductAsync(product, cancellationToken);
+
+        await mediator.Publish(new ProductCreatedEvent(product.Id, request.ProductTitle, request.ProductDescription,
+            request.ProductPrice, true, DateTime.UtcNow, request.UserId, request.ApartmentTypeId,
+            request.AddressLegalId), cancellationToken);
 
         return Result<int>.Success(result);
     }

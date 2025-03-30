@@ -9,6 +9,6 @@ public class CustomValidationException : Exception
     {
         Errors = errors;
     }
-    
-    public override string StackTrace => string.Empty; // Скрываем стек-трейс
+
+    public override string StackTrace => string.Empty;
 }
