@@ -1,6 +1,5 @@
 ﻿using Airbnb.Application;
 using Airbnb.SharedKernel.Exceptions;
-using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 

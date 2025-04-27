@@ -20,22 +20,22 @@ public static class PostgreSqlExtensions
             TrustServerCertificate = true
         };
 
-        services.AddDbContext<OrderDatabaseContext>(o =>
+        services.AddDbContext<AirbnbOrderDbContext>(o =>
         {
             o.UseNpgsql
             (
                 connectionString.ConnectionString,
-                b => b.MigrationsAssembly(typeof(OrderDatabaseContext).Assembly.FullName)
+                b => b.MigrationsAssembly(typeof(AirbnbOrderDbContext).Assembly.FullName)
             );
             o.EnableDetailedErrors();
         });
 
-        services.AddScoped<OrderDatabaseContext>();
+        services.AddScoped<AirbnbOrderDbContext>();
 
         return services;
     }
 
-    public static IApplicationBuilder UsePostgreSqlMigration(this IApplicationBuilder app, OrderDatabaseContext context)
+    public static IApplicationBuilder UsePostgreSqlMigration(this IApplicationBuilder app, AirbnbOrderDbContext context)
     {
         context.Database.Migrate();
         return app;

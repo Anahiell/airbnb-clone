@@ -9,12 +9,15 @@
 
     <ItemGroup>
       <Folder Include="BoundedContexts\AddressManagement\Interfaces\" />
-      <Folder Include="BoundedContexts\ProductManagement\ValueObjects\" />
       <Folder Include="BoundedContexts\ApartmentTypeManagement\Interfaces\" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\Airbnb.SharedKernel\Airbnb.Domain\Airbnb.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="RabbitMQ.Client" Version="7.1.2" />
     </ItemGroup>
 
 </Project>

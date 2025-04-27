@@ -1,0 +1,54 @@
+using Airbnb.MongoRepository.Configuration;
+using Airbnb.SharedKernel.Repositories;
+using Airbnb.TagManagement.API.Extensions;
+using Airbnb.TagsManagement.Domain.BoundedContexts.TagsManagement.Aggregates;
+using Airbnb.TagsManagement.Infrastructure.Configuration;
+using Airbnb.TagsManagement.Infrastructure.Repositories;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
+
+        // Добавляем расширения для Swagger, MediatR, CORS и других
+        builder.Services.AddSwaggerDocumentation();
+        builder.Services.AddCustomCors();
+        builder.Services.AddMediatRServices();
+        builder.Services.AddExceptionHandling();
+        builder.Services.AddMemoryCache();
+        builder.Services.AddMongoDbService(builder.Configuration.GetSection("MongoDb").Get<MongoDbSettings>() ??
+                                           throw new ApplicationException("MongoDb settings not found."));
+
+        builder.Services.AddTransient<IRepository<DomainTag>, TagRepository>();
+
+        // Добавляем стандартные сервисы
+        builder.Services.AddControllers();
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddProblemDetails();
+
+        // Конфигурация окружения
+        builder.Configuration
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json")
+            .AddEnvironmentVariables();
+        builder.Services.AddProblemDetails();
+
+        builder.Services.AddSqlServerServices(
+            builder.Configuration.GetSection(builder.Environment.EnvironmentName).Get<SqlServerSettings>()
+            ?? throw new NullReferenceException());
+
+        var app = builder.Build();
+
+
+        // Настройка HTTP запроса
+        app.UseSwagger();
+        app.UseSwaggerUI();
+        app.UseCors("AllowFrontend");
+        app.UseExceptionHandler();
+        app.UseAuthorization();
+        app.MapControllers();
+
+        app.Run();
+    }
+}

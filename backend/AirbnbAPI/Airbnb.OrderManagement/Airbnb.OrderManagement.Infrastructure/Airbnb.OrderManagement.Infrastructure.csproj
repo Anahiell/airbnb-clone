@@ -8,6 +8,11 @@
 
     <ItemGroup>
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.1" />
+      <PackageReference Include="RabbitMQ.Client" Version="7.1.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Airbnb.OrderManagement.Domain\Airbnb.OrderManagement.Domain.csproj" />
     </ItemGroup>
 
 </Project>

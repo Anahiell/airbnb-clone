@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option csharp_namespace = "Airbnb.EmailService.API";
+
+package emailservice;
+
+service EmailService {
+  rpc SendEmail (SendEmailRequest) returns (SendEmailResponse);
+  rpc SendEmailAddressConfirmationLink (SendEmailAddressConfirmationLinkRequest) returns (SendEmailResponse);
+}
+
+message SendEmailRequest {
+  string email = 1;
+  string subject = 2;
+  string htmlMessage = 3;
+}
+
+message SendEmailAddressConfirmationLinkRequest {
+  string userEmail = 1;
+  string userFullName = 2;
+  string token = 3;
+  string userId = 4;
+}
+
+message SendEmailResponse {
+  bool success = 1;
+  string message = 2;
+}

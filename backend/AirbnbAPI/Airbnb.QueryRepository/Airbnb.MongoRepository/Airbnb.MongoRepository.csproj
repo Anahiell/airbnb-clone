@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <PackageReference Include="MongoDB.Driver" Version="3.2.1" />
+      <PackageReference Include="RabbitMQ.Client" Version="7.1.2" />
     </ItemGroup>
 
 </Project>

@@ -18,6 +18,61 @@ services:
     networks:
       - airbnb-network
 
+
+  airbnb-tag-api:
+    build:
+      context: .
+      dockerfile: Airbnb.TagManagement/Airbnb.TagManagement.API/Dockerfile
+      args:
+        BUILD_CONFIG: ${BUILD_CONFIG}
+    ports:
+      - "8081:8080"
+    depends_on:
+      - airbnb-tag-sqlserver
+      - airbnb-tag-mongo
+      - redis
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${BUILD_CONFIG:-Production}
+    restart: always
+    networks:
+      - airbnb-network
+
+  airbnb-picture-api:
+    build:
+      context: .
+      dockerfile: Airbnb.PictureManagement/Airbnb.PictureManagement.API/Dockerfile
+      args:
+        BUILD_CONFIG: ${BUILD_CONFIG}
+    ports:
+      - "8083:8080"
+    depends_on:
+      - airbnb-picture-sqlserver
+      - airbnb-picture-mongo
+      - redis
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${BUILD_CONFIG:-Production}
+    restart: always
+    networks:
+      - airbnb-network
+
+  airbnb-order-api:
+    build:
+      context: .
+      dockerfile: Airbnb.OrderManagement/Airbnb.OrderManagement.API/Dockerfile
+      args:
+        BUILD_CONFIG: ${BUILD_CONFIG}
+    ports:
+      - "8084:8080"
+    depends_on:
+      - airbnb-order-pgsql
+      - airbnb-order-mongo
+      - redis
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${BUILD_CONFIG:-Production}
+    restart: always
+    networks:
+      - airbnb-network
+
   airbnb-sqlserver-db:
     image: mcr.microsoft.com/mssql/server:latest
     restart: always
@@ -33,7 +88,92 @@ services:
       - sqlserver-data:/var/opt/mssql
     networks:
       - airbnb-network
-      
+
+  airbnb-review-api:
+    build:
+      context: .
+      dockerfile: Airbnb.ReviewManagement/Airbnb.ReviewManagement.API/Dockerfile
+      args:
+        BUILD_CONFIG: ${BUILD_CONFIG}
+    ports:
+      - "8082:8080"
+    depends_on:
+      - airbnb-review-sqlserver
+      - airbnb-review-mongo
+      - redis
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${BUILD_CONFIG:-Production}
+    restart: always
+    networks:
+      - airbnb-network
+
+
+  airbnb-tag-sqlserver:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: airbnb-tag-sqlserver
+    restart: always
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_DATABASE: 'AirbnbTag'
+      MSSQL_USER: 'sa'
+      MSSQL_PASSWORD: 'Str0ngP@ss!'
+      SA_PASSWORD: 'Str0ngP@ss!'
+    ports:
+      - '1435:1433'
+    volumes:
+      - sqlserver-tag-data:/var/opt/mssql
+    networks:
+      - airbnb-network
+
+  airbnb-review-sqlserver:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: airbnb-review-sqlserver
+    restart: always
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_DATABASE: 'AirbnbReview'
+      MSSQL_USER: 'sa'
+      MSSQL_PASSWORD: 'Str0ngP@ss!'
+      SA_PASSWORD: 'Str0ngP@ss!'
+    ports:
+      - '1436:1433'
+    volumes:
+      - sqlserver-review-data:/var/opt/mssql
+    networks:
+      - airbnb-network
+
+  airbnb-picture-sqlserver:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: airbnb-picture-sqlserver
+    restart: always
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_DATABASE: 'AirbnbPicture'
+      MSSQL_USER: 'sa'
+      MSSQL_PASSWORD: 'Str0ngP@ss!'
+      SA_PASSWORD: 'Str0ngP@ss!'
+    ports:
+      - '1437:1433'
+    volumes:
+      - sqlserver-picture-data:/var/opt/mssql
+    networks:
+      - airbnb-network
+
+  airbnb-order-pgsql:
+    image: postgres:latest
+    container_name: airbnb-order-pgsql
+    restart: always
+    environment:
+      POSTGRES_DB: airbnb_order
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgsql-order-data:/var/lib/postgresql/data
+    networks:
+      - airbnb-network
+
   airbnb-mongo-db:
     image: mongo:latest
     environment:
@@ -44,6 +184,62 @@ services:
       - 27010:27017
     volumes:
       - mongodb-data:/data/db
+    networks:
+      - airbnb-network
+
+  airbnb-tag-mongo:
+    image: mongo:latest
+    container_name: airbnb-tag-mongo
+    environment:
+      MONGO_INITDB_DATABASE: 'airbnb_tag'
+      MONGO_INITDB_ROOT_USERNAME: 'root'
+      MONGO_INITDB_ROOT_PASSWORD: 'rootpassword'
+    ports:
+      - 27012:27017
+    volumes:
+      - mongodb-tag-data:/data/db
+    networks:
+      - airbnb-network
+
+  airbnb-review-mongo:
+    image: mongo:latest
+    container_name: airbnb-review-mongo
+    environment:
+      MONGO_INITDB_DATABASE: 'airbnb_review'
+      MONGO_INITDB_ROOT_USERNAME: 'root'
+      MONGO_INITDB_ROOT_PASSWORD: 'rootpassword'
+    ports:
+      - 27014:27017
+    volumes:
+      - mongodb-review-data:/data/db
+    networks:
+      - airbnb-network
+
+  airbnb-picture-mongo:
+    image: mongo:latest
+    container_name: airbnb-picture-mongo
+    environment:
+      MONGO_INITDB_DATABASE: 'airbnb_picture'
+      MONGO_INITDB_ROOT_USERNAME: 'root'
+      MONGO_INITDB_ROOT_PASSWORD: 'rootpassword'
+    ports:
+      - 27016:27017
+    volumes:
+      - mongodb-picture-data:/data/db
+    networks:
+      - airbnb-network
+
+  airbnb-order-mongo:
+    image: mongo:latest
+    container_name: airbnb-order-mongo
+    environment:
+      MONGO_INITDB_DATABASE: 'airbnb_order'
+      MONGO_INITDB_ROOT_USERNAME: 'root'
+      MONGO_INITDB_ROOT_PASSWORD: 'rootpassword'
+    ports:
+      - 27018:27017
+    volumes:
+      - mongodb-order-data:/data/db
     networks:
       - airbnb-network
 
@@ -61,10 +257,18 @@ services:
 
 volumes:
   sqlserver-data:
+  sqlserver-tag-data:
+  sqlserver-review-data:
+  sqlserver-picture-data:
+  pgsql-order-data:
   redis-data:
     driver: local
   mongodb-data:
-  
+  mongodb-tag-data:
+  mongodb-review-data:
+  mongodb-picture-data:
+  mongodb-order-data:
+
 networks:
   airbnb-network:
     driver: bridge

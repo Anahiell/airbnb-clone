@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="8.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Airbnb.QueryRepository\Airbnb.MongoRepository\Airbnb.MongoRepository.csproj" />
+      <ProjectReference Include="..\..\Airbnb.SharedKernel\Airbnb.Application\Airbnb.Application.csproj" />
+      <ProjectReference Include="..\Airbnb.PictureManagement.Domain\Airbnb.PictureManagement.Domain.csproj" />
+    </ItemGroup>
+
+</Project>
