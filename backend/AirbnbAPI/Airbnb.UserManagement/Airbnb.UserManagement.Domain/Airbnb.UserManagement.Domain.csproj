@@ -7,7 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="BoundedContexts\UserAccountManagement\Events\" />
+      <ProjectReference Include="..\..\Airbnb.SharedKernel\Airbnb.Domain\Airbnb.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.15" />
     </ItemGroup>
 
 </Project>

@@ -1,78 +1,69 @@
 using System.Text;
 using Airbnb.Infrastructure.Configuration;
 using Airbnb.Infrastructure.DataContext;
+using Airbnb.MongoRepository.Configuration;
+using Airbnb.SharedKernel.Repositories;
+using Airbnb.TagManagement.API.Extensions;
+using Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Services;
+using Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.Aggregates;
+using Airbnb.UserManagement.Infrastructure.Repositories;
 using AirbnbAPI.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-// Add services to the container.
-//CORS
-builder.Services.AddCors(options =>
+public class Program
 {
-    options.AddPolicy("AllowFrontend",
-        policy => policy.WithOrigins("http://localhost:5173") //URL frontend
-            .AllowAnyMethod()
-            .AllowAnyHeader());
-});
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Configuration
-    .SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json")
-    .AddEnvironmentVariables();
-
-builder.Services.AddSqlServerServices(
-    builder.Configuration.GetSection(builder.Environment.EnvironmentName).Get<SqlServerSettings>()
-    ?? throw new NullReferenceException());
-
-//JWT cognito
-// JWT - временная конфигурация без Cognito
-var key = "super_secret_key_12345"; // В проде нужно вынести в env-переменные
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+    public static void Main(string[] args)
     {
-        options.RequireHttpsMetadata = false;
-        options.SaveToken = true;
-        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        var builder = WebApplication.CreateBuilder(args);
+
+        // Добавляем расширения для Swagger, MediatR, CORS и других
+        builder.Services.AddSwaggerDocumentation();
+        builder.Services.AddCustomCors();
+        builder.Services.AddMediatRServices();
+        builder.Services.AddExceptionHandling();
+        builder.Services.AddMemoryCache();
+        builder.Services.AddReddisCacheServices();
+        builder.Services.AddMongoDbService(builder.Configuration.GetSection("MongoDb").Get<MongoDbSettings>() ??
+                                           throw new ApplicationException("MongoDb settings not found."));
+
+        builder.Services.AddJwtBasedAuth(builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>() ??
+            throw new ApplicationException("JWT settings not found."));
+
+        builder.Services.AddTransient<IRepository<DomainUser>, UserRepository>();
+
+        // Добавляем стандартные сервисы
+        builder.Services.AddControllers();
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddProblemDetails();
+
+        // Конфигурация окружения
+        builder.Configuration
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json")
+            .AddEnvironmentVariables();
+        builder.Services.AddProblemDetails();
+
+        builder.Services.AddSqlServerServices(
+            builder.Configuration.GetSection(builder.Environment.EnvironmentName).Get<SqlServerSettings>()
+            ?? throw new NullReferenceException());
+
+        var app = builder.Build();
+
+        using (var scope = app.Services.CreateScope())
         {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            ClockSkew = TimeSpan.Zero
-        };
-    });
-builder.Services.AddAuthorization();
+            var dbContext = scope.ServiceProvider.GetRequiredService<AirbnbDbContext>();
+            app.UseSqlServerMigration(dbContext);
+        }
 
-var app = builder.Build();
+        app.UseJwtBasedAuth();
+        app.UseSwagger();
+        app.UseSwaggerUI();
+        app.UseCors("AllowFrontend");
+        app.UseExceptionHandler();
+        app.UseAuthorization();
+        app.MapControllers();
 
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<AirbnbDbContext>();
-    app.UseSqlServerMigration(dbContext);
+        app.Run();
+    }
 }
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-// app.UseHttpsRedirection();
-app.UseCors("AllowFrontend");
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();

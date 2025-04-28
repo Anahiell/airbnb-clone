@@ -1,6 +1,7 @@
 ﻿namespace Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.QueryObjects;
 
-public class CustomerInfo
+public enum UserSortState
 {
-    
+    CreatedAtAsc,
+    CreatedAtDesc
 }

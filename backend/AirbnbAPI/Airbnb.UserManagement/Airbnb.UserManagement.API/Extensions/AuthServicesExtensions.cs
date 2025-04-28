@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 

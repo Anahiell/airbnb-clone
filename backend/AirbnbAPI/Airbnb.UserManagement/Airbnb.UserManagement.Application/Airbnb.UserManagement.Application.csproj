@@ -7,9 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="BoundedContexts\UserAccountManagement\Commands\" />
-      <Folder Include="BoundedContexts\UserAccountManagement\Projections\" />
-      <Folder Include="BoundedContexts\UserAccountManagement\Queries\" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.15" />
+      <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="8.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Airbnb.QueryRepository\Airbnb.MongoRepository\Airbnb.MongoRepository.csproj" />
+      <ProjectReference Include="..\..\Airbnb.SharedKernel\Airbnb.Application\Airbnb.Application.csproj" />
+      <ProjectReference Include="..\Airbnb.UserManagement.Infrastructure\Airbnb.UserManagement.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
