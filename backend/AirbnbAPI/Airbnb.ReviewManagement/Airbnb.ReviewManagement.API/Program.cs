@@ -1,6 +1,7 @@
 using Airbnb.MongoRepository.Configuration;
 using Airbnb.ReviewManagement.Domain.BoundedContexts.ReviewManagement.Aggregates;
 using Airbnb.ReviewManagementInfrastructure.Configuration;
+using Airbnb.ReviewManagementInfrastructure.DataContext;
 using Airbnb.ReviewManagementInfrastructure.Repositories;
 using Airbnb.SharedKernel.Repositories;
 using Airbnb.TagManagement.API.Extensions;
@@ -17,6 +18,7 @@ public class Program
         builder.Services.AddMediatRServices();
         builder.Services.AddExceptionHandling();
         builder.Services.AddMemoryCache();
+        builder.Services.AddReddisCacheServices();
         builder.Services.AddMongoDbService(builder.Configuration.GetSection("MongoDb").Get<MongoDbSettings>() ??
                                            throw new ApplicationException("MongoDb settings not found."));
 
@@ -40,6 +42,11 @@ public class Program
 
         var app = builder.Build();
 
+        using (var scope = app.Services.CreateScope())
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<AirbnbDbContext>();
+            app.UseSqlServerMigration(dbContext);
+        }
 
         // Настройка HTTP запроса
         app.UseSwagger();

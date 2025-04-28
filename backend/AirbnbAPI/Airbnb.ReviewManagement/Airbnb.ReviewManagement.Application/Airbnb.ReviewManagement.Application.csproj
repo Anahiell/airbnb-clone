@@ -13,10 +13,8 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Airbnb.QueryRepository\Airbnb.MongoRepository\Airbnb.MongoRepository.csproj" />
       <ProjectReference Include="..\..\Airbnb.SharedKernel\Airbnb.Application\Airbnb.Application.csproj" />
-      <ProjectReference Include="..\Airbnb.QueryRepository\Airbnb.MongoRepository\Airbnb.MongoRepository.csproj" />
       <ProjectReference Include="..\Airbnb.ReviewManagement.Domain\Airbnb.ReviewManagement.Domain.csproj" />
       <ProjectReference Include="..\Airbnb.ReviewManagement.Infrastructure\Airbnb.ReviewManagement.Infrastructure.csproj" />
-      <ProjectReference Include="..\Airbnb.SharedKernel\Airbnb.Application\Airbnb.Application.csproj" />
     </ItemGroup>
 
 </Project>

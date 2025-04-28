@@ -18,4 +18,46 @@ public class ProductEntityInfo : IQueryEntity
     public DateTime CreatedDate { get; set; }
 
     public int AddressLegalId { get; set; }
+    
+    public List<ReviewInfo>? Review { get; set; }
+    public List<TagInfo>? Tags { get; set; }
+    public List<OrderInfo>? Orders { get; set; }
+    
+    public List<PictureInfo>? Pictures { get; set; }
+}
+
+public class OrderInfo
+{
+    public int ProductId { get; set; }
+    public int UserId { get; set; }
+    public DateTime DateStart { get; set; }
+    public DateTime DateEnd { get; set; }
+    public int Id { get; set; }
+}
+
+public class PictureInfo
+{
+    public string Url { get; set; }
+    public string? Description { get; set; }
+    public int UserId { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public int Id { get; set; }
+}
+
+public class ReviewInfo
+{
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public int Rating { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
+    public int UserId { get; set; }
+    public int ProductId { get; set; }
+    public int Id { get; set; }
+}
+
+public class TagInfo
+{
+    public string Name { get; set; }
+    public int Id { get; set; }
 }

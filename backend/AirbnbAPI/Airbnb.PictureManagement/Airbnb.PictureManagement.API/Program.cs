@@ -1,6 +1,7 @@
 using Airbnb.MongoRepository.Configuration;
 using Airbnb.PictureManagement.Domain.BoundedContexts.PictureManagement.Aggregates;
 using Airbnb.PictureManagement.Infrastructure.Configuration;
+using Airbnb.PictureManagement.Infrastructure.DataContext;
 using Airbnb.PictureManagement.Infrastructure.Repositories;
 using Airbnb.SharedKernel.Repositories;
 using AirbnbAPI.Extensions;
@@ -17,7 +18,7 @@ public class Program
         builder.Services.AddMediatRServices();
         builder.Services.AddExceptionHandling();
         builder.Services.AddMemoryCache();
-        // builder.Services.AddReddisCacheServices();
+        builder.Services.AddReddisCacheServices();
         builder.Services.AddMongoDbService(builder.Configuration.GetSection("MongoDb").Get<MongoDbSettings>() ??
                                            throw new ApplicationException("MongoDb settings not found."));
 
@@ -41,6 +42,12 @@ public class Program
 
         var app = builder.Build();
 
+        using (var scope = app.Services.CreateScope())
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<AirbnbPictureDbContext>();
+            app.UseSqlServerMigration(dbContext);
+        }
+        
         // Настройка HTTP запроса
         app.UseSwagger();
         app.UseSwaggerUI();

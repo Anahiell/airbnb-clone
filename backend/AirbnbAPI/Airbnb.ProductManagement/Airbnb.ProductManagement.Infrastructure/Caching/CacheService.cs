@@ -5,7 +5,7 @@ namespace Airbnb.Infrastructure.Caching;
 
 public class CacheService(IMemoryCache memoryCache) : ICacheService
 {
-    private static readonly TimeSpan DefaultExpiration = TimeSpan.FromMinutes(5);
+    private static readonly TimeSpan DefaultExpiration = TimeSpan.FromSeconds(5);
     private readonly IMemoryCache _memoryCache = memoryCache;
 
     public async Task<T> GetOrCreateAsync<T>(string key, Func<CancellationToken, Task<T>> factory,

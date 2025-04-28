@@ -2,6 +2,7 @@ using Airbnb.MongoRepository.Configuration;
 using Airbnb.OrderManagement.API.Extensions;
 using Airbnb.OrderManagement.Domain.BoundedContexts.OrderManagement.Aggregates;
 using Airbnb.OrderManagement.Infrastructure.Configuration;
+using Airbnb.OrderManagement.Infrastructure.DataContext;
 using Airbnb.OrderManagement.Infrastructure.Repositories;
 using Airbnb.SharedKernel.Repositories;
 using AirbnbAPI.Extensions;
@@ -18,6 +19,7 @@ public class Program
         builder.Services.AddMediatRServices();
         builder.Services.AddExceptionHandling();
         builder.Services.AddMemoryCache();
+        builder.Services.AddReddisCacheServices();
         builder.Services.AddMongoDbService(builder.Configuration.GetSection("MongoDb").Get<MongoDbSettings>() ??
                                            throw new ApplicationException("MongoDb settings not found."));
 
@@ -41,6 +43,11 @@ public class Program
 
         var app = builder.Build();
 
+        using (var scope = app.Services.CreateScope())
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<AirbnbOrderDbContext>();
+            app.UsePostgreSqlMigration(dbContext);
+        }
 
         // Настройка HTTP запроса
         app.UseSwagger();

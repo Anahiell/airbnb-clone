@@ -6,4 +6,10 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="BoundedContexts\UserAccountManagement\Commands\" />
+      <Folder Include="BoundedContexts\UserAccountManagement\Projections\" />
+      <Folder Include="BoundedContexts\UserAccountManagement\Queries\" />
+    </ItemGroup>
+
 </Project>

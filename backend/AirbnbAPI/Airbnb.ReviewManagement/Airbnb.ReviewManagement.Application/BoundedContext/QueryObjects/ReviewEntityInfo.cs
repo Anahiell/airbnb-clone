@@ -4,7 +4,6 @@ namespace Airbnb.ReviewManagement.Application.BoundedContext.QueryObjects;
 
 public class ReviewEntityInfo : IQueryEntity
 {
-    public int Id { get; set; }
     public string Title { get; set; } = string.Empty;
     public string? Description { get; set; }
     public int Rating { get; set; }

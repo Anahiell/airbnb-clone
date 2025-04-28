@@ -8,7 +8,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Airbnb.SharedKernel\Airbnb.Domain\Airbnb.Domain.csproj" />
-      <ProjectReference Include="..\Airbnb.SharedKernel\Airbnb.Domain\Airbnb.Domain.csproj" />
     </ItemGroup>
 
 </Project>

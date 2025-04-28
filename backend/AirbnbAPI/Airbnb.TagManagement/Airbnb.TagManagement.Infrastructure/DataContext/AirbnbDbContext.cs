@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Airbnb.TagsManagement.Infrastructure.DataContext;
 
 
-public class AirbnbDbContext(DbContextOptions<AirbnbDbContext> options) : DbContext
+public class AirbnbDbContext(DbContextOptions<AirbnbDbContext> options) : DbContext(options)
 {
     public DbSet<DomainTag> DomainTag { get; set; }
 
@@ -12,10 +12,22 @@ public class AirbnbDbContext(DbContextOptions<AirbnbDbContext> options) : DbCont
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<DomainTag>().ToTable("Tags");
 
-        modelBuilder.Entity<DomainTag>()
-            .HasIndex(t => t.Name)
-            .IsUnique();
+        modelBuilder.Entity<DomainTag>(entity =>
+        {
+            entity.ToTable("Tags");
+
+            entity.HasKey(t => t.Id);
+
+            entity.Property(t => t.Name)
+                .IsRequired()
+                .HasMaxLength(256);
+
+            entity.Property(t => t.CreatedAt)
+                .IsRequired();
+
+            entity.HasIndex(t => t.Name)
+                .IsUnique();
+        });
     }
 }

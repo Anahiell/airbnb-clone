@@ -1,7 +1,9 @@
 ﻿using System.Text;
+using Airbnb.Domain;
 using Airbnb.Infrastructure.Configuration;
 using Airbnb.Infrastructure.DataContext;
 using Airbnb.Infrastructure.Repositories;
+using Airbnb.SharedKernel.Repositories;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,7 +33,7 @@ public static class SqlServerServiceExtensions
             o.EnableDetailedErrors();
         });
 
-        services.AddScoped<ProductRepository>();
+        services.AddScoped<IRepository<DomainProduct>, ProductRepository>();
 
         return services;
     }

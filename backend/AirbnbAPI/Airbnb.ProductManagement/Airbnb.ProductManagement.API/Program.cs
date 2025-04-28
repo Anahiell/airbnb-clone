@@ -1,6 +1,7 @@
 using System.Reflection;
 using Airbnb.Application.Behaviors;
 using Airbnb.Application.Results;
+using Airbnb.Connection.ConnectionService.HttpConnection.Services;
 using Airbnb.Domain;
 using Airbnb.Domain.BoundedContexts.ProductManagement.Interfaces;
 using Airbnb.Infrastructure.Configuration;
@@ -8,6 +9,7 @@ using Airbnb.Infrastructure.DataContext;
 using Airbnb.Infrastructure.Repositories;
 using Airbnb.MongoRepository.Configuration;
 using Airbnb.ProductManagement.Application.BoundedContext.Commands.CreateProduct;
+using Airbnb.SharedKernel.ConnectionService.HttpConnection;
 using Airbnb.SharedKernel.Repositories;
 using AirbnbAPI.Extensions;
 using AirbnbAPI.Middleware;
@@ -36,7 +38,31 @@ public class Program
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddProblemDetails();
+        
+        // HTTP Connection
+        builder.Services.AddHttpClient();
+        builder.Services.AddScoped<IHttpConnectionService, HttpConnectionService>();
+        builder.Services.AddHttpClient("ReviewService", client =>
+        {
+            client.BaseAddress = new Uri("http://airbnb-review-api:8080");
+        });
 
+        builder.Services.AddHttpClient("OrderService", client =>
+        {
+            client.BaseAddress = new Uri("http://airbnb-order-api:8080");
+        });
+
+        builder.Services.AddHttpClient("PictureService", client =>
+        {
+            client.BaseAddress = new Uri("http://airbnb-picture-api:8080");
+        });
+
+        builder.Services.AddHttpClient("TagService", client =>
+        {
+            client.BaseAddress = new Uri("http://airbnb-tag-api:8080");
+        });
+        
+        
         // Конфигурация окружения
         builder.Configuration
             .SetBasePath(Directory.GetCurrentDirectory())

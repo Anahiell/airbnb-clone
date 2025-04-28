@@ -1,4 +1,7 @@
-﻿using Airbnb.TagsManagement.Infrastructure.Configuration;
+﻿using Airbnb.SharedKernel.Repositories;
+using Airbnb.TagsManagement.Domain.BoundedContexts.TagsManagement.Aggregates;
+using Airbnb.TagsManagement.Domain.BoundedContexts.TagsManagement.Interfaces;
+using Airbnb.TagsManagement.Infrastructure.Configuration;
 using Airbnb.TagsManagement.Infrastructure.DataContext;
 using Airbnb.TagsManagement.Infrastructure.Repositories;
 using Microsoft.Data.SqlClient;
@@ -30,7 +33,7 @@ public static class SqlServerServiceExtensions
             o.EnableDetailedErrors();
         });
 
-        services.AddScoped<TagRepository>();
+        services.AddScoped<IRepository<DomainTag>, TagRepository>();
 
         return services;
     }
