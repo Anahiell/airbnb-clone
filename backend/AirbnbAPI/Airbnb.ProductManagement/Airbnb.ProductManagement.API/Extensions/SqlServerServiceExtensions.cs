@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Airbnb.Domain;
+﻿using Airbnb.Domain;
 using Airbnb.Infrastructure.Configuration;
 using Airbnb.Infrastructure.DataContext;
 using Airbnb.Infrastructure.Repositories;

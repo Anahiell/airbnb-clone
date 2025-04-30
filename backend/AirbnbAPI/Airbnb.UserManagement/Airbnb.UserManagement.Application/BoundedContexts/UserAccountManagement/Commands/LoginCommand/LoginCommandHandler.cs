@@ -1,17 +1,20 @@
 ﻿using Airbnb.Application.Messaging;
 using Airbnb.Application.Results;
+using Airbnb.MongoRepository.Repositories;
 using Airbnb.SharedKernel.Repositories;
+using Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.QueryObjects;
 using Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Services;
 using Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.Aggregates;
+using Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.Interfaces;
 
 namespace Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Commands.LoginCommand;
 
 public class LoginCommandHandler : ICommandHandler<LoginCommand, Result<string>>
 {
-    private readonly IRepository<DomainUser> _userRepository;
+    private readonly IUserRepository _userRepository;
     private readonly ITokenService _jwtTokenService;
 
-    public LoginCommandHandler(IRepository<DomainUser> userRepository, ITokenService jwtTokenService)
+    public LoginCommandHandler(IUserRepository userRepository, ITokenService jwtTokenService)
     {
         _userRepository = userRepository;
         _jwtTokenService = jwtTokenService;
@@ -23,15 +26,17 @@ public class LoginCommandHandler : ICommandHandler<LoginCommand, Result<string>>
 
         if (user == null)
         {
-            return Result<string>.Failure("Пользователь с таким email не найден.");
+            // return Result<string>.Failure("Пользователь с таким email не найден.");
         }
 
         if (!user.CheckPassword(request.Password))
         {
-            return Result<string>.Failure("Неверный пароль.");
+            // return Result<string>.Failure("Неверный пароль.");
         }
 
-        var token = _jwtTokenService.GenerateJwt(user);
+        var roles = await _userRepository.GetRolesAsync(user);
+
+        var token = _jwtTokenService.GenerateJwt(user, roles);
 
         return Result<string>.Success(token);
     }

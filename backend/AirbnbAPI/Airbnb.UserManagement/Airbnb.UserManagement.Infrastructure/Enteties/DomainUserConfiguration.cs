@@ -20,10 +20,13 @@ public class DomainUserConfiguration : IEntityTypeConfiguration<DomainUser>
             .IsRequired()
             .HasMaxLength(200);
 
-        builder.Property(u => u.Role)
+        builder.Property(u => u.Roles)
             .IsRequired();
 
         builder.Property(u => u.DateOfBirth)
+            .IsRequired();
+        
+        builder.Property(u => u.PasswordHash)
             .IsRequired();
 
         builder.HasIndex(u => u.Email)

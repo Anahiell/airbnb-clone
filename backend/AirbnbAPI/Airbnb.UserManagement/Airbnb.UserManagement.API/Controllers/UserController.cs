@@ -1,7 +1,6 @@
 ﻿using Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Commands.UpdateUserCommand;
 using Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Commands.UserCreateCommand;
 using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -10,7 +9,9 @@ namespace Airbnb.UserManagement.API.Controllers;
 /// <summary>
 /// Контроллер для взаимодействия с пользователями
 /// </summary>
-public class UserController
+[ApiController]
+[Route("api/v1/[controller]")]
+public class UserController : ControllerBase
 {
     private readonly IMediator _mediator;
 
@@ -31,7 +32,7 @@ public class UserController
     public async Task<IActionResult> CreateUserAsync([FromBody] CreateUserCommand command, CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(command, cancellationToken);
-        return Ok(result);
+        return Ok(result.Value);
     }
 
     /// <summary>
@@ -45,5 +46,4 @@ public class UserController
         var result = await _mediator.Send(command, cancellationToken);
         return Ok(result);
     }
-}
 }

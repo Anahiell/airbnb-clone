@@ -8,33 +8,47 @@ public class DomainUser : IdentityUser<int>
 {
     public string FullName { get; private set; }
     public string Email { get; private set; }
-    public UserRole Role { get; private set; }
+    public List<UserRole> Roles { get; private set; } = new();
     public DateTime DateOfBirth { get; private set; }
+    public string PasswordHash { get; private set; }
 
+    public bool CheckPassword(string password)
+    {
+        var hasher = new PasswordHasher<DomainUser>();
+        var result = hasher.VerifyHashedPassword(this, PasswordHash, password);
+        return result == PasswordVerificationResult.Success;
+    }
+    
+    public void SetPassword(string password)
+    {
+        var hasher = new PasswordHasher<DomainUser>();
+        PasswordHash = hasher.HashPassword(this, password);
+    }
+    
     public DomainUser()
     {
     }
 
-    public DomainUser(string fullName, string email, UserRole role, DateTime dateOfBirth)
+    public DomainUser(string fullName, string email, List<UserRole> roles, DateTime dateOfBirth)
     {
         FullName = fullName;
         Email = email;
-        Role = role;
+        Roles  = roles;
         DateOfBirth = dateOfBirth;
 
-        RaiseEvent(new UserCreatedEvent(Id, fullName, email, role, dateOfBirth));
+        RaiseEvent(new UserCreatedEvent(Id, fullName, email, roles, dateOfBirth));
     }
 
     #region Aggregate Methods
 
-    public void UpdateUser(string fullName, string email, UserRole role, DateTime dateOfBirth)
+    public void UpdateUser(string fullName, string email, List<UserRole> roles, DateTime dateOfBirth)
     {
         FullName = fullName;
         Email = email;
-        Role = role;
+        Roles = roles;
         DateOfBirth = dateOfBirth;
 
-        RaiseEvent(new UserUpdatedEvent(Id, fullName, email, role, dateOfBirth));
+        RaiseEvent(new UserUpdatedEvent(Id, fullName, email, roles, dateOfBirth));
     }
 
     public void DeleteUser()
@@ -67,7 +81,7 @@ public class DomainUser : IdentityUser<int>
         Id = @event.AggregateId;
         FullName = @event.FullName;
         Email = @event.Email;
-        Role = @event.Role;
+        Roles = @event.Roles;
         DateOfBirth = @event.DateOfBirth;
     }
 
@@ -76,7 +90,7 @@ public class DomainUser : IdentityUser<int>
         Id = @event.AggregateId;
         FullName = @event.FullName;
         Email = @event.Email;
-        Role = @event.Role;
+        Roles = @event.Roles;
         DateOfBirth = @event.DateOfBirth;
     }
 

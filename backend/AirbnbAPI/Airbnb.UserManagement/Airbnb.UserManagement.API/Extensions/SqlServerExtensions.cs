@@ -1,7 +1,7 @@
-﻿using System.Text;
-using Airbnb.Infrastructure.Configuration;
-using Airbnb.Infrastructure.DataContext;
-using Airbnb.Infrastructure.Repositories;
+﻿using Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.Interfaces;
+using Airbnb.UserManagement.Infrastructure.Configuration;
+using Airbnb.UserManagement.Infrastructure.DataContext;
+using Airbnb.UserManagement.Infrastructure.Repositories;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,22 +21,22 @@ public static class SqlServerExtensions
             TrustServerCertificate = true
         };
 
-        services.AddDbContext<AirbnbDbContext>(o =>
+        services.AddDbContext<ApplicationDbContext>(o =>
         {
             o.UseSqlServer
             (
                 connectionString.ConnectionString,
-                b => b.MigrationsAssembly(typeof(AirbnbDbContext).Assembly.FullName)
+                b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
             );
             o.EnableDetailedErrors();
         });
 
-        services.AddScoped<ProductRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
     }
 
-    public static IApplicationBuilder UseSqlServerMigration(this IApplicationBuilder app, AirbnbDbContext context)
+    public static IApplicationBuilder UseSqlServerMigration(this IApplicationBuilder app, ApplicationDbContext context)
     {
         context.Database.Migrate();
         return app;

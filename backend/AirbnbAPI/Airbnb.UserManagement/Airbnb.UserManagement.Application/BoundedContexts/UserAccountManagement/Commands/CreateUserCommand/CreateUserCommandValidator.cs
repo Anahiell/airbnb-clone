@@ -13,7 +13,7 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
             .NotEmpty().WithMessage("Email не может быть пустым")
             .EmailAddress().WithMessage("Email должен быть в правильном формате");
 
-        RuleFor(c => c.Role)
+        RuleFor(c => c.Roles)
             .IsInEnum().WithMessage("Роль должна быть валидной");
 
         RuleFor(c => c.DateOfBirth)

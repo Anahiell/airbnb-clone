@@ -26,11 +26,11 @@ public class UpdateUserCommandHandler : ICommandHandler<UpdateUserCommand, Resul
             // return Result.Failure("Пользователь не найден");
         }
 
-        user.UpdateUser(request.FullName, request.Email, request.Role, request.DateOfBirth);
+        user.UpdateUser(request.FullName, request.Email, request.Roles, request.DateOfBirth);
 
         await _userRepository.UpdateAsync(user, cancellationToken);
 
-        await _mediator.Publish(new UserUpdatedEvent(user.Id, user.FullName, user.Email, user.Role, user.DateOfBirth), cancellationToken);
+        await _mediator.Publish(new UserUpdatedEvent(user.Id, user.FullName, user.Email, user.Roles, user.DateOfBirth), cancellationToken);
 
         return Result.Success();
     }

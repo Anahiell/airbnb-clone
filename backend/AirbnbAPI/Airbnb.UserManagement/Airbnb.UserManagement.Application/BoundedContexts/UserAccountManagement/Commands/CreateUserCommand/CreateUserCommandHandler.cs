@@ -20,11 +20,11 @@ public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand, Resul
 
     public async Task<Result<int>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
-        var user = new DomainUser(request.FullName, request.Email, request.Role, request.DateOfBirth);
+        var user = new DomainUser(request.FullName, request.Email, request.Roles, request.DateOfBirth);
 
         var result = await _userRepository.AddAsync(user, cancellationToken);
 
-        await _mediator.Publish(new UserCreatedEvent(user.Id, user.FullName, user.Email, user.Role, user.DateOfBirth), cancellationToken);
+        await _mediator.Publish(new UserCreatedEvent(user.Id, user.FullName, user.Email, user.Roles, user.DateOfBirth), cancellationToken);
 
         return Result<int>.Success(result);
     }

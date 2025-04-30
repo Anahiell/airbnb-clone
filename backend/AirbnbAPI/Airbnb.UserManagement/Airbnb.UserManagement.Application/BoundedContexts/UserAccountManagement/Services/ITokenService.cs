@@ -4,5 +4,5 @@ namespace Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagemen
 
 public interface ITokenService
 {
-    string GenerateJwt(DomainUser user, IList<string> roles);
+    string GenerateJwt(DomainUser user, IList<UserRole> roles);
 }

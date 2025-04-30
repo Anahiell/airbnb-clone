@@ -11,28 +11,26 @@ public class JwtTokenService : ITokenService
 {
     private readonly JwtSettings _jwtSettings;
 
-    public JwtTokenService(IOptionsSnapshot<JwtSettings> jwtSettings)
+    public JwtTokenService(IOptions<JwtSettings> jwtSettings)
     {
         _jwtSettings = jwtSettings.Value;
     }
 
-    public string GenerateJwt(DomainUser user, IList<string> roles)
+    public string GenerateJwt(DomainUser user, IList<UserRole> roles)
     {
         if (user == null) throw new ArgumentNullException(nameof(user));
+        Console.WriteLine("Secret: " + _jwtSettings.Secret);
+
+        Console.WriteLine(JwtRegisteredClaimNames.Sub, user.Id.ToString());
+        Console.WriteLine(user.FullName.ToString());
 
         var claims = new List<Claim>
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new Claim(ClaimTypes.Name, user.UserName),
+            new Claim(ClaimTypes.Name, user.FullName),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
         };
-
-        if (roles?.Any() == true)
-        {
-            var roleClaims = roles.Select(r => new Claim(ClaimTypes.Role, r));
-            claims.AddRange(roleClaims);
-        }
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

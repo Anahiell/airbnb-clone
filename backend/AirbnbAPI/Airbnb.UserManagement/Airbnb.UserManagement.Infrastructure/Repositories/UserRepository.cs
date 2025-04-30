@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Airbnb.UserManagement.Infrastructure.Repositories;
 
-public class UserRepository : IRepository<DomainUser>, IUserRepository
+public class UserRepository : IUserRepository
 {
     private readonly ApplicationDbContext _context;
 
@@ -29,7 +29,13 @@ public class UserRepository : IRepository<DomainUser>, IUserRepository
 
     public async Task<DomainUser?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
     {
-        return await _context.Users.Find(user => user.Email == email).FirstOrDefaultAsync(cancellationToken);
+        return await _context.Users.FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
+    }
+    
+    public async Task<IList<UserRole>> GetRolesAsync(DomainUser user)
+    {
+         var userRole = await _context.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
+         return userRole.Roles;
     }
     
     public async Task<int> AddAsync(DomainUser entity, CancellationToken cancellationToken = default)

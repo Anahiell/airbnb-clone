@@ -107,6 +107,23 @@ services:
     networks:
       - airbnb-network
 
+  airbnb-user-api:
+    build:
+      context: .
+      dockerfile: Airbnb.UserManagement/Airbnb.UserManagement.API/Dockerfile
+      args:
+        BUILD_CONFIG: ${BUILD_CONFIG}
+    ports:
+      - "8085:8080"
+    depends_on:
+      - airbnb-user-sqlserver
+      - airbnb-user-mongo-db
+      - redis
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${BUILD_CONFIG:-Production}
+    restart: always
+    networks:
+      - airbnb-network
 
   airbnb-tag-sqlserver:
     image: mcr.microsoft.com/mssql/server:latest
@@ -171,6 +188,23 @@ services:
       - "5433:5432"
     volumes:
       - pgsql-order-data:/var/lib/postgresql/data
+    networks:
+      - airbnb-network
+
+  airbnb-user-sqlserver:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: airbnb-user-sqlserver-db
+    restart: always
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_DATABASE: 'AirbnbUser'
+      MSSQL_USER: 'sa'
+      MSSQL_PASSWORD: 'Str0ngP@ss!'
+      SA_PASSWORD: 'Str0ngP@ss!'
+    ports:
+      - '1438:1433'
+    volumes:
+      - sqlserver-user-data:/var/opt/mssql
     networks:
       - airbnb-network
 
@@ -243,6 +277,20 @@ services:
     networks:
       - airbnb-network
 
+  airbnb-user-mongo-db:
+    image: mongo:latest
+    container_name: airbnb-user-mongo-db
+    environment:
+      MONGO_INITDB_DATABASE: 'airbnb_user'
+      MONGO_INITDB_ROOT_USERNAME: 'root'
+      MONGO_INITDB_ROOT_PASSWORD: 'rootpassword'
+    ports:
+      - 27019:27017
+    volumes:
+      - mongodb-user-data:/data/db
+    networks:
+      - airbnb-network
+
   redis:
     image: redis:latest
     container_name: redis-cache
@@ -257,6 +305,7 @@ services:
 
 volumes:
   sqlserver-data:
+  sqlserver-user-data:
   sqlserver-tag-data:
   sqlserver-review-data:
   sqlserver-picture-data:
@@ -264,6 +313,7 @@ volumes:
   redis-data:
     driver: local
   mongodb-data:
+  mongodb-user-data:
   mongodb-tag-data:
   mongodb-review-data:
   mongodb-picture-data:

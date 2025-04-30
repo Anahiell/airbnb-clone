@@ -14,44 +14,42 @@ COPY AirbnbAPI.sln ./AirbnbAPI.sln
 COPY ["Airbnb.SharedKernel/Airbnb.Domain/Airbnb.Domain.csproj", "../Airbnb.SharedKernel/Airbnb.Domain/"]
 COPY ["Airbnb.SharedKernel/Airbnb.Application/Airbnb.Application.csproj", "../Airbnb.SharedKernel/Airbnb.Application/"]
 COPY ["Airbnb.SharedKernel/Airbnb.Cache/Airbnb.Cache.csproj", "../Airbnb.SharedKernel/Airbnb.Cache/"]
-COPY ["Airbnb.SharedKernel/Airbnb.Connection/Airbnb.Connection.csproj", "../Airbnb.SharedKernel/Airbnb.Connection/"]
 
 COPY ["Airbnb.QueryRepository/Airbnb.MongoRepository/Airbnb.MongoRepository.csproj", "../Airbnb.QueryRepository/Airbnb.MongoRepository/"]
 
-COPY ["Airbnb.ProductManagement/Airbnb.ProductManagement.API/Airbnb.ProductManagement.API.csproj", "Airbnb.ProductManagement.API/"]
-COPY ["Airbnb.ProductManagement/Airbnb.ProductManagement.Application/Airbnb.ProductManagement.Application.csproj", "Airbnb.ProductManagement.Application/"]
-COPY ["Airbnb.ProductManagement/Airbnb.ProductManagement.Infrastructure/Airbnb.ProductManagement.Infrastructure.csproj", "Airbnb.ProductManagement.Infrastructure/"]
-COPY ["Airbnb.ProductManagement/Airbnb.ProductManagement.Domain/Airbnb.ProductManagement.Domain.csproj", "Airbnb.ProductManagement.Domain/"]
+COPY ["Airbnb.UserManagement/Airbnb.UserManagement.API/Airbnb.UserManagement.API.csproj", "Airbnb.UserManagement.API/"]
+COPY ["Airbnb.UserManagement/Airbnb.UserManagement.Application/Airbnb.UserManagement.Application.csproj", "Airbnb.UserManagement.Application/"]
+COPY ["Airbnb.UserManagement/Airbnb.UserManagement.Infrastructure/Airbnb.UserManagement.Infrastructure.csproj", "Airbnb.UserManagement.Infrastructure/"]
+COPY ["Airbnb.UserManagement/Airbnb.UserManagement.Domain/Airbnb.UserManagement.Domain.csproj", "Airbnb.UserManagement.Domain/"]
 
 # Восстанавливаем зависимости
-RUN dotnet restore "Airbnb.ProductManagement.API/Airbnb.ProductManagement.API.csproj"
+RUN dotnet restore "Airbnb.UserManagement.API/Airbnb.UserManagement.API.csproj"
 
 # Копируем весь исходный код
 COPY ["Airbnb.SharedKernel/Airbnb.Domain/", "./Airbnb/../Airbnb.SharedKernel/Airbnb.Domain/"]
 COPY ["Airbnb.SharedKernel/Airbnb.Application/", "./Airbnb/../Airbnb.SharedKernel/Airbnb.Application/"]
+COPY ["Airbnb.SharedKernel/Airbnb.Infrastructure/", "./Airbnb/../Airbnb.SharedKernel/Airbnb.Infrastructure/"]
 COPY ["Airbnb.SharedKernel/Airbnb.Cache/", "./Airbnb/../Airbnb.SharedKernel/Airbnb.Cache/"]
-COPY ["Airbnb.SharedKernel/Airbnb.Connection/", "./Airbnb/../Airbnb.SharedKernel/Airbnb.Connection/"]
 
-COPY ["Airbnb.QueryRepository/Airbnb.MongoRepository/", "./Airbnb/../Airbnb.QueryRepository/Airbnb.MongoRepository/"]
+COPY ["Airbnb.QueryRepository/Airbnb.MongoRepository/.", "./Airbnb/../Airbnb.QueryRepository/Airbnb.MongoRepository/"]
 
-COPY ["Airbnb.ProductManagement/Airbnb.ProductManagement.API/.", "./Airbnb/Airbnb.ProductManagement.API/"]
-COPY ["Airbnb.ProductManagement/Airbnb.ProductManagement.Application/", "./Airbnb/Airbnb.ProductManagement.Application/"]
-COPY ["Airbnb.ProductManagement/Airbnb.ProductManagement.Infrastructure/.", "./Airbnb/Airbnb.ProductManagement.Infrastructure/"]
-COPY ["Airbnb.ProductManagement/Airbnb.ProductManagement.Domain/", "./Airbnb/Airbnb.ProductManagement.Domain/"]
-
+COPY ["Airbnb.UserManagement/Airbnb.UserManagement.API/", "./Airbnb/Airbnb.UserManagement.API/"]
+COPY ["Airbnb.UserManagement/Airbnb.UserManagement.Application/", "./Airbnb/Airbnb.UserManagement.Application/"]
+COPY ["Airbnb.UserManagement/Airbnb.UserManagement.Infrastructure/", "./Airbnb/Airbnb.UserManagement.Infrastructure/"]
+COPY ["Airbnb.UserManagement/Airbnb.UserManagement.Domain/", "./Airbnb/Airbnb.UserManagement.Domain/"]
 
 # Сборка проекта
-WORKDIR "/app/Airbnb/Airbnb.ProductManagement.API"
+WORKDIR "/app/Airbnb/Airbnb.UserManagement.API"
 RUN ls -la /app
 RUN dotnet publish -c ${BUILD_CONFIG} -o /out
 
 # Создание финального образа для выполнения
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
-COPY --from=build /out ./
+COPY --from=build /out ./ 
 
 # Указываем порт
 EXPOSE 8080
 
 # Запускаем приложение
-ENTRYPOINT ["dotnet", "Airbnb.ProductManagement.API.dll"]
+ENTRYPOINT ["dotnet", "Airbnb.UserManagement.API.dll"]

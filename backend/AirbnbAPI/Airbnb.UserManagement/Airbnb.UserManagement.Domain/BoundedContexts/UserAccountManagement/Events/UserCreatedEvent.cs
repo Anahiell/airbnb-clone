@@ -7,15 +7,15 @@ public class UserCreatedEvent : DomainEvent
 {
     public string FullName { get; private set; }
     public string Email { get; private set; }
-    public UserRole Role { get; private set; }
+    public List<UserRole> Roles { get; private set; } = new();
     public DateTime DateOfBirth { get; private set; }
 
-    public UserCreatedEvent(int aggregateId, string fullName, string email, UserRole role, DateTime dateOfBirth)
+    public UserCreatedEvent(int aggregateId, string fullName, string email, List<UserRole> roles, DateTime dateOfBirth)
         : base(aggregateId)
     {
         FullName = fullName;
         Email = email;
-        Role = role;
+        Roles = roles;
         DateOfBirth = dateOfBirth;
     }
 }
