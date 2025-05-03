@@ -1,4 +1,5 @@
-﻿using Airbnb.Application.Messaging.Cache;
+﻿using System.Text.Json.Serialization;
+using Airbnb.Application.Messaging.Cache;
 using Airbnb.Application.Results;
 using Airbnb.PictureManagement.Application.BoundedContext.QueryObjects;
 using Swashbuckle.AspNetCore.Annotations;
@@ -8,7 +9,12 @@ namespace Airbnb.PictureManagement.Application.BoundedContext.Queries;
 [SwaggerSchema("Запрос для получения списка картинок с пагинацией")]
 public class GetPicturePaginatedQuery : ICachedQuery<Result<IEnumerable<PictureEntityInfo>>>
 {
+    [JsonIgnore]
+    [SwaggerIgnore]
     public string Key => $"picture-list-{Page}-{PageSize}";
+    
+    [JsonIgnore]
+    [SwaggerIgnore]
     public TimeSpan? Expiration => null;
 
     public int? UserId { get; set; }

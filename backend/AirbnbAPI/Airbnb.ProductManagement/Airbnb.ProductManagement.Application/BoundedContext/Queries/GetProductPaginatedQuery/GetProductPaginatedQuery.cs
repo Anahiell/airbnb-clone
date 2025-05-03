@@ -3,12 +3,19 @@ using Airbnb.Application.Results;
 using Airbnb.Domain;
 using Airbnb.ProductManagement.Application.BoundedContext.QueryObjects;
 using MediatR;
+using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Airbnb.ProductManagement.Application.BoundedContext.Queries;
 
 public class GetProductPaginatedQuery : ICachedQuery<Result<IEnumerable<ProductEntityInfo>>>
 {
+    [JsonIgnore]
+    [SwaggerIgnore]
     public string Key => $"product-list-{Page}-{PageSize}";
+    
+    [JsonIgnore]
+    [SwaggerIgnore]
     public TimeSpan? Expiration => null;
 
     public string? Country { get; set; }

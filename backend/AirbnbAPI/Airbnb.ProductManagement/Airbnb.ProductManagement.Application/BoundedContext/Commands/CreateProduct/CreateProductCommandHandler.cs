@@ -8,7 +8,8 @@ using MediatR;
 
 namespace Airbnb.ProductManagement.Application.BoundedContext.Commands.CreateProduct;
 
-public class CreateProductCommandHandler(IRepository<DomainProduct> productRepository,
+public class CreateProductCommandHandler(
+    IRepository<DomainProduct> productRepository,
     IMediator mediator)
     : ICommandHandler<CreateProductCommand, Result<int>>
 {

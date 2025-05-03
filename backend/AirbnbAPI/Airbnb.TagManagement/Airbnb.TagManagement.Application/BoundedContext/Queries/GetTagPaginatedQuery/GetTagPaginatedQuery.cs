@@ -1,12 +1,19 @@
-﻿using Airbnb.Application.Messaging.Cache;
+﻿using System.Text.Json.Serialization;
+using Airbnb.Application.Messaging.Cache;
 using Airbnb.Application.Results;
 using Airbnb.TagsManagement.Application.BoundedContext.QueryObjects;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Airbnb.TagsManagement.Application.BoundedContext.Queries.GetTagPaginatedQuery;
 
 public class GetTagPaginatedQuery : ICachedQuery<Result<IEnumerable<TagEntityInfo>>>
 {
+    [JsonIgnore]
+    [SwaggerIgnore]
     public string Key => $"tag-list-{Page}-{PageSize}";
+    
+    [JsonIgnore]
+    [SwaggerIgnore]
     public TimeSpan? Expiration => null;
 
     public string? Name { get; set; }

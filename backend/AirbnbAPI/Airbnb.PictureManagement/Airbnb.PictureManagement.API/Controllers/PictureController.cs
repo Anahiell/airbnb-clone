@@ -15,7 +15,7 @@ namespace Airbnb.PictureManagement.API.Controllers;
     public class PictureController(IMediator mediator) : ControllerBase
     {
         [HttpGet]
-        [Route("/GetHelloPicture")]
+        [Route("GetHelloPicture")]
         public IActionResult GetHelloPicture()
         {
             return Ok(new { message = "Привет из BACKEND .NET API - Picture Management!" });
@@ -30,7 +30,7 @@ namespace Airbnb.PictureManagement.API.Controllers;
         /// </remarks>
         /// <returns>Список картинок</returns>
         [HttpGet]
-        [Route("/GetAllPicture")]
+        [Route("GetAllPicture")]
         [SwaggerOperation(Summary = "Получить все картинки",
             Description = "Получает все картинки с пагинацией и фильтрацией")]
         public async Task<IActionResult> GetAllPictureAsync([FromQuery] GetPicturePaginatedQuery query,
@@ -49,7 +49,7 @@ namespace Airbnb.PictureManagement.API.Controllers;
         /// GET http://localhost:8080/GetPictureByIdAsync
         /// </remarks>
         [HttpGet]
-        [Route("/GetPictureByIdAsync")]
+        [Route("GetPictureByIdAsync")]
         [SwaggerOperation(Summary = "Получить картинку по Id",
             Description = "Получает картинку по её идентификатору")]
         public async Task<IActionResult> GetPictureByIdAsync([FromQuery] GetPicturePaginatedQuery query,
@@ -64,7 +64,7 @@ namespace Airbnb.PictureManagement.API.Controllers;
         /// Создать картинку.
         /// </summary>
         [HttpPost]
-        [Route("/CreatePictureAsync")]
+        [Route("CreatePictureAsync")]
         [SwaggerOperation(Summary = "Создать картинку", Description = "Создаёт новую картинку")]
         [SwaggerResponse(200, "Успешный запрос", typeof(string))]
         [SwaggerResponse(400, "Ошибка Валидации", typeof(string))]
@@ -80,8 +80,8 @@ namespace Airbnb.PictureManagement.API.Controllers;
         /// <summary>
         /// Обновить картинку.
         /// </summary>
-        [HttpPost]
-        [Route("/UpdatePictureAsync")]
+        [HttpPut]
+        [Route("UpdatePictureAsync")]
         [SwaggerOperation(Summary = "Обновить картинку",
             Description = "Обновляет существующую картинку")]
         public async Task<IActionResult> UpdatePictureAsync([FromBody] CreatePictureCommand command,
@@ -95,8 +95,8 @@ namespace Airbnb.PictureManagement.API.Controllers;
         /// <summary>
         /// Удалить картинку.
         /// </summary>
-        [HttpPost]
-        [Route("/DeletePictureAsync")]
+        [HttpDelete]
+        [Route("DeletePictureAsync")]
         [SwaggerOperation(Summary = "Удалить картинку",
             Description = "Удаляет картинку из базы данных")]
         public async Task<IActionResult> DeletePictureAsync([FromBody] CreatePictureCommand command,
@@ -111,7 +111,7 @@ namespace Airbnb.PictureManagement.API.Controllers;
         /// Сделать картинку архивной.
         /// </summary>
         [HttpPost]
-        [Route("/ArchivePictureAsync")]
+        [Route("ArchivePictureAsync")]
         [SwaggerOperation(Summary = "Архивировать картинку",
             Description = "Архивирует картинку (не удаляет физически из базы данных)")]
         public async Task<IActionResult> ArchivePictureAsync([FromBody] CreatePictureCommand command,

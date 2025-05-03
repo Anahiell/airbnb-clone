@@ -62,7 +62,7 @@ public class TagController(IMediator mediator) : ControllerBase
     /// <summary>
     /// Обновить тег.
     /// </summary>
-    [HttpPost]
+    [HttpPut]
     [Route("UpdateTag")]
     [SwaggerOperation(Summary = "Обновить тег", Description = "Обновляет существующий тег в базе данных")]
     public async Task<IActionResult> UpdateTagAsync([FromBody] UpdateTagCommand command,
@@ -75,7 +75,7 @@ public class TagController(IMediator mediator) : ControllerBase
     /// <summary>
     /// Удалить тег.
     /// </summary>
-    [HttpPost]
+    [HttpDelete]
     [Route("DeleteTag")]
     [SwaggerOperation(Summary = "Удалить тег", Description = "Удаляет тег из базы данных по идентификатору")]
     public async Task<IActionResult> DeleteTagAsync([FromBody] DeleteTagCommand command,

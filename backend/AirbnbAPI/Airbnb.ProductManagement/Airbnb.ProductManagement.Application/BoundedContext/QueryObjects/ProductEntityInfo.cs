@@ -9,6 +9,7 @@ public class ProductEntityInfo : IQueryEntity
     public string? Description { get; set; }
     public int Price { get; set; }
 
+    public int Rating { get; set; }
     public int UserId { get; set; }
 
     public bool Availability { get; set; }
@@ -22,8 +23,19 @@ public class ProductEntityInfo : IQueryEntity
     public List<ReviewInfo>? Review { get; set; }
     public List<TagInfo>? Tags { get; set; }
     public List<OrderInfo>? Orders { get; set; }
-    
     public List<PictureInfo>? Pictures { get; set; }
+    
+    public void AddOrders(IEnumerable<OrderInfo> orders) =>
+        Orders = orders.Where(o => o.ProductId == AddressLegalId).ToList();
+
+    public void AddPictures(IEnumerable<PictureInfo> pictures) =>
+        Pictures = pictures.Where(p => p.UserId == UserId).ToList();
+
+    public void AddReviews(IEnumerable<ReviewInfo> reviews) =>
+        Review = reviews.Where(r => r.ProductId == AddressLegalId).ToList();
+
+    public void AddTags(IEnumerable<TagInfo> tags) =>
+        Tags = tags.ToList();
 }
 
 public class OrderInfo

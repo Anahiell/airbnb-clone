@@ -1,12 +1,19 @@
-﻿using Airbnb.Application.Messaging.Cache;
+﻿using System.Text.Json.Serialization;
+using Airbnb.Application.Messaging.Cache;
 using Airbnb.Application.Results;
 using Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.QueryObjects;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Queries;
 
 public class GetUserPaginatedQuery : ICachedQuery<Result<IEnumerable<UserEntityInfo>>>
 {
+    [JsonIgnore]
+    [SwaggerIgnore]
     public string Key => $"user-list-{Page}-{PageSize}";
+    
+    [JsonIgnore]
+    [SwaggerIgnore]
     public TimeSpan? Expiration => null;
 
     public int? Role { get; set; }

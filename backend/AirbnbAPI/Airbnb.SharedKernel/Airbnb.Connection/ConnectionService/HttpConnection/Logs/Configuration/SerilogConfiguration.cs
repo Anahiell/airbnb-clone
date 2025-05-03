@@ -31,7 +31,7 @@ public static class SerilogConfiguration
             .MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Information)
             .MinimumLevel.Override("System", LogEventLevel.Information)
             .MinimumLevel.Is(LogEventLevel.Information)
-            .Enrich.WithThreadId() // добавляет TraceId
+            .Enrich.WithThreadId()
             .Enrich.FromLogContext()
             .WriteTo.Async(option =>
             {

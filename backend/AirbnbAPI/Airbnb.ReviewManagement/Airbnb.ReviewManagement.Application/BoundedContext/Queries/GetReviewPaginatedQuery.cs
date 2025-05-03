@@ -1,12 +1,19 @@
-﻿using Airbnb.Application.Messaging.Cache;
+﻿using System.Text.Json.Serialization;
+using Airbnb.Application.Messaging.Cache;
 using Airbnb.Application.Results;
 using Airbnb.ReviewManagement.Application.BoundedContext.QueryObjects;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Airbnb.ReviewManagement.Application.BoundedContext.Queries;
 
 public class GetReviewPaginatedQuery : ICachedQuery<Result<IEnumerable<ReviewEntityInfo>>>
 {
+    [JsonIgnore]
+    [SwaggerIgnore]
     public string Key => $"review-list-{Page}-{PageSize}";
+    
+    [JsonIgnore]
+    [SwaggerIgnore]
     public TimeSpan? Expiration => null;
 
     public int? MinRating { get; set; }
