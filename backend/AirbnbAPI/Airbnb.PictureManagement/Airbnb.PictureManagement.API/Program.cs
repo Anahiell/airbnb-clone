@@ -59,8 +59,7 @@ public class Program
         app.UseSwagger();
         app.UseSwaggerUI(c =>
         {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Picture API V1");
-            c.RoutePrefix = "swagger";
+            c.SwaggerEndpoint("v1/swagger.json", "Tag API V1");
         });
         app.UseCors("AllowFrontend");
         app.UseExceptionHandler();
