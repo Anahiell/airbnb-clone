@@ -210,7 +210,7 @@ services:
       - airbnb-network
 
   airbnb-mongo-db:
-    image: mongo:latest
+    image: mongo:4.4
     environment:
       MONGO_INITDB_DATABASE: 'airbnb'
       MONGO_INITDB_ROOT_USERNAME: 'root'
@@ -223,7 +223,7 @@ services:
       - airbnb-network
 
   airbnb-tag-mongo:
-    image: mongo:latest
+    image: mongo:4.4
     container_name: airbnb-tag-mongo
     environment:
       MONGO_INITDB_DATABASE: 'airbnb_tag'
@@ -237,7 +237,7 @@ services:
       - airbnb-network
 
   airbnb-review-mongo:
-    image: mongo:latest
+    image: mongo:4.4
     container_name: airbnb-review-mongo
     environment:
       MONGO_INITDB_DATABASE: 'airbnb_review'
@@ -251,7 +251,7 @@ services:
       - airbnb-network
 
   airbnb-picture-mongo:
-    image: mongo:latest
+    image: mongo:4.4
     container_name: airbnb-picture-mongo
     environment:
       MONGO_INITDB_DATABASE: 'airbnb_picture'
@@ -265,7 +265,7 @@ services:
       - airbnb-network
 
   airbnb-order-mongo:
-    image: mongo:latest
+    image: mongo:4.4
     container_name: airbnb-order-mongo
     environment:
       MONGO_INITDB_DATABASE: 'airbnb_order'
@@ -279,7 +279,7 @@ services:
       - airbnb-network
 
   airbnb-user-mongo-db:
-    image: mongo:latest
+    image: mongo:4.4
     container_name: airbnb-user-mongo-db
     environment:
       MONGO_INITDB_DATABASE: 'airbnb_user'
