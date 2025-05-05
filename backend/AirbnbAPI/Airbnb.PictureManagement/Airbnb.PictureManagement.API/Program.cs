@@ -54,9 +54,14 @@ public class Program
             app.UseSqlServerMigration(dbContext);
         }
         
+        app.UsePathBase("/picture");
         // Настройка HTTP запроса
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint("swagger/v1/swagger.json", "Picture API V1");
+            c.RoutePrefix = "swagger";
+        });
         app.UseCors("AllowFrontend");
         app.UseExceptionHandler();
         app.UseAuthorization();

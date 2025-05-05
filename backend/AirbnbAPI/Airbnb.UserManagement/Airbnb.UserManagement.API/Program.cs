@@ -55,20 +55,20 @@ public class Program
         }
 
         // Настройка HTTP запроса
+        app.UsePathBase("/user");
         app.UseSwagger();
+        app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint("/swagger/User/swagger.json", "User API V1");
+            c.SwaggerEndpoint("/swagger/Auth/swagger.json", "Auth API V1");
+            c.RoutePrefix = "swagger";
+        });
         app.UseCors("AllowFrontend");
         app.UseExceptionHandler();
         app.UseAuthorization();
         app.MapControllers();
         app.UseJwtBasedAuth();
         app.UseAuthentication();
-        
-        app.UseSwaggerUI(c =>
-        {
-            c.SwaggerEndpoint("/swagger/User/swagger.json", "User API");
-            c.SwaggerEndpoint("/swagger/Auth/swagger.json", "Auth API");
-            c.RoutePrefix = "swagger";
-        });
 
         app.Run();
     }

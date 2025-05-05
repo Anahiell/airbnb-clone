@@ -76,12 +76,13 @@ public class Program
             DataSeeder.Seed(dbContext);
         }
 
+        app.UsePathBase("/product");
         // Настройка HTTP запроса
         app.UseSwagger();
         app.UseSwaggerUI(c =>
         {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Airbnb Product API v1");
-            c.RoutePrefix = string.Empty;
+            c.SwaggerEndpoint("swagger/v1/swagger.json", "Product API V1");
+            c.RoutePrefix = "swagger";
         });
         app.UseCors("AllowFrontend");
         app.UseExceptionHandler();

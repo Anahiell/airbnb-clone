@@ -51,8 +51,13 @@ public class Program
         }
 
         // Настройка HTTP запроса
+        app.UsePathBase("/review");
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint("swagger/v1/swagger.json", "Review API V1");
+            c.RoutePrefix = "swagger";
+        });
         app.UseCors("AllowFrontend");
         app.UseExceptionHandler();
         app.UseAuthorization();
