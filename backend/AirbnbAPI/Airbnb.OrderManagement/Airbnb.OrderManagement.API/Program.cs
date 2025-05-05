@@ -52,17 +52,13 @@ public class Program
             var dbContext = scope.ServiceProvider.GetRequiredService<AirbnbOrderDbContext>();
             app.UsePostgreSqlMigration(dbContext);
         }
-
+        app.UsePathBase("/order");
         // Настройка HTTP запроса
-        app.UseSwagger(c =>
-        {
-            c.RouteTemplate = "order/swagger/{documentName}/swagger.json";
-        });
-
+        app.UseSwagger();
         app.UseSwaggerUI(c =>
         {
-            c.SwaggerEndpoint("/order/swagger/v1/swagger.json", "Order API V1");
-            c.RoutePrefix = "order/swagger";
+            c.SwaggerEndpoint("swagger/v1/swagger.json", "Order API V1");
+            c.RoutePrefix = "swagger";
         });
         app.UseCors("AllowFrontend");
         app.UseExceptionHandler();
