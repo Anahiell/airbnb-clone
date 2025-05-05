@@ -60,4 +60,24 @@ public abstract class BaseMongoRepository<T> where T : IQueryEntity
         var result = await query.ToListAsync();
         return (result, totalCount);
     }
+    
+    public async Task<T> FindByIdAsync(int id)
+    {
+        return await _mongoDatabase.GetCollection<T>(CollectionName)
+            .Find(x => x.Id == id)
+            .SingleOrDefaultAsync();
+    }
+    
+    public async Task<IEnumerable<T>> GetAllAsync()
+    {
+        var collection = _mongoDatabase.GetCollection<T>(CollectionName);
+        var allDocuments = await collection.Find(Builders<T>.Filter.Empty).ToListAsync();
+        return allDocuments;
+    }
+    
+    public async Task<IEnumerable<T>> FindByAsync(Expression<Func<T, bool>> predicate)
+    {
+        var collection = _mongoDatabase.GetCollection<T>(CollectionName);
+        return await collection.Find(predicate).ToListAsync();
+    }
 }

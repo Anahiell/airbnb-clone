@@ -69,6 +69,7 @@ services:
       - redis
     environment:
       - ASPNETCORE_ENVIRONMENT=${BUILD_CONFIG:-Production}
+      - ASPNETCORE_PATHBASE=/order
     restart: always
     networks:
       - airbnb-network

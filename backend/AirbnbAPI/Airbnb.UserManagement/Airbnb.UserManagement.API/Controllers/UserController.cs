@@ -1,5 +1,7 @@
 ﻿using Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Commands.UpdateUserCommand;
 using Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Commands.UserCreateCommand;
+using Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Queries.GetUserByIdQuery;
+using Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.QueryObjects;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -29,7 +31,7 @@ public class UserController : ControllerBase
     [SwaggerResponse(200, "Успешное создание", typeof(int))]
     [SwaggerResponse(400, "Ошибка валидации", typeof(string))]
     [SwaggerResponse(500, "Ошибка сервера", typeof(string))]
-    public async Task<IActionResult> CreateUserAsync([FromBody] CreateUserCommand command, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateUserAsync([FromQuery] CreateUserCommand command, CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(command, cancellationToken);
         return Ok(result.Value);
@@ -41,9 +43,24 @@ public class UserController : ControllerBase
     [HttpPut]
     [Route("UpdateUser")]
     [SwaggerOperation(Summary = "Обновить пользователя", Description = "Обновляет существующего пользователя.")]
-    public async Task<IActionResult> UpdateUserAsync([FromBody] UpdateUserCommand command, CancellationToken cancellationToken)
+    public async Task<IActionResult> UpdateUserAsync([FromQuery] UpdateUserCommand command, CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(command, cancellationToken);
         return Ok(result);
+    }
+    
+    /// <summary>
+    /// Получить пользователя по Id.
+    /// </summary>
+    [HttpGet]
+    [Route("GetUserById")]
+    [SwaggerOperation(Summary = "Получить пользователя по Id", Description = "Возвращает пользователя по его идентификатору.")]
+    [SwaggerResponse(200, "Успешный результат", typeof(UserEntityInfo))]
+    [SwaggerResponse(404, "Пользователь не найден", typeof(string))]
+    public async Task<IActionResult> GetUserByIdAsync([FromQuery] GetUserByIdQuery query, CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send(query, cancellationToken);
+
+        return Ok(result.Value);
     }
 }

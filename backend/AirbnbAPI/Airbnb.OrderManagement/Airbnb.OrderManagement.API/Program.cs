@@ -1,5 +1,7 @@
+using System.Text.Json.Serialization;
 using Airbnb.MongoRepository.Configuration;
 using Airbnb.OrderManagement.API.Extensions;
+using Airbnb.OrderManagement.Application.BoundedContext.Services;
 using Airbnb.OrderManagement.Domain.BoundedContexts.OrderManagement.Aggregates;
 using Airbnb.OrderManagement.Infrastructure.Configuration;
 using Airbnb.OrderManagement.Infrastructure.DataContext;
@@ -23,10 +25,12 @@ public class Program
         builder.Services.AddMongoDbService(builder.Configuration.GetSection("MongoDb").Get<MongoDbSettings>() ??
                                            throw new ApplicationException("MongoDb settings not found."));
 
+        builder.Services.AddTransient<ITimeZoneConverter, TimeZoneConverter>();
         builder.Services.AddTransient<IRepository<DomainOrder>, OrderRepository>();
 
         // Добавляем стандартные сервисы
-        builder.Services.AddControllers();
+        builder.Services.AddControllers().AddJsonOptions(options =>
+            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddProblemDetails();
 
@@ -50,8 +54,16 @@ public class Program
         }
 
         // Настройка HTTP запроса
-        app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwagger(c =>
+        {
+            c.RouteTemplate = "order/swagger/{documentName}/swagger.json";
+        });
+
+        app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint("/order/swagger/v1/swagger.json", "Order API V1");
+            c.RoutePrefix = "order/swagger";
+        });
         app.UseCors("AllowFrontend");
         app.UseExceptionHandler();
         app.UseAuthorization();

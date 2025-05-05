@@ -16,4 +16,8 @@
       <ProjectReference Include="..\Airbnb.PictureManagement.Domain\Airbnb.PictureManagement.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="BoundedContext\ProductPictureManagement\" />
+    </ItemGroup>
+
 </Project>

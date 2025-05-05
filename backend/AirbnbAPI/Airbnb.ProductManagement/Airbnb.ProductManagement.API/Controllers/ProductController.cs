@@ -1,5 +1,7 @@
-﻿using Airbnb.ProductManagement.Application.BoundedContext.Commands.CreateProduct;
+﻿using Airbnb.ProductManagement.Application.BoundedContext.Commands.ArchiveProduct;
+using Airbnb.ProductManagement.Application.BoundedContext.Commands.CreateProduct;
 using Airbnb.ProductManagement.Application.BoundedContext.Queries;
+using Airbnb.ProductManagement.Application.BoundedContext.Queries.GetProductRatingByIdQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -53,12 +55,12 @@ namespace AirbnbAPI.Controllers
         [Route("GetPropertyByIdAsync")]
         [SwaggerOperation(Summary = "Получить объект недвижимости по Id",
             Description = "Получает объект недвижимости из базы данных по его идентификатору")]
-        public async Task<IActionResult> GetPropertyByIdAsync([FromQuery] GetProductPaginatedQuery query,
+        public async Task<IActionResult> GetPropertyByIdAsync([FromQuery] GetProductByIdQuery query,
             CancellationToken cancellationToken)
         {
             var result = await mediator.Send(query, cancellationToken);
 
-            return Ok(result);
+            return Ok(result.Value);
         }
 
         /// <summary>
@@ -91,7 +93,7 @@ namespace AirbnbAPI.Controllers
         [Route("UpdatePropertyAsync")]
         [SwaggerOperation(Summary = "Обновить объект недвижимости",
             Description = "Обновляет объект недвижимости из базы данных.")]
-        public async Task<IActionResult> UpdatePropertyAsync([FromBody] CreateProductCommand command,
+        public async Task<IActionResult> UpdatePropertyAsync([FromQuery] CreateProductCommand command,
             CancellationToken cancellationToken)
         {
             var result = await mediator.Send(command, cancellationToken);
@@ -109,7 +111,7 @@ namespace AirbnbAPI.Controllers
         [Route("DeletePropertyAsync")]
         [SwaggerOperation(Summary = "Удалить объект недвижимости",
             Description = "Удаляет объект недвижимости из базы данных.")]
-        public async Task<IActionResult> DeletePropertyAsync([FromBody] CreateProductCommand command,
+        public async Task<IActionResult> DeletePropertyAsync([FromQuery] CreateProductCommand command,
             CancellationToken cancellationToken)
         {
             var result = await mediator.Send(command, cancellationToken);
@@ -127,7 +129,7 @@ namespace AirbnbAPI.Controllers
         [Route("ArchivePropertyAsync")]
         [SwaggerOperation(Summary = "Архивирует объект недвижимости",
             Description = "Архивирует объект недвижимости ( не удаляет из базы данных )")]
-        public async Task<IActionResult> ArchivePropertyAsync([FromBody] CreateProductCommand command,
+        public async Task<IActionResult> ArchivePropertyAsync([FromQuery] ArchiveProductCommand command,
             CancellationToken cancellationToken)
         {
             var result = await mediator.Send(command, cancellationToken);

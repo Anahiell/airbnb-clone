@@ -35,12 +35,12 @@ public class ProductDataAggregator : IProductDataAggregator
                 new HttpConnectionData { ClientName = "PictureService", CancellationToken = cancellationToken },
                 new { Page = 1, PageSize = 10 });
             */
-            
+            /*
             var reviews = await _connection.GetAsync<List<ReviewInfo>>(
                 "api/v1/Review/GetAllReviews",
                 new HttpConnectionData { ClientName = "ReviewService", CancellationToken = cancellationToken },
                 new { Page = 1, PageSize = 10, ProductId = product.Id });
-
+            */
             /*
             var tags = await _connection.GetAsync<List<TagInfo>>(
                 "api/v1/Tag/GetAllTags",
@@ -49,7 +49,7 @@ public class ProductDataAggregator : IProductDataAggregator
             */
             product.AddOrders(orders);
             // product.AddPictures(pictures);
-            product.AddReviews(reviews);
+            // product.AddReviews(reviews);
             // product.AddTags(tags);
         }
     }

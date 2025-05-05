@@ -19,10 +19,12 @@ public class ReviewCreatedProjection : INotificationHandler<ReviewCreatedEvent>
         var review = new ReviewEntityInfo
         {
             Id = @event.AggregateId,
+            Title = @event.Title,
             Description = @event.Description,
             Rating = @event.Rating,
             CreatedAt = @event.CreatedAt,
-            UserId = @event.UserId
+            UserId = @event.UserId,
+            ProductId = @event.ProductId,
         };
 
         await _repository.InsertAsync(review);

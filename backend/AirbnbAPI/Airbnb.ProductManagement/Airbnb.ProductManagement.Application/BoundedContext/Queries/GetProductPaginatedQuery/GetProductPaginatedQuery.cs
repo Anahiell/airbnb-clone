@@ -13,7 +13,7 @@ public class GetProductPaginatedQuery : ICachedQuery<Result<IEnumerable<ProductE
     [JsonIgnore]
     [SwaggerIgnore]
     public string Key => $"product-list-{Page}-{PageSize}";
-    
+
     [JsonIgnore]
     [SwaggerIgnore]
     public TimeSpan? Expiration => null;

@@ -13,9 +13,12 @@ public class CreateOrderCommand : ICommand<Result<int>>
     [SwaggerSchema("ID пользователя")]
     public int UserId { get; init; }
 
-    [SwaggerSchema("Дата начала аренды")]
-    public DateTime DateStart { get; init; }
+    [SwaggerSchema("Дата начала аренды (формат: MM.dd.yyyy HH:mm)")]
+    public string DateStart { get; init; } = default!;
 
-    [SwaggerSchema("Дата окончания аренды")]
-    public DateTime DateEnd { get; init; }
+    [SwaggerSchema("Дата окончания аренды (формат: MM.dd.yyyy HH:mm)")]
+    public string DateEnd { get; init; } = default!;
+
+    [SwaggerSchema("Часовой пояс, например: Europe/Paris")]
+    public string TimeZone { get; init; } = default!;
 }

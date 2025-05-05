@@ -22,8 +22,5 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
 
         RuleFor(c => c.UserId)
             .GreaterThan(0).WithMessage("UserId должен быть положительным числом");
-
-        RuleFor(c => c.ApartmentTypeId)
-            .GreaterThan(0).WithMessage("ApartmentTypeId должен быть положительным числом");
     }
 }

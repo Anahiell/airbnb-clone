@@ -7,8 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="BoundedContexts\PictureManagement\Interfaces\" />
-      <Folder Include="BoundedContexts\PictureManagement\ValueObjects\" />
+      <Folder Include="BoundedContexts\ProductPictureManagement\Interfaces\" />
+      <Folder Include="BoundedContexts\ProductPictureManagement\ValueObjects\" />
+      <Folder Include="BoundedContexts\UserPictureManagement\Interfaces\" />
+      <Folder Include="BoundedContexts\UserPictureManagement\ValueObjects\" />
     </ItemGroup>
 
     <ItemGroup>

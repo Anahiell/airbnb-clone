@@ -22,7 +22,7 @@ namespace Airbnb.PictureManagement.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Airbnb.PictureManagement.Domain.BoundedContexts.PictureManagement.Aggregates.DomainPicture", b =>
+            modelBuilder.Entity("Airbnb.PictureManagement.Domain.BoundedContexts.PictureManagement.Aggregates.ProductPicture", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,6 +32,42 @@ namespace Airbnb.PictureManagement.Infrastructure.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("PictureGuid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductPictures", (string)null);
+                });
+
+            modelBuilder.Entity("Airbnb.PictureManagement.Domain.BoundedContexts.PictureManagement.Aggregates.UserPicture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("PictureGuid")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Url")
                         .IsRequired()
@@ -43,7 +79,7 @@ namespace Airbnb.PictureManagement.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DomainPicture");
+                    b.ToTable("UserPictures", (string)null);
                 });
 #pragma warning restore 612, 618
         }

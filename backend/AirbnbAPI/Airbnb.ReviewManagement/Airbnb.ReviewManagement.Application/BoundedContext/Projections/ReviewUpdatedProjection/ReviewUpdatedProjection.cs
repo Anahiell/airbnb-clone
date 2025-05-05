@@ -19,9 +19,12 @@ public class ReviewUpdatedProjection : INotificationHandler<ReviewUpdatedEvent>
         var updatedReview = new ReviewEntityInfo
         {
             Id = @event.AggregateId,
+            Title = @event.Title,
             Description = @event.Description,
             Rating = @event.Rating,
-            UserId = @event.UserId
+            UserId = @event.UserId,
+            ProductId = @event.ProductId,
+            CreatedAt = @event.CreatedAt,
         };
 
         await _repository.UpdateAsync(updatedReview);

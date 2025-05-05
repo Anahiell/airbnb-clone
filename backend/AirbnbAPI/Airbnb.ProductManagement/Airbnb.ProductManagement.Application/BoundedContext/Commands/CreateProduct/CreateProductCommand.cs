@@ -1,5 +1,6 @@
 ﻿using Airbnb.Application.Messaging;
 using Airbnb.Application.Results;
+using Airbnb.Domain.BoundedContexts.PropertyTypeManagement.ValueObjects;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Airbnb.ProductManagement.Application.BoundedContext.Commands.CreateProduct;
@@ -19,9 +20,27 @@ public class CreateProductCommand : ICommand<Result<int>>
     [SwaggerSchema("ID пользователя")]
     public int UserId { get; init; }
 
-    [SwaggerSchema("ID типа апартаментов")]
-    public int ApartmentTypeId { get; init; }
+    [SwaggerSchema("Тип апартаментов")]
+    public PropertyTypeEnum ApartmentType { get; init; }
 
-    [SwaggerSchema("ID юридического адреса")]
-    public int AddressLegalId { get; init; }
+    [SwaggerSchema("Регион")]
+    public string Region { get; init; } = string.Empty;
+
+    [SwaggerSchema("Страна")]
+    public string Country { get; init; } = string.Empty;
+
+    [SwaggerSchema("Город")]
+    public string City { get; init; } = string.Empty;
+
+    [SwaggerSchema("Район")]
+    public string District { get; init; } = string.Empty;
+
+    [SwaggerSchema("Дом")]
+    public string House { get; init; } = string.Empty;
+
+    [SwaggerSchema("Корпус")]
+    public string? Block { get; init; }
+
+    [SwaggerSchema("Квартира")]
+    public string? Flat { get; init; }
 }

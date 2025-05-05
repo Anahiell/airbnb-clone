@@ -2,6 +2,7 @@
 using Airbnb.MongoRepository.Interfaces;
 using Airbnb.MongoRepository.Repositories;
 using Airbnb.PictureManagement.Application.BoundedContext.QueryObjects;
+using Airbnb.PictureManagement.Application.BoundedContext.UserPictureManagement.QueryObjects;
 using MongoDB.Driver;
 
 namespace AirbnbAPI.Extensions;
@@ -17,6 +18,9 @@ public static class MongoDbServiceExtensions
         services.AddTransient<BaseMongoRepository<PictureEntityInfo>, MongoDbRepository<PictureEntityInfo>>();
         services.AddTransient<IProjectionRepository<PictureEntityInfo>, MongoDbRepository<PictureEntityInfo>>();
 
+        services.AddTransient<BaseMongoRepository<UserPictureEntityInfo>, MongoDbRepository<UserPictureEntityInfo>>();
+        services.AddTransient<IProjectionRepository<UserPictureEntityInfo>, MongoDbRepository<UserPictureEntityInfo>>();
+        
         return services;
     }
 }

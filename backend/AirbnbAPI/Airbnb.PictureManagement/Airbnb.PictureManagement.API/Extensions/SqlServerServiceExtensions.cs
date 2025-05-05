@@ -31,8 +31,6 @@ public static class SqlServerServiceExtensions
             o.EnableDetailedErrors();
         });
 
-        services.AddScoped<PictureRepository>();
-
         return services;
     }
 

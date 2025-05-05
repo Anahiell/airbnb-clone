@@ -12,6 +12,18 @@ public class ApartmentType : AggregateRoot
     {
     }
 
+    public static ApartmentType GetApartmentTypeByValue(PropertyTypeEnum value)
+    {
+        var apartmentTypes = new List<ApartmentType>
+        {
+            new ApartmentType(PropertyTypeEnum.Apartment),
+            new ApartmentType(PropertyTypeEnum.House),
+            new ApartmentType(PropertyTypeEnum.Townhouse)
+        };
+
+        return apartmentTypes.FirstOrDefault(at => at.Value == value);
+    }
+    
     public ApartmentType(PropertyTypeEnum value)
     {
         Value = value;

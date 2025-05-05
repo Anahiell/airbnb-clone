@@ -52,7 +52,7 @@ public class TagController(IMediator mediator) : ControllerBase
     [SwaggerResponse(200, "Успешный запрос", typeof(Guid))]
     [SwaggerResponse(400, "Ошибка валидации", typeof(int))]
     [SwaggerResponse(500, "Ошибка сервера", typeof(int))]
-    public async Task<IActionResult> CreateTagAsync([FromBody] CreateTagCommand command,
+    public async Task<IActionResult> CreateTagAsync([FromQuery] CreateTagCommand command,
         CancellationToken cancellationToken)
     {
         var result = await mediator.Send(command, cancellationToken);
@@ -65,7 +65,7 @@ public class TagController(IMediator mediator) : ControllerBase
     [HttpPut]
     [Route("UpdateTag")]
     [SwaggerOperation(Summary = "Обновить тег", Description = "Обновляет существующий тег в базе данных")]
-    public async Task<IActionResult> UpdateTagAsync([FromBody] UpdateTagCommand command,
+    public async Task<IActionResult> UpdateTagAsync([FromQuery] UpdateTagCommand command,
         CancellationToken cancellationToken)
     {
         var result = await mediator.Send(command, cancellationToken);
@@ -78,7 +78,7 @@ public class TagController(IMediator mediator) : ControllerBase
     [HttpDelete]
     [Route("DeleteTag")]
     [SwaggerOperation(Summary = "Удалить тег", Description = "Удаляет тег из базы данных по идентификатору")]
-    public async Task<IActionResult> DeleteTagAsync([FromBody] DeleteTagCommand command,
+    public async Task<IActionResult> DeleteTagAsync([FromQuery] DeleteTagCommand command,
         CancellationToken cancellationToken)
     {
         var result = await mediator.Send(command, cancellationToken);

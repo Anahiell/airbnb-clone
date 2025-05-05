@@ -29,7 +29,7 @@ public class AuthController : ControllerBase
     [SwaggerResponse(200, "Успешная регистрация", typeof(string))]
     [SwaggerResponse(400, "Ошибка валидации", typeof(string))]
     [SwaggerResponse(500, "Ошибка сервера", typeof(string))]
-    public async Task<IActionResult> RegisterAsync([FromBody] RegisterUserCommand command, CancellationToken cancellationToken)
+    public async Task<IActionResult> RegisterAsync([FromQuery] RegisterUserCommand command, CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(command, cancellationToken);
         return Ok(result.Value);
@@ -44,7 +44,7 @@ public class AuthController : ControllerBase
     [SwaggerResponse(200, "Успешный логин", typeof(string))]
     [SwaggerResponse(400, "Ошибка валидации", typeof(string))]
     [SwaggerResponse(500, "Ошибка сервера", typeof(string))]
-    public async Task<IActionResult> LoginAsync([FromBody] LoginCommand command, CancellationToken cancellationToken)
+    public async Task<IActionResult> LoginAsync([FromQuery] LoginCommand command, CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(command, cancellationToken);
         return Ok(result.Value);

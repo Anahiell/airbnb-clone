@@ -16,7 +16,7 @@ public class UpdateReviewCommandHandler(IRepository<DomainReview> reviewReposito
         if (review is null)
             // return Result.Failure("Отзыв не найден");
 
-        review.UpdateReview(request.Comment, request.Description, request.Rating, DateTime.Now, 1, 1);
+        review.UpdateReview(request.Comment, request.Description, request.Rating, DateTime.Now, review.UserId, review.ProductId);
 
         await reviewRepository.UpdateAsync(review, cancellationToken);
 

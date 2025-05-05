@@ -21,8 +21,8 @@ public class DomainOrder : AggregateRoot
     {
         ProductId = productId;
         UserId = userId;
-        DateStart = dateStart;
-        DateEnd = dateEnd;
+        DateStart = DateTime.SpecifyKind(dateStart, DateTimeKind.Utc);
+        DateEnd = DateTime.SpecifyKind(dateEnd, DateTimeKind.Utc);
 
         RaiseEvent(new OrderCreatedEvent(Id, productId, userId, dateStart, dateEnd));
     }

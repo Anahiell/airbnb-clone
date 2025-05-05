@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Airbnb.MongoRepository.Configuration;
 using Airbnb.SharedKernel.Repositories;
 using Airbnb.TagManagement.API.Extensions;
@@ -25,7 +26,8 @@ public class Program
         builder.Services.AddTransient<IRepository<DomainTag>, TagRepository>();
 
         // Добавляем стандартные сервисы
-        builder.Services.AddControllers();
+        builder.Services.AddControllers().AddJsonOptions(options =>
+            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddProblemDetails();
 

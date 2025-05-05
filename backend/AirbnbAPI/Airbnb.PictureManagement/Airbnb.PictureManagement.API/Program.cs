@@ -1,10 +1,13 @@
+using System.Text.Json.Serialization;
 using Airbnb.MongoRepository.Configuration;
+using Airbnb.PictureManagement.Application.BoundedContext.FileService;
 using Airbnb.PictureManagement.Domain.BoundedContexts.PictureManagement.Aggregates;
 using Airbnb.PictureManagement.Infrastructure.Configuration;
 using Airbnb.PictureManagement.Infrastructure.DataContext;
 using Airbnb.PictureManagement.Infrastructure.Repositories;
 using Airbnb.SharedKernel.Repositories;
 using AirbnbAPI.Extensions;
+using Microsoft.Extensions.FileProviders;
 
 public class Program
 {
@@ -22,10 +25,13 @@ public class Program
         builder.Services.AddMongoDbService(builder.Configuration.GetSection("MongoDb").Get<MongoDbSettings>() ??
                                            throw new ApplicationException("MongoDb settings not found."));
 
-        builder.Services.AddTransient<IRepository<DomainPicture>, PictureRepository>();
-
+        builder.Services.AddTransient<IRepository<UserPicture>, UserPictureRepository>();
+        builder.Services.AddTransient<IRepository<ProductPicture>, ProductPictureRepository>();
+        builder.Services.AddTransient<IFileService, FileService>();
+        
         // Добавляем стандартные сервисы
-        builder.Services.AddControllers();
+        builder.Services.AddControllers().AddJsonOptions(options =>
+            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddProblemDetails();
 
@@ -55,7 +61,13 @@ public class Program
         app.UseExceptionHandler();
         app.UseAuthorization();
         app.MapControllers();
-
+        var filesPath = Path.Combine(Directory.GetCurrentDirectory(), "Files");
+        Directory.CreateDirectory(filesPath);
+        app.UseStaticFiles(new StaticFileOptions
+        {
+            FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Files")),
+            RequestPath = "/files"
+        });
         app.Run();
     }
 }

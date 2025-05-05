@@ -26,8 +26,10 @@ public class AirbnbDbContext(DbContextOptions<AirbnbDbContext> options) : DbCont
             entity.Property(t => t.CreatedAt)
                 .IsRequired();
 
+            /*
             entity.HasIndex(t => t.Name)
                 .IsUnique();
+            */
         });
     }
 }

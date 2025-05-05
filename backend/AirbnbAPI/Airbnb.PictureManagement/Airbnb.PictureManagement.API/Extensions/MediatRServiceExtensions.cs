@@ -11,12 +11,12 @@ public static class MediatRServiceExtensions
     {
         services.AddMediatR(config =>
         {
-            config.RegisterServicesFromAssembly(typeof(CreatePictureCommand).GetTypeInfo().Assembly);
+            config.RegisterServicesFromAssembly(typeof(UploadProductPictureCommand).GetTypeInfo().Assembly);
             config.AddOpenBehavior(typeof(ValidationBehavior<,>));
             config.AddOpenBehavior(typeof(QueryCachingPipelineBehaviour<,>));
         });
 
-        services.AddValidatorsFromAssembly(typeof(CreatePictureCommand).Assembly);
+        services.AddValidatorsFromAssembly(typeof(UploadProductPictureCommand).Assembly);
 
         return services;
     }

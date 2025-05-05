@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Airbnb.OrderManagement.Application.BoundedContext.Commands.CreateOrderCommand;
 using Airbnb.OrderManagement.Application.BoundedContext.Commands.DeleteOrderCommand;
 using Airbnb.OrderManagement.Application.BoundedContext.Commands.UpdateOrderCommand;
+using Airbnb.OrderManagement.Application.BoundedContext.Queries.GetOrdersByProductId;
 using Airbnb.OrderManagement.Application.BoundedContext.Queries.GetProductPaginatedQuery;
 using MediatR;
 using Swashbuckle.AspNetCore.Annotations;
@@ -28,19 +29,19 @@ public class OrderController(IMediator mediator) : ControllerBase
         var result = await mediator.Send(query, cancellationToken);
         return Ok(result.Value);
     }
-
+    
     /// <summary>
-    /// Получить заказ по Id.
+    /// Получить заказы по ProductId.
     /// </summary>
     [HttpGet]
-    [Route("GetOrderById")]
-    [SwaggerOperation(Summary = "Получить заказ по Id",
-        Description = "Получает конкретный заказ по его идентификатору.")]
-    public async Task<IActionResult> GetOrderByIdAsync([FromQuery] GetOrderPaginatedQuery query, 
+    [Route("GetOrdersByProductId")]
+    [SwaggerOperation(Summary = "Получить заказы по ProductId", 
+        Description = "Получает список заказов по идентификатору продукта.")]
+    public async Task<IActionResult> GetOrdersByProductIdAsync([FromQuery] GetOrdersByProductIdQuery query, 
         CancellationToken cancellationToken)
     {
         var result = await mediator.Send(query, cancellationToken);
-        return Ok(result);
+        return Ok(result.Value);
     }
 
     /// <summary>
@@ -53,7 +54,7 @@ public class OrderController(IMediator mediator) : ControllerBase
     [SwaggerResponse(200, "Успешное создание", typeof(Guid))]
     [SwaggerResponse(400, "Ошибка валидации", typeof(string))]
     [SwaggerResponse(500, "Ошибка сервера", typeof(string))]
-    public async Task<IActionResult> CreateOrderAsync([FromBody] CreateOrderCommand command, 
+    public async Task<IActionResult> CreateOrderAsync([FromQuery] CreateOrderCommand command, 
         CancellationToken cancellationToken)
     {
         var result = await mediator.Send(command, cancellationToken);
@@ -67,7 +68,7 @@ public class OrderController(IMediator mediator) : ControllerBase
     [Route("UpdateOrder")]
     [SwaggerOperation(Summary = "Обновить заказ", 
         Description = "Обновляет существующий заказ.")]
-    public async Task<IActionResult> UpdateOrderAsync([FromBody] UpdateOrderCommand command, 
+    public async Task<IActionResult> UpdateOrderAsync([FromQuery] UpdateOrderCommand command, 
         CancellationToken cancellationToken)
     {
         var result = await mediator.Send(command, cancellationToken);
@@ -81,7 +82,7 @@ public class OrderController(IMediator mediator) : ControllerBase
     [Route("DeleteOrder")]
     [SwaggerOperation(Summary = "Удалить заказ", 
         Description = "Удаляет заказ по идентификатору.")]
-    public async Task<IActionResult> DeleteOrderAsync([FromBody] DeleteOrderCommand command, 
+    public async Task<IActionResult> DeleteOrderAsync([FromQuery] DeleteOrderCommand command, 
         CancellationToken cancellationToken)
     {
         var result = await mediator.Send(command, cancellationToken);

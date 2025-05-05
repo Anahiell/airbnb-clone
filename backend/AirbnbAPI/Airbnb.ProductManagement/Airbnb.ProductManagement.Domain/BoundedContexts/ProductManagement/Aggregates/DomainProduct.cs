@@ -65,6 +65,12 @@ public class DomainProduct : AggregateRoot
             productIsAvailable, createdDate, userId, appartmentTypeId, addressLegalId));
     }
 
+    public void Archive()
+    {
+        IsAvailable = false;
+        RaiseEvent(new ProductArchivedEvent(Id));
+    }
+
     public void DeleteProduct()
     {
         RaiseEvent(new ProductDeletedEvent(Id));
@@ -103,6 +109,9 @@ public class DomainProduct : AggregateRoot
             case ProductUpdatedEvent e:
                 OnProductUpdatedEvent(e);
                 break;
+            case ProductArchivedEvent e:
+                OnProductArchivedEvent(e);
+                break;
         }
     }
 
@@ -137,5 +146,11 @@ public class DomainProduct : AggregateRoot
         Id = @event.AggregateId;
     }
 
+    private void OnProductArchivedEvent(ProductArchivedEvent @event)
+    {
+        Id = @event.AggregateId;
+        IsAvailable = false;
+    }
+    
     #endregion
 }

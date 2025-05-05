@@ -26,7 +26,7 @@ public class ProductEntityInfo : IQueryEntity
     public List<PictureInfo>? Pictures { get; set; }
     
     public void AddOrders(IEnumerable<OrderInfo> orders) =>
-        Orders = orders.Where(o => o.ProductId == AddressLegalId).ToList();
+        Orders = orders.Where(o => o.ProductId == Id).ToList();
 
     public void AddPictures(IEnumerable<PictureInfo> pictures) =>
         Pictures = pictures.Where(p => p.UserId == UserId).ToList();

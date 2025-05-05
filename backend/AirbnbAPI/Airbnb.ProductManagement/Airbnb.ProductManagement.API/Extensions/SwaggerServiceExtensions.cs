@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Microsoft.OpenApi.Models;
 
 namespace AirbnbAPI.Extensions;
 
@@ -8,6 +9,13 @@ public static class SwaggerServiceExtensions
     {
         services.AddSwaggerGen(c =>
         {
+            c.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Title = "Airbnb Product API",
+                Version = "v1",
+                Description = "API для работы с продуктами",
+            });
+            
             c.EnableAnnotations();
             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);

@@ -8,7 +8,6 @@ public class ReviewEntityInfo : IQueryEntity
     public string? Description { get; set; }
     public int Rating { get; set; }
     public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
     public int UserId { get; set; }
     public int ProductId { get; set; }
 }

@@ -47,9 +47,7 @@ public class DomainReview : AggregateRoot
         Title = title;
         Description = description;
         Rating = rating;
-        CreatedAt = createdAt;
-        UserId = userId;
-        ProductId = productId;
+        CreatedAt = createdAt; ;
 
         RaiseEvent(new ReviewUpdatedEvent(Id, title, description, rating, createdAt, userId, productId));
     }

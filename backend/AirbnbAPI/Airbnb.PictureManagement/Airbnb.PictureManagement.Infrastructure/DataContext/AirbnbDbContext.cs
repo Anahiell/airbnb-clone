@@ -6,7 +6,8 @@ namespace Airbnb.PictureManagement.Infrastructure.DataContext;
 
 public class AirbnbPictureDbContext(DbContextOptions<AirbnbPictureDbContext> options) : DbContext(options)
 {
-    public DbSet<DomainPicture> DomainPicture { get; private set; }
+    public DbSet<UserPicture> UserPictures { get; set; }
+    public DbSet<ProductPicture> ProductPictures { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

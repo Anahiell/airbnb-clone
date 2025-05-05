@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Airbnb.MongoRepository.Configuration;
 using Airbnb.ReviewManagement.Domain.BoundedContexts.ReviewManagement.Aggregates;
 using Airbnb.ReviewManagementInfrastructure.Configuration;
@@ -25,7 +26,8 @@ public class Program
         builder.Services.AddTransient<IRepository<DomainReview>, ReviewRepository>();
 
         // Добавляем стандартные сервисы
-        builder.Services.AddControllers();
+        builder.Services.AddControllers().AddJsonOptions(options =>
+            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));;
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddProblemDetails();
 

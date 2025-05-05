@@ -15,7 +15,9 @@ public class UpdateTagCommandHandler(IRepository<DomainTag> tagRepository, IMedi
     {
         var tag = await tagRepository.GetByIdAsync(request.Id, cancellationToken);
         if (tag is null)
-            // return Result.Failure("Тег не найден");
+        {
+            // return Result.Failure("Тег не найден");   
+        }
 
         tag.UpdateName(request.NewName);
 

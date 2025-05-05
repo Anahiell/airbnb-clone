@@ -40,9 +40,6 @@ namespace Airbnb.TagsManagement.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
                     b.ToTable("Tags", (string)null);
                 });
 #pragma warning restore 612, 618

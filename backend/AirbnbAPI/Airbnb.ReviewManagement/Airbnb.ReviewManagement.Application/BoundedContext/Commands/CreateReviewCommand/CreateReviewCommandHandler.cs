@@ -12,7 +12,7 @@ public class CreateReviewCommandHandler(IRepository<DomainReview> reviewReposito
 {
     public async Task<Result<int>> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
     {
-        var review = new DomainReview(request.Comment, request.Description, request.Rating, DateTime.Now, 1, 1);
+        var review = new DomainReview(request.Comment, request.Description, request.Rating, DateTime.Now, request.UserId, request.ProductId);
 
         var result = await reviewRepository.AddAsync(review, cancellationToken);
 

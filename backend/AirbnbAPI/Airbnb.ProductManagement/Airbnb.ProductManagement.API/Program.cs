@@ -1,10 +1,13 @@
 using System.Reflection;
+using System.Text.Json.Serialization;
 using Airbnb.Application.Behaviors;
 using Airbnb.Application.Results;
 using Airbnb.Connection.ConnectionRealization;
 using Airbnb.Connection.ConnectionService.HttpConnection.Services;
 using Airbnb.Domain;
+using Airbnb.Domain.BoundedContexts.AddressManagement.Aggregates;
 using Airbnb.Domain.BoundedContexts.ProductManagement.Interfaces;
+using Airbnb.Domain.BoundedContexts.PropertyTypeManagement.Aggregates;
 using Airbnb.Infrastructure.Configuration;
 using Airbnb.Infrastructure.DataContext;
 using Airbnb.Infrastructure.Repositories;
@@ -36,9 +39,13 @@ public class Program
                                            throw new ApplicationException("MongoDb settings not found."));
 
         builder.Services.AddTransient<IRepository<DomainProduct>, ProductRepository>();
+        builder.Services.AddScoped<IRepository<AddressLegal>, AddressRepository>();
+        builder.Services.AddScoped<IRepository<ApartmentType>, ApartmentTypeRepository>();
+
         builder.Services.AddTransient<IProductDataAggregator, ProductDataAggregator>();
         // Добавляем стандартные сервисы
-        builder.Services.AddControllers();
+        builder.Services.AddControllers().AddJsonOptions(options =>
+            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())); 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddProblemDetails();
         
@@ -71,7 +78,11 @@ public class Program
 
         // Настройка HTTP запроса
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Airbnb Product API v1");
+            c.RoutePrefix = string.Empty;
+        });
         app.UseCors("AllowFrontend");
         app.UseExceptionHandler();
         app.UseAuthorization();

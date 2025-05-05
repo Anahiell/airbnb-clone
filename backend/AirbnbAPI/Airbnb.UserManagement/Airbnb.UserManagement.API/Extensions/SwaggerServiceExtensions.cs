@@ -11,10 +11,14 @@ public static class SwaggerServiceExtensions
         services.AddSwaggerGen(c =>
         {
             c.EnableAnnotations();
+            
+            c.SwaggerDoc("User", new OpenApiInfo { Title = "User API", Version = "v1" });
+            c.SwaggerDoc("Auth", new OpenApiInfo { Title = "Auth API", Version = "v1" });
+            
             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             c.IncludeXmlComments(xmlPath);
-            
+
             // Схема авторизации Bearer
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {

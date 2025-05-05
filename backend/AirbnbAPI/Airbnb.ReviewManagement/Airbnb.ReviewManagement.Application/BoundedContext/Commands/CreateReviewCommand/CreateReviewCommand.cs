@@ -15,4 +15,10 @@ public class CreateReviewCommand : ICommand<Result<int>>
 
     [SwaggerSchema("Оценка отзыва (1-5)")]
     public int Rating { get; init; }
+    
+    [SwaggerSchema("Идентификатор продукта")]
+    public int ProductId { get; init; }
+    
+    [SwaggerSchema("Идентификатор пользователя")]
+    public int UserId { get; init; }
 }
