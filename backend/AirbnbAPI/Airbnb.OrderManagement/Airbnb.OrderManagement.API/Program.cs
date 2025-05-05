@@ -52,6 +52,7 @@ public class Program
             var dbContext = scope.ServiceProvider.GetRequiredService<AirbnbOrderDbContext>();
             app.UsePostgreSqlMigration(dbContext);
         }
+
         app.UsePathBase("/order");
         // Настройка HTTP запроса
         app.UseSwagger();
