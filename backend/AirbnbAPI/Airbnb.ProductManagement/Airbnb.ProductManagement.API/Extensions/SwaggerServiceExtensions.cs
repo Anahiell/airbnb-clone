@@ -18,7 +18,9 @@ public static class SwaggerServiceExtensions
             
             c.EnableAnnotations();
             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            Console.WriteLine("XML File:" +xmlFile);
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            Console.WriteLine("Path:" + xmlPath);
             c.IncludeXmlComments(xmlPath);
         });
 

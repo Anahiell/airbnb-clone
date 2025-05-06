@@ -58,7 +58,7 @@ public class Program
         app.UseSwagger();
         app.UseSwaggerUI(c =>
         {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Picture API V1");
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Order API V1");
             c.RoutePrefix = "swagger";
         });
         app.UseCors("AllowFrontend");
