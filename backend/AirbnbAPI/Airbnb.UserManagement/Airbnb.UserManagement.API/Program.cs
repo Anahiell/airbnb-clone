@@ -59,8 +59,8 @@ public class Program
         app.UseSwagger();
         app.UseSwaggerUI(c =>
         {
-            c.SwaggerEndpoint("/swagger/User/swagger.json", "User API V1");
-            c.SwaggerEndpoint("/swagger/Auth/swagger.json", "Auth API V1");
+            c.SwaggerEndpoint("/user/swagger/User/swagger.json", "User API V1");
+            c.SwaggerEndpoint("/user/swagger/Auth/swagger.json", "Auth API V1");
             c.RoutePrefix = "swagger";
         });
         app.UseCors("AllowFrontend");
