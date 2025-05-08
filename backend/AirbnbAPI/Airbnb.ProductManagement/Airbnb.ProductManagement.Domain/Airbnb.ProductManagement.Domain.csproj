@@ -8,7 +8,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="BoundedContexts\AddressManagement\Interfaces\" />
       <Folder Include="BoundedContexts\ApartmentTypeManagement\Interfaces\" />
     </ItemGroup>
 

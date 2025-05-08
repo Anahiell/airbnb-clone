@@ -42,7 +42,7 @@ public class CreateProductCommandHandler(
             addressLegalId: address.Id
         );
         
-        var apartmentType = ApartmentType.GetApartmentTypeByValue(request.ApartmentType);
+        var apartmentType = await apartmentTypeRepository.GetByIdAsync((int)request.ApartmentType, cancellationToken);
         
         if (apartmentType == null)
         {

@@ -16,7 +16,7 @@ public class GetTagPaginatedQuery : ICachedQuery<Result<IEnumerable<TagEntityInf
     [SwaggerIgnore]
     public TimeSpan? Expiration => null;
 
-    public string? Name { get; set; }
+    public string? TagName { get; set; }
     public int Page { get; set; }
     public int PageSize { get; set; }
     public TagSortState SortOrder { get; set; }

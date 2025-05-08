@@ -18,7 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="BoundedContext\Queries\GetPopularTagsByProductIdQuery\" />
+      <Folder Include="BoundedContext\TagManagement\" />
     </ItemGroup>
 
 </Project>

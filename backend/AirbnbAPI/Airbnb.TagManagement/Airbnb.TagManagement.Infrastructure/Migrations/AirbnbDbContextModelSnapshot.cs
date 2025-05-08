@@ -22,6 +22,25 @@ namespace Airbnb.TagsManagement.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Airbnb.TagsManagement.Domain.BoundedContexts.ProductTagManagement.Aggregates.ProductTag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductTag");
+                });
+
             modelBuilder.Entity("Airbnb.TagsManagement.Domain.BoundedContexts.TagsManagement.Aggregates.DomainTag", b =>
                 {
                     b.Property<int>("Id")

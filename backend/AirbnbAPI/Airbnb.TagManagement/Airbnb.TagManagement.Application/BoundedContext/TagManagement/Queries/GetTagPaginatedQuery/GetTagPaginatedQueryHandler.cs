@@ -46,8 +46,8 @@ public static class TagFilterBuilder
         var builder = Builders<TagEntityInfo>.Filter;
         var filters = new List<FilterDefinition<TagEntityInfo>>();
 
-        if (!string.IsNullOrEmpty(request.Name))
-            filters.Add(builder.Regex(t => t.Name, new MongoDB.Bson.BsonRegularExpression(request.Name, "i")));
+        if (!string.IsNullOrEmpty(request.TagName))
+            filters.Add(builder.Regex(t => t.Name, new MongoDB.Bson.BsonRegularExpression(request.TagName, "i")));
 
         return filters.Any() ? builder.And(filters) : builder.Empty;
     }

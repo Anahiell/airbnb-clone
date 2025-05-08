@@ -17,7 +17,7 @@ public class GetProductPicturesPaginatedQuery : ICachedQuery<Result<IEnumerable<
     [SwaggerIgnore]
     public TimeSpan? Expiration => null;
 
-    public int? UserId { get; set; }
+    public int? ProductId { get; set; }
     public DateTime? CreatedAfter { get; set; }
     public DateTime? CreatedBefore { get; set; }
     public PictureSortState SortOrder { get; set; }

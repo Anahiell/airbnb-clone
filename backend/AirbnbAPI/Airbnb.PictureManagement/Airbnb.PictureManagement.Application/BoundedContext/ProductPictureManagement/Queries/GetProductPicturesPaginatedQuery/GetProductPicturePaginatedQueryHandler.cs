@@ -46,6 +46,11 @@ public static class PictureFilterBuilder
         var builder = Builders<PictureEntityInfo>.Filter;
         var filters = new List<FilterDefinition<PictureEntityInfo>>();
 
+        if (request.ProductId.HasValue)
+        {
+            filters.Add(builder.Gte(p => p.ProductId, request.ProductId.Value));
+        }
+        
         if (request.CreatedAfter.HasValue)
             filters.Add(builder.Gte(p => p.CreatedAt, request.CreatedAfter.Value));
 

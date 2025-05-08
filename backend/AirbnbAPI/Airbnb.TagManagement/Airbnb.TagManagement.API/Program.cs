@@ -2,6 +2,8 @@ using System.Text.Json.Serialization;
 using Airbnb.MongoRepository.Configuration;
 using Airbnb.SharedKernel.Repositories;
 using Airbnb.TagManagement.API.Extensions;
+using Airbnb.TagsManagement.Domain.BoundedContexts.ProductTagManagement.Aggregates;
+using Airbnb.TagsManagement.Domain.BoundedContexts.ProductTagManagement.Interfaces;
 using Airbnb.TagsManagement.Domain.BoundedContexts.TagsManagement.Aggregates;
 using Airbnb.TagsManagement.Infrastructure.Configuration;
 using Airbnb.TagsManagement.Infrastructure.DataContext;
@@ -24,6 +26,7 @@ public class Program
                                            throw new ApplicationException("MongoDb settings not found."));
 
         builder.Services.AddTransient<IRepository<DomainTag>, TagRepository>();
+        builder.Services.AddTransient<IProductTagRepository, ProductTagRepository>();
 
         // Добавляем стандартные сервисы
         builder.Services.AddControllers().AddJsonOptions(options =>

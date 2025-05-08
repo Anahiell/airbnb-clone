@@ -1,6 +1,7 @@
 ﻿using Airbnb.MongoRepository.Configuration;
 using Airbnb.MongoRepository.Interfaces;
 using Airbnb.MongoRepository.Repositories;
+using Airbnb.TagsManagement.Application.BoundedContext.ProductTagManagement.QueryObjects;
 using Airbnb.TagsManagement.Application.BoundedContext.QueryObjects;
 using MongoDB.Driver;
 
@@ -16,6 +17,9 @@ public static class MongoDbServiceExtensions
 
         services.AddTransient<BaseMongoRepository<TagEntityInfo>, MongoDbRepository<TagEntityInfo>>();
         services.AddTransient<IProjectionRepository<TagEntityInfo>, MongoDbRepository<TagEntityInfo>>();
+        
+        services.AddTransient<BaseMongoRepository<ProductTagEntityInfo>, MongoDbRepository<ProductTagEntityInfo>>();
+        services.AddTransient<IProjectionRepository<ProductTagEntityInfo>, MongoDbRepository<ProductTagEntityInfo>>();
 
         return services;
     }

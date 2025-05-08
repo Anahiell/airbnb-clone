@@ -22,11 +22,16 @@ public class GetProductPaginatedQuery : ICachedQuery<Result<IEnumerable<ProductE
     public string? City { get; set; }
     public decimal? MinPrice { get; set; }
     public decimal? MaxPrice { get; set; }
+    [SwaggerParameter(Description = "Начало периода (например, 2025-05-08 или 2025-05-08T14:30:00)")]
     public DateTime? DateStart { get; set; }
+    
+    [SwaggerParameter(Description = "Конец периода (например, 2025-05-08 или 2025-05-08T14:30:00)")]
     public DateTime? DateEnd { get; set; }
-    public IEnumerable<object>? Tags { get; set; }
-    public int MinRating { get; set; }
-    public int MaxRating { get; set; }
+
+    public IEnumerable<string>? Tags { get; set; }
+
+    public double? MinRating { get; set; }
+    public double? MaxRating { get; set; }
     public int Page { get; set; }
     public int PageSize { get; set; }
     public SortState SortOrder { get; set; }

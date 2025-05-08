@@ -1,4 +1,5 @@
-﻿using Airbnb.MongoRepository.Entities;
+﻿using Airbnb.Domain.BoundedContexts.PropertyTypeManagement.ValueObjects;
+using Airbnb.MongoRepository.Entities;
 
 namespace Airbnb.ProductManagement.Application.BoundedContext.QueryObjects;
 
@@ -9,33 +10,23 @@ public class ProductEntityInfo : IQueryEntity
     public string? Description { get; set; }
     public int Price { get; set; }
 
-    public int Rating { get; set; }
+    public double Rating { get; set; }
     public int UserId { get; set; }
 
     public bool Availability { get; set; }
 
     public int ApartmentTypeId { get; set; }
 
+    public PropertyTypeEnum? ApartmentType { get; set; }
     public DateTime CreatedDate { get; set; }
 
     public int AddressLegalId { get; set; }
     
+    public string? AddressFull { get; set; }
     public List<ReviewInfo>? Review { get; set; }
     public List<TagInfo>? Tags { get; set; }
     public List<OrderInfo>? Orders { get; set; }
     public List<PictureInfo>? Pictures { get; set; }
-    
-    public void AddOrders(IEnumerable<OrderInfo> orders) =>
-        Orders = orders.Where(o => o.ProductId == Id).ToList();
-
-    public void AddPictures(IEnumerable<PictureInfo> pictures) =>
-        Pictures = pictures.Where(p => p.UserId == UserId).ToList();
-
-    public void AddReviews(IEnumerable<ReviewInfo> reviews) =>
-        Review = reviews.Where(r => r.ProductId == AddressLegalId).ToList();
-
-    public void AddTags(IEnumerable<TagInfo> tags) =>
-        Tags = tags.ToList();
 }
 
 public class OrderInfo
@@ -50,8 +41,7 @@ public class OrderInfo
 public class PictureInfo
 {
     public string Url { get; set; }
-    public string? Description { get; set; }
-    public int UserId { get; set; }
+    public int ProductId { get; set; }
     public DateTime CreatedAt { get; set; }
     public int Id { get; set; }
 }
@@ -70,6 +60,6 @@ public class ReviewInfo
 
 public class TagInfo
 {
-    public string Name { get; set; }
+    public string TagName { get; set; }
     public int Id { get; set; }
 }
