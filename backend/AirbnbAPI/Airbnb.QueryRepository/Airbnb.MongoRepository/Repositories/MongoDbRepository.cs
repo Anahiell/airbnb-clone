@@ -86,6 +86,14 @@ public class MongoDbRepository<T> : BaseMongoRepository<T>, IProjectionRepositor
             throw new MongoDbException($"Cannot execute projection for delete of entity with id {id}.", ex);
         }
     }
+    
+    public async Task UpsertAsync(T entity)
+    {
+        var filter = Builders<T>.Filter.Eq(e => e.Id, entity.Id);
+        var options = new ReplaceOptions { IsUpsert = true };
+        await _mongoDatabase.GetCollection<T>(CollectionName)
+            .ReplaceOneAsync(filter, entity, options);
+    }
 
     #endregion
 }

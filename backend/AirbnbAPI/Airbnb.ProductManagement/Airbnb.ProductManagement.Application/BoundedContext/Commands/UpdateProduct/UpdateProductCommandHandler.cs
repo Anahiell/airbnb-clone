@@ -2,7 +2,9 @@
 using Airbnb.Application.Results;
 using Airbnb.Domain;
 using Airbnb.Domain.BoundedContexts.ProductManagement.Events;
+using Airbnb.ProductManagement.Application.BoundedContext.Events;
 using Airbnb.SharedKernel.Repositories;
+using MassTransit;
 using MediatR;
 
 namespace Airbnb.ProductManagement.Application.BoundedContext.Commands;
@@ -11,18 +13,19 @@ public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand,
 {
     private readonly IRepository<DomainProduct> _productRepository;
     private readonly IMediator _mediator;
-
-    public UpdateProductCommandHandler(IRepository<DomainProduct> productRepository, IMediator mediator)
+    private readonly IBus _bus;
+    public UpdateProductCommandHandler(IRepository<DomainProduct> productRepository, IMediator mediator, IBus bus)
     {
         _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
         _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        _bus = bus;
     }
 
     public async Task<Result> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
         var product = await _productRepository.GetByIdAsync(request.Id, cancellationToken);
         if (product is null)
-            // return Result.Failure("Продукт не найден");
+            Console.WriteLine("Product not found");
 
             product.UpdateProduct(
                 request.ProductTitle,
@@ -36,6 +39,14 @@ public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand,
             );
 
         await _productRepository.UpdateAsync(product, cancellationToken);
+        
+        await _bus.Publish(new ProductSignalRUpdatedEvent
+        {
+            ProductId = product.Id,
+            ProductTitle = product.Title,
+            ProductDescription = product.Description,
+            ProductPrice = product.Price,
+        });
 
         await _mediator.Publish(new ProductUpdatedEvent(
             product.Id,

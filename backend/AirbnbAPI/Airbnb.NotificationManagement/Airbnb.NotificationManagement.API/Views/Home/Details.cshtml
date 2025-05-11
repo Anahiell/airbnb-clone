@@ -1,0 +1,70 @@
+﻿@model WebApplication1.Controllers.ProductEntityInfo
+
+<h2>Product Details</h2>
+
+<p><strong>ProductId:</strong> @Model.UserId</p>
+<p><strong>Title:</strong> <span id="title">@Model.Title</span></p>
+<p><strong>Description:</strong> <span id="description">@Model.Description</span></p>
+<p><strong>Price:</strong> <span id="price">@Model.Price</span></p>
+
+@if (Model.Pictures?.Any() == true)
+{
+<h4>Pictures:</h4>
+@foreach (var pic in Model.Pictures)
+{
+<img src="@($"http://127.0.0.1:8083{pic.Url}")" width="200" />
+}
+}
+
+@if (Model.Review?.Any() == true)
+{
+<h4>Reviews:</h4>
+<ul>
+    @foreach (var review in Model.Review)
+    {
+    <li>
+        <strong>@review.Title:</strong> @review.Description (Rating: @review.Rating)
+    </li>
+    }
+</ul>
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+<script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/propertyHub")
+        .build();
+
+    const pageGroup = "@ViewContext.RouteData.Values["action"]";
+
+    console.log("PageGroup: " + pageGroup);
+
+    connection.on("ReceivePropertyUpdate", function(product) {
+        console.log("Consume " + product.productId);
+
+        const title = document.getElementById("title");
+        const description = document.getElementById("description");
+        const price = document.getElementById("price");
+        const pictures = document.getElementById("pictures");
+
+        if (title) title.textContent = product.productTitle;
+        if (description) description.textContent = product.productDescription;
+        if (price) price.textContent = product.productPrice;
+
+        if (pictures && product.productPictures) {
+            pictures.innerHTML = product.productPictures
+                .map(p => `<img src="http://127.0.0.1:8083${p.url}" width="200" />`)
+                .join("");
+        }
+    });
+
+    connection.start()
+        .then(() => {
+            console.log("✅ SignalR connected on Privacy page");
+            connection.invoke("SubscribeToPage", pageGroup);
+        })
+        .catch(err => console.error("SignalR error:", err));
+
+    connection.onclose(err => {
+        console.error("SignalR disconnected", err);
+    });
+</script>

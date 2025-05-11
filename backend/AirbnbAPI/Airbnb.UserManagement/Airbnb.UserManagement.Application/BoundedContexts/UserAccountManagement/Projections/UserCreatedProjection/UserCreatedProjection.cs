@@ -21,8 +21,6 @@ public class UserCreatedProjection : INotificationHandler<UserCreatedEvent>
             Id = @event.AggregateId,
             FullName = @event.FullName,
             Email = @event.Email,
-            // Role = @event.Role,
-            // DateOfBirth = @event.DateOfBirth
         };
 
         await _repository.InsertAsync(user);

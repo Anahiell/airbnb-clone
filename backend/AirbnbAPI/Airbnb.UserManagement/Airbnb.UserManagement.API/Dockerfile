@@ -14,6 +14,7 @@ COPY AirbnbAPI.sln ./AirbnbAPI.sln
 COPY ["Airbnb.SharedKernel/Airbnb.Domain/Airbnb.Domain.csproj", "../Airbnb.SharedKernel/Airbnb.Domain/"]
 COPY ["Airbnb.SharedKernel/Airbnb.Application/Airbnb.Application.csproj", "../Airbnb.SharedKernel/Airbnb.Application/"]
 COPY ["Airbnb.SharedKernel/Airbnb.Cache/Airbnb.Cache.csproj", "../Airbnb.SharedKernel/Airbnb.Cache/"]
+COPY ["Airbnb.SharedKernel/Airbnb.Connection/Airbnb.Connection.csproj", "../Airbnb.SharedKernel/Airbnb.Connection/"]
 
 COPY ["Airbnb.QueryRepository/Airbnb.MongoRepository/Airbnb.MongoRepository.csproj", "../Airbnb.QueryRepository/Airbnb.MongoRepository/"]
 
@@ -30,6 +31,7 @@ COPY ["Airbnb.SharedKernel/Airbnb.Domain/", "./Airbnb/../Airbnb.SharedKernel/Air
 COPY ["Airbnb.SharedKernel/Airbnb.Application/", "./Airbnb/../Airbnb.SharedKernel/Airbnb.Application/"]
 COPY ["Airbnb.SharedKernel/Airbnb.Infrastructure/", "./Airbnb/../Airbnb.SharedKernel/Airbnb.Infrastructure/"]
 COPY ["Airbnb.SharedKernel/Airbnb.Cache/", "./Airbnb/../Airbnb.SharedKernel/Airbnb.Cache/"]
+COPY ["Airbnb.SharedKernel/Airbnb.Connection/", "./Airbnb/../Airbnb.SharedKernel/Airbnb.Connection/"]
 
 COPY ["Airbnb.QueryRepository/Airbnb.MongoRepository/.", "./Airbnb/../Airbnb.QueryRepository/Airbnb.MongoRepository/"]
 

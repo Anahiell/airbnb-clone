@@ -28,7 +28,7 @@ public class ProductUpdatedProjection : INotificationHandler<ProductUpdatedEvent
             UserId = @event.UserId,
             ApartmentTypeId = @event.AppartmentTypeId,
         };
-
-        await _repository.UpdateAsync(updatedProduct);
+        Console.WriteLine("Projection" + updatedProduct.Id);
+        await _repository.UpsertAsync(updatedProduct);
     }
 }

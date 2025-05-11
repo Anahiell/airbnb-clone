@@ -20,6 +20,7 @@ public class Result<T>
 
     public static Result<T> Success(T value) => new(value);
     public static Result<T> Failure(List<string> errors) => new(errors);
+    public static Result<T> Failure(string error) => new([error]);
 }
 
 public class Result

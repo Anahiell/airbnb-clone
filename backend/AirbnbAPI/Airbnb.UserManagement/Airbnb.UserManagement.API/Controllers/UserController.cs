@@ -1,4 +1,7 @@
-﻿using Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Commands.UpdateUserCommand;
+﻿using Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Commands.ChangeUserPassword;
+using Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Commands.UpdateUserCommand;
+using Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Commands.UpdateUserPasswordCommand;
+using Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Commands.UpdateUserPictureCommand;
 using Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Commands.UserCreateCommand;
 using Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Queries.GetUserByIdQuery;
 using Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.QueryObjects;
@@ -61,6 +64,50 @@ public class UserController : ControllerBase
     {
         var result = await _mediator.Send(query, cancellationToken);
 
+        return Ok(result.Value);
+    }
+    
+    /// <summary>
+    /// Обновить Email пользователя.
+    /// </summary>
+    [HttpPut]
+    [Route("UpdateUserEmail")]
+    [SwaggerOperation(Summary = "Обновить Email пользователя", Description = "Обновляет Email по ID пользователя.")]
+    [SwaggerResponse(200, "Email успешно обновлен", typeof(string))]
+    [SwaggerResponse(400, "Ошибка валидации", typeof(string))]
+    [SwaggerResponse(404, "Пользователь не найден", typeof(string))]
+    public async Task<IActionResult> UpdateUserEmailAsync([FromQuery] UpdateUserEmailCommand command, CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send(command, cancellationToken);
+        return Ok(result.Value);
+    }
+    
+    /// <summary>
+    /// Обновить пароль пользователя.
+    /// </summary>
+    [HttpPut]
+    [Route("UpdateUserPassword")]
+    [SwaggerOperation(Summary = "Обновить пароль пользователя", Description = "Изменяет пароль при наличии текущего.")]
+    [SwaggerResponse(200, "Пароль успешно обновлен", typeof(string))]
+    [SwaggerResponse(400, "Ошибка валидации или неправильный текущий пароль", typeof(string))]
+    [SwaggerResponse(404, "Пользователь не найден", typeof(string))]
+    public async Task<IActionResult> UpdateUserPasswordAsync([FromQuery] UpdateUserPasswordCommand command, CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send(command, cancellationToken);
+        return Ok(result.Value);
+    }
+    
+    /// <summary>
+    /// Обновить фотографию пользователя.
+    /// </summary>
+    [HttpPut]
+    [Route("UpdateUserPicture")]
+    [SwaggerOperation(Summary = "Обновить фотографию пользователя", Description = "Заменяет текущую фотографию пользователя на новую.")]
+    [SwaggerResponse(200, "Фотография отправлена в очередь на обновление", typeof(string))]
+    [SwaggerResponse(400, "Ошибка валидации", typeof(string))]
+    public async Task<IActionResult> UpdateUserPictureAsync([FromForm] UpdateUserPictureCommand command, CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send(command, cancellationToken);
         return Ok(result.Value);
     }
 }

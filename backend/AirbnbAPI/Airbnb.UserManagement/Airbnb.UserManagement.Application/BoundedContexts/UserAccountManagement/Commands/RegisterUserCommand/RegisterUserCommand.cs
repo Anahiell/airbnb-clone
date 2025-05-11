@@ -1,5 +1,7 @@
 ﻿using Airbnb.Application.Messaging;
 using Airbnb.Application.Results;
+using Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.Aggregates;
+using Microsoft.AspNetCore.Http;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Commands.RegisterUserCommand;
@@ -20,5 +22,8 @@ public class RegisterUserCommand : ICommand<Result<int>>
     public DateTime DateOfBirth { get; init; }
 
     [SwaggerSchema("Роли пользователя")]
-    public IList<string> Roles { get; init; } = new List<string>();
+    public List<UserRole> Roles { get; init; } = new List<UserRole>();
+    
+    [SwaggerSchema("Фотография пользователя")]
+    public IFormFile UserPicture { get; init; }
 }

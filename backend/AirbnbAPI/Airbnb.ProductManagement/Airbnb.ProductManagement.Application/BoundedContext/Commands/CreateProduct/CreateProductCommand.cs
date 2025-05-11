@@ -1,6 +1,7 @@
 ﻿using Airbnb.Application.Messaging;
 using Airbnb.Application.Results;
 using Airbnb.Domain.BoundedContexts.PropertyTypeManagement.ValueObjects;
+using Microsoft.AspNetCore.Http;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Airbnb.ProductManagement.Application.BoundedContext.Commands.CreateProduct;
@@ -43,4 +44,8 @@ public class CreateProductCommand : ICommand<Result<int>>
 
     [SwaggerSchema("Квартира")]
     public string? Flat { get; init; }
+    
+    public List<IFormFile> PictureFiles { get; init; }
+    
+    public List<string> ProductTags { get; init; }
 }

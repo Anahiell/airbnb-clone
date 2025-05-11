@@ -1,6 +1,7 @@
 ﻿using Airbnb.Application.Messaging;
 using Airbnb.Application.Results;
 using Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.Aggregates;
+using Microsoft.AspNetCore.Http;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Commands.UserCreateCommand;
@@ -19,4 +20,7 @@ public class CreateUserCommand : ICommand<Result<int>>
 
     [SwaggerSchema("Дата рождения пользователя")]
     public DateTime DateOfBirth { get; init; }
+    
+    [SwaggerSchema("Фотография пользователя")]
+    public IFormFile UserPicture { get; init; }
 }

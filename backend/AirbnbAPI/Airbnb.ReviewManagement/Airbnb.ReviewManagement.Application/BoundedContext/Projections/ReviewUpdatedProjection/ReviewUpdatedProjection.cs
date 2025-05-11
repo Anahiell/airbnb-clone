@@ -27,6 +27,6 @@ public class ReviewUpdatedProjection : INotificationHandler<ReviewUpdatedEvent>
             CreatedAt = @event.CreatedAt,
         };
 
-        await _repository.UpdateAsync(updatedReview);
+        await _repository.UpsertAsync(updatedReview);
     }
 }

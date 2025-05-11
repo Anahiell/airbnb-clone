@@ -119,6 +119,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.OrderManagement.Unit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.UserManagement.Domain", "Airbnb.UserManagement\Airbnb.UserManagement.Domain\Airbnb.UserManagement.Domain.csproj", "{7EAB5DB7-3AD5-412D-B8A2-1F37131D94C8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Airbnb.PaymentService", "Airbnb.PaymentService", "{832A3C59-53A2-4CF6-9454-E5F1EC0327C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airbnb.NotificationManagement.API", "Airbnb.NotificationManagement\Airbnb.NotificationManagement.API\Airbnb.NotificationManagement.API.csproj", "{899915C5-9DD2-4265-A365-6C486B99EB88}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -313,6 +317,10 @@ Global
 		{7EAB5DB7-3AD5-412D-B8A2-1F37131D94C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EAB5DB7-3AD5-412D-B8A2-1F37131D94C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EAB5DB7-3AD5-412D-B8A2-1F37131D94C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{899915C5-9DD2-4265-A365-6C486B99EB88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{899915C5-9DD2-4265-A365-6C486B99EB88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{899915C5-9DD2-4265-A365-6C486B99EB88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{899915C5-9DD2-4265-A365-6C486B99EB88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -365,5 +373,6 @@ Global
 		{26578E5B-A94A-4D0B-885A-14F87EF0DBF9} = {BC8AF310-8D68-4B1A-AEF4-8AC70FAE3AB2}
 		{7E114069-4D1F-4A39-BD2A-3D31FD9D7316} = {BC8AF310-8D68-4B1A-AEF4-8AC70FAE3AB2}
 		{7EAB5DB7-3AD5-412D-B8A2-1F37131D94C8} = {6DE54475-F661-4065-BF9D-15C7D6CBDE43}
+		{899915C5-9DD2-4265-A365-6C486B99EB88} = {A9BDA3A1-5AD5-47F1-91DF-6936110B6EEF}
 	EndGlobalSection
 EndGlobal

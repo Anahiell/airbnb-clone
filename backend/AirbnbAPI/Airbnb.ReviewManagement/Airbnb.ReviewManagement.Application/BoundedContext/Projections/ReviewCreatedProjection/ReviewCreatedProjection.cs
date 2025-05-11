@@ -27,6 +27,6 @@ public class ReviewCreatedProjection : INotificationHandler<ReviewCreatedEvent>
             ProductId = @event.ProductId,
         };
 
-        await _repository.InsertAsync(review);
+        await _repository.UpsertAsync(review);
     }
 }

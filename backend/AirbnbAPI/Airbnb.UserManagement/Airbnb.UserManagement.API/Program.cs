@@ -1,7 +1,11 @@
 using System.Text.Json.Serialization;
+using Airbnb.Connection.ConnectionRealization;
+using Airbnb.Connection.ConnectionService.HttpConnection.Services;
 using Airbnb.MongoRepository.Configuration;
+using Airbnb.SharedKernel.ConnectionService.HttpConnection;
 using Airbnb.SharedKernel.Repositories;
 using Airbnb.TagManagement.API.Extensions;
+using Airbnb.UserManagement.API.Extensions;
 using Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Services;
 using Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.Aggregates;
 using Airbnb.UserManagement.Infrastructure.Configuration;
@@ -34,7 +38,18 @@ public class Program
         builder.Services.AddMongoDbService(builder.Configuration.GetSection("MongoDb").Get<MongoDbSettings>() ??
                                            throw new ApplicationException("MongoDb settings not found."));
 
+        builder.Services.AddMassTransitConsumers(builder.Configuration);
+
         builder.Services.AddTransient<IRepository<DomainUser>, UserRepository>();
+        
+        // HTTP Connection
+        builder.Services.AddOptions<HttpConnectionSettings>()
+            .Bind(builder.Configuration.GetSection("Routes"))
+            .ValidateDataAnnotations();
+
+        builder.Services.AddHttpClient();
+        builder.Services.AddSingleton<IRouteProvider, RouteProvider>();
+        builder.Services.AddScoped<IHttpConnectionService, HttpConnectionService>();
 
         // Добавляем стандартные сервисы
         builder.Services.AddControllers().AddJsonOptions(options =>

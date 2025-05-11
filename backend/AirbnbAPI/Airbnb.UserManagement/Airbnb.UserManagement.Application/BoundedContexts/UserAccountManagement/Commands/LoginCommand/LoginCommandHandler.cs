@@ -26,12 +26,12 @@ public class LoginCommandHandler : ICommandHandler<LoginCommand, Result<string>>
 
         if (user == null)
         {
-            // return Result<string>.Failure("Пользователь с таким email не найден.");
+            return Result<string>.Failure("Пользователь с таким email не найден.");
         }
 
         if (!user.CheckPassword(request.Password))
         {
-            // return Result<string>.Failure("Неверный пароль.");
+            return Result<string>.Failure("Неверный пароль.");
         }
 
         var roles = await _userRepository.GetRolesAsync(user);

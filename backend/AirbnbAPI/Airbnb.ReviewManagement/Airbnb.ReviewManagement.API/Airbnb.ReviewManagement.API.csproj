@@ -22,7 +22,6 @@
   </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Airbnb.ReviewManagement.Application\Airbnb.ReviewManagement.Application.csproj" />
       <ProjectReference Include="..\Airbnb.ReviewManagement.Application\Airbnb.ReviewManagement.Application.csproj" />
     </ItemGroup>
 

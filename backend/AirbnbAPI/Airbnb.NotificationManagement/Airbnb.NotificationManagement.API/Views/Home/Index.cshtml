@@ -1,0 +1,77 @@
+﻿@using WebApplication1.Controllers
+@model List<ProductEntityInfo>
+@{
+    ViewData["Title"] = "Welcome";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Real-time product updates from Kafka via SignalR</p>
+    <div id="product-feed">
+        @foreach (var product in Model)
+        {
+            <div class="product-block">
+                <hr />
+                <strong>Product ID:</strong> @product.UserId <br />
+                <strong>Title:</strong> @product.Title <br />
+                <strong>Description:</strong> @product.Description <br />
+                <strong>Price:</strong> @product.Price <br />
+                <strong>Tags:</strong> @(string.Join(", ", product.Tags?.Select(t => t.TagName) ?? Enumerable.Empty<string>())) <br />
+                <strong>Pictures:</strong>
+                <ul>
+                    @foreach (var pic in product.Pictures ?? Enumerable.Empty<PictureInfo>())
+                    {
+                    <li><img src="@($"http://127.0.0.1:8083{pic.Url}")" style="max-height:100px;" /></li>
+                    }
+                </ul>
+                <a asp-action="Details" asp-route-id="4">View Details</a>
+            </div>
+        }
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+<script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/propertyHub")
+        .build();
+
+    const pageGroup = "@(ViewContext.RouteData.Values["action"])";
+    console.log("Index PageGroup:", pageGroup);
+
+    connection.on("ReceivePropertyUpdate", product => {
+        console.log("🔥 Create event received:", product);
+
+        const container = document.getElementById("product-feed");
+
+        const tags = (product.tags || []).map(t => t.tagName).join(", ");
+        const pictures = (product.pictures || []).map(pic =>
+            `<li><img src="http://127.0.0.1:8083${pic.url}" style="max-height:100px;" /></li>`
+        ).join("");
+
+        const div = document.createElement("div");
+        div.className = "product-block";
+        div.classList.add("fade-in");
+        div.innerHTML = `
+        <hr />
+        <strong>CREATED PRODUCT</strong><br/>
+        <strong>Product ID:</strong> ${product.productId}<br/>
+        <strong>Title:</strong> ${product.productTitle}<br/>
+        <strong>Description:</strong> ${product.productDescription}<br/>
+        <strong>Price:</strong> ${product.productPrice}<br/>
+        <strong>Tags:</strong> ${tags}<br/>
+        <strong>Pictures:</strong>
+        <ul>${pictures}</ul>
+        <a href="/YourController/Details/${product.id}">View Details</a>
+    `;
+        container.prepend(div);
+    });
+
+
+    connection.start()
+        .then(() => {
+            console.log("✅ SignalR connected on Index page");
+            return connection.invoke("SubscribeToPage", pageGroup);
+        })
+        .catch(err => console.error("SignalR error:", err));
+</script>

@@ -5,8 +5,11 @@ using Airbnb.Domain.BoundedContexts.AddressManagement.Aggregates;
 using Airbnb.Domain.BoundedContexts.ProductManagement.Events;
 using Airbnb.Domain.BoundedContexts.ProductManagement.Interfaces;
 using Airbnb.Domain.BoundedContexts.PropertyTypeManagement.Aggregates;
+using Airbnb.ProductManagement.Application.BoundedContext.Events;
 using Airbnb.SharedKernel.Repositories;
+using MassTransit;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Airbnb.ProductManagement.Application.BoundedContext.Commands.CreateProduct;
 
@@ -14,6 +17,8 @@ public class CreateProductCommandHandler(
     IRepository<DomainProduct> productRepository,
     IRepository<AddressLegal> addressRepository,
     IRepository<ApartmentType> apartmentTypeRepository,
+    IBus bus,
+    ILogger<CreateProductCommandHandler> _logger,
     IMediator mediator)
     : ICommandHandler<CreateProductCommand, Result<int>>
 {
@@ -54,6 +59,34 @@ public class CreateProductCommandHandler(
         await mediator.Publish(new ProductCreatedEvent(product.Id, request.ProductTitle, request.ProductDescription,
             request.ProductPrice, true, DateTime.UtcNow, request.UserId, apartmentType.Id,
             address.Id), cancellationToken);
+        
+        // MassTransit
+        await bus.Publish(new ProductTagUpdatedEvent
+        {
+            ProductId = product.Id,
+            ProductTags = request.ProductTags,
+        }, cancellationToken);
+
+        await bus.Publish(new ProductSignalRCreatedEvent
+        {
+            ProductId = product.Id,
+            ProductTitle = product.Title,
+            ProductDescription = product.Description,
+            ProductPrice = product.Price,
+        });
+
+        foreach (var file in request.PictureFiles)
+        {
+            using var memoryStream = new MemoryStream();
+            await file.CopyToAsync(memoryStream, cancellationToken);
+            var pictureData = memoryStream.ToArray();
+
+            await bus.Publish(new ProductPictureUpdatedEvent
+            {
+                ProductId = product.Id,
+                PictureData = pictureData
+            }, cancellationToken);
+        }
 
         return Result<int>.Success(result);
     }

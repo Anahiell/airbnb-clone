@@ -1,4 +1,6 @@
-﻿using Airbnb.ProductManagement.Application.BoundedContext.Commands.ArchiveProduct;
+﻿using System.Text.Json;
+using Airbnb.ProductManagement.Application.BoundedContext.Commands;
+using Airbnb.ProductManagement.Application.BoundedContext.Commands.ArchiveProduct;
 using Airbnb.ProductManagement.Application.BoundedContext.Commands.CreateProduct;
 using Airbnb.ProductManagement.Application.BoundedContext.Queries;
 using Airbnb.ProductManagement.Application.BoundedContext.Queries.GetProductRatingByIdQuery;
@@ -93,12 +95,12 @@ namespace AirbnbAPI.Controllers
         [Route("UpdatePropertyAsync")]
         [SwaggerOperation(Summary = "Обновить объект недвижимости",
             Description = "Обновляет объект недвижимости из базы данных.")]
-        public async Task<IActionResult> UpdatePropertyAsync([FromQuery] CreateProductCommand command,
+        public async Task<IActionResult> UpdatePropertyAsync([FromQuery] UpdateProductCommand command,
             CancellationToken cancellationToken)
         {
             var result = await mediator.Send(command, cancellationToken);
 
-            return Ok(result.Value);
+            return Ok(result);
         }
 
         /// <summary>
@@ -111,12 +113,12 @@ namespace AirbnbAPI.Controllers
         [Route("DeletePropertyAsync")]
         [SwaggerOperation(Summary = "Удалить объект недвижимости",
             Description = "Удаляет объект недвижимости из базы данных.")]
-        public async Task<IActionResult> DeletePropertyAsync([FromQuery] CreateProductCommand command,
+        public async Task<IActionResult> DeletePropertyAsync([FromQuery] DeleteProductCommand command,
             CancellationToken cancellationToken)
         {
             var result = await mediator.Send(command, cancellationToken);
 
-            return Ok(result.Value);
+            return Ok(result);
         }
 
         /// <summary>
@@ -135,6 +137,21 @@ namespace AirbnbAPI.Controllers
             var result = await mediator.Send(command, cancellationToken);
 
             return Ok(result.Value);
+        }
+        
+        [HttpGet]
+        [Route("GetDemoJson")]
+        public IActionResult GetDemoJson()
+        {
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Demo", "mainpageData.json");
+            if (!System.IO.File.Exists(filePath))
+            {
+                return NotFound("JSON file not found.");
+            }
+
+            var json = System.IO.File.ReadAllText(filePath);
+            var jsonElement = JsonSerializer.Deserialize<JsonElement>(json);
+            return Ok(jsonElement);
         }
     }
 }

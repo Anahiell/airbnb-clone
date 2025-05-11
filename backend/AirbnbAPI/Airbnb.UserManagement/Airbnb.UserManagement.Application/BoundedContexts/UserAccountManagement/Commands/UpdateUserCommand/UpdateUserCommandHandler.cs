@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Commands.UpdateUserCommand;
 
-public class UpdateUserCommandHandler : ICommandHandler<UpdateUserCommand, Result>
+public class UpdateUserCommandHandler : ICommandHandler<UpdateUserCommand, Result<string>>
 {
     private readonly IRepository<DomainUser> _userRepository;
     private readonly IMediator _mediator;
@@ -18,12 +18,12 @@ public class UpdateUserCommandHandler : ICommandHandler<UpdateUserCommand, Resul
         _mediator = mediator;
     }
 
-    public async Task<Result> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result<string>> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetByIdAsync(request.Id, cancellationToken);
         if (user == null)
         {
-            // return Result.Failure("Пользователь не найден");
+            return Result<string>.Failure("Пользователь не найден");
         }
 
         user.UpdateUser(request.FullName, request.Email, request.Roles, request.DateOfBirth);
@@ -32,6 +32,6 @@ public class UpdateUserCommandHandler : ICommandHandler<UpdateUserCommand, Resul
 
         await _mediator.Publish(new UserUpdatedEvent(user.Id, user.FullName, user.Email, user.Roles, user.DateOfBirth), cancellationToken);
 
-        return Result.Success();
+        return Result<string>.Success("Пользователь успешно обновлен");
     }
 }

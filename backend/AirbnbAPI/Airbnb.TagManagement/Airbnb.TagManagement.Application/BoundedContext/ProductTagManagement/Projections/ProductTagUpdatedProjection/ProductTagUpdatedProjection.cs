@@ -23,6 +23,6 @@ public class ProductTagUpdatedProjection : INotificationHandler<ProductTagUpdate
             TagId = @event.NewTagId
         };
 
-        await _repository.UpdateAsync(updated);
+        await _repository.UpsertAsync(updated);
     }
 }

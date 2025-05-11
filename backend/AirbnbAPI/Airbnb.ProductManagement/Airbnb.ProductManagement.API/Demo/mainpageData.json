@@ -1,0 +1,498 @@
+{
+    "meta": {
+        "total": 3,
+        "page": 1,
+        "per_page": 35
+    },
+    "data": [
+        {
+            "id": "1",
+            "category": ["Центр міста", "Зручне розташування"],
+            "attributes": {
+                "title": "Затишна квартира в центрі",
+                "location": "Київ, Україна",
+                "price": 1800,
+                "rating": 4.9,
+                "images": [
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTExMTM2NzgzNzE3NjQ0NjE4OQ%3D%3D/original/00d3a53a-762e-4b44-9b7e-811836d444d0.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTExMTM2NzgzNzE3NjQ0NjE4OQ%3D%3D/original/9f3a694a-29d5-4705-bb72-c039775c392e.jpeg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTExMTM2NzgzNzE3NjQ0NjE4OQ%3D%3D/original/d5ebcf0a-6bb7-474c-9166-deffc66754e8.jpeg?im_w=720"
+                ],
+
+                "_comment": "занятые даты:",
+                "booked_dates": [
+                    {
+                        "from": "2025-08-01",
+                        "to": "2025-08-05"
+                    },
+                    {
+                        "from": "2025-08-10",
+                        "to": "2025-08-12"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "2",
+            "category": ["Гори", "Гарні краєвиди"],
+            "attributes": {
+                "title": "Будинок біля Карпат",
+                "location": "Яремче, Україна",
+                "price": 2500,
+                "rating": 4.8,
+                "description": "Комфортний дерев'яний будинок серед природи з краєвидом на гори.",
+                "images": [
+                    "https://a0.muscache.com/im/pictures/miso/Hosting-848334798313556884/original/0f3027c9-833b-4272-8d68-43af4da6b24f.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/miso/Hosting-848334798313556884/original/10b6de1d-60f5-4c84-9987-e7aba5db2c94.jpeg?im_w=1440"
+                ],
+                "_comment": "занятые даты:",
+                "booked_dates": [
+                    {
+                        "from": "2025-08-01",
+                        "to": "2025-08-05"
+                    },
+                    {
+                        "from": "2025-08-10",
+                        "to": "2025-08-12"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "3",
+            "category": ["Біля моря", "Гарні краєвиди"],
+            "attributes": {
+                "title": "Квартира біля моря",
+                "location": "Одеса, Україна",
+                "price": 2000,
+                "rating": 4.7,
+                "description": "Апартаменти з видом на море, 5 хвилин до пляжу, поруч кафе та магазини.",
+                "images": [
+                    "https://a0.muscache.com/im/pictures/prohost-api/Hosting-914195662425094931/original/f83fd40e-9c95-4d1c-bbdd-319e67817f9e.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/2dcd3ec4-27dd-49db-9d8a-3c86ea7566d3.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/c5ac5b46-5bc1-46e8-8fba-21019b1739d8.jpg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/9dae12fe-ceb5-4d73-82f9-cda57f6e28db.jpeg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/cf23391b-6bf8-4695-881e-4ef0110361a3.jpg?im_w=720"
+                ],
+                "_comment": "занятые даты:",
+                "booked_dates": [
+                    {
+                        "from": "2025-08-01",
+                        "to": "2025-08-05"
+                    },
+                    {
+                        "from": "2025-08-10",
+                        "to": "2025-08-12"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "4",
+            "category": ["Біля моря", "Гарні краєвиди"],
+            "attributes": {
+                "title": "Квартира біля моря",
+                "location": "Одеса, Україна",
+                "price": 2000,
+                "rating": 4.7,
+                "description": "Апартаменти з видом на море, 5 хвилин до пляжу, поруч кафе та магазини.",
+                "images": [
+                    "https://a0.muscache.com/im/pictures/prohost-api/Hosting-914195662425094931/original/f83fd40e-9c95-4d1c-bbdd-319e67817f9e.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/2dcd3ec4-27dd-49db-9d8a-3c86ea7566d3.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/c5ac5b46-5bc1-46e8-8fba-21019b1739d8.jpg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/9dae12fe-ceb5-4d73-82f9-cda57f6e28db.jpeg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/cf23391b-6bf8-4695-881e-4ef0110361a3.jpg?im_w=720"
+                ],
+                "_comment": "занятые даты:",
+                "booked_dates": [
+                    {
+                        "from": "2025-08-01",
+                        "to": "2025-08-05"
+                    },
+                    {
+                        "from": "2025-08-10",
+                        "to": "2025-08-12"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "5",
+            "category": ["Біля моря", "Гарні краєвиди"],
+            "attributes": {
+                "title": "Квартира біля моря",
+                "location": "Одеса, Україна",
+                "price": 2000,
+                "rating": 4.7,
+                "description": "Апартаменти з видом на море, 5 хвилин до пляжу, поруч кафе та магазини.",
+                "images": [
+                    "https://a0.muscache.com/im/pictures/prohost-api/Hosting-914195662425094931/original/f83fd40e-9c95-4d1c-bbdd-319e67817f9e.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/2dcd3ec4-27dd-49db-9d8a-3c86ea7566d3.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/c5ac5b46-5bc1-46e8-8fba-21019b1739d8.jpg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/9dae12fe-ceb5-4d73-82f9-cda57f6e28db.jpeg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/cf23391b-6bf8-4695-881e-4ef0110361a3.jpg?im_w=720"
+                ],
+                "_comment": "занятые даты:",
+                "booked_dates": [
+                    {
+                        "from": "2025-08-01",
+                        "to": "2025-08-05"
+                    },
+                    {
+                        "from": "2025-08-10",
+                        "to": "2025-08-12"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "6",
+            "category": ["Біля моря", "Гарні краєвиди"],
+            "attributes": {
+                "title": "Квартира біля моря",
+                "location": "Одеса, Україна",
+                "price": 2000,
+                "rating": 4.7,
+                "description": "Апартаменти з видом на море, 5 хвилин до пляжу, поруч кафе та магазини.",
+                "images": [
+                    "https://a0.muscache.com/im/pictures/prohost-api/Hosting-914195662425094931/original/f83fd40e-9c95-4d1c-bbdd-319e67817f9e.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/2dcd3ec4-27dd-49db-9d8a-3c86ea7566d3.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/c5ac5b46-5bc1-46e8-8fba-21019b1739d8.jpg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/9dae12fe-ceb5-4d73-82f9-cda57f6e28db.jpeg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/cf23391b-6bf8-4695-881e-4ef0110361a3.jpg?im_w=720"
+                ],
+                "_comment": "занятые даты:",
+                "booked_dates": [
+                    {
+                        "from": "2025-08-01",
+                        "to": "2025-08-05"
+                    },
+                    {
+                        "from": "2025-08-10",
+                        "to": "2025-08-12"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "7",
+            "category": ["Біля моря", "Гарні краєвиди"],
+            "attributes": {
+                "title": "Квартира біля моря",
+                "location": "Одеса, Україна",
+                "price": 2000,
+                "rating": 4.7,
+                "description": "Апартаменти з видом на море, 5 хвилин до пляжу, поруч кафе та магазини.",
+                "images": [
+                    "https://a0.muscache.com/im/pictures/prohost-api/Hosting-914195662425094931/original/f83fd40e-9c95-4d1c-bbdd-319e67817f9e.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/2dcd3ec4-27dd-49db-9d8a-3c86ea7566d3.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/c5ac5b46-5bc1-46e8-8fba-21019b1739d8.jpg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/9dae12fe-ceb5-4d73-82f9-cda57f6e28db.jpeg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/cf23391b-6bf8-4695-881e-4ef0110361a3.jpg?im_w=720"
+                ],
+                "_comment": "занятые даты:",
+                "booked_dates": [
+                    {
+                        "from": "2025-08-01",
+                        "to": "2025-08-05"
+                    },
+                    {
+                        "from": "2025-08-10",
+                        "to": "2025-08-12"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "8",
+            "category": ["Біля моря", "Гарні краєвиди"],
+            "attributes": {
+                "title": "Квартира біля моря",
+                "location": "Одеса, Україна",
+                "price": 2000,
+                "rating": 4.7,
+                "description": "Апартаменти з видом на море, 5 хвилин до пляжу, поруч кафе та магазини.",
+                "images": [
+                    "https://a0.muscache.com/im/pictures/prohost-api/Hosting-914195662425094931/original/f83fd40e-9c95-4d1c-bbdd-319e67817f9e.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/2dcd3ec4-27dd-49db-9d8a-3c86ea7566d3.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/c5ac5b46-5bc1-46e8-8fba-21019b1739d8.jpg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/9dae12fe-ceb5-4d73-82f9-cda57f6e28db.jpeg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/cf23391b-6bf8-4695-881e-4ef0110361a3.jpg?im_w=720"
+                ],
+                "_comment": "занятые даты:",
+                "booked_dates": [
+                    {
+                        "from": "2025-08-01",
+                        "to": "2025-08-05"
+                    },
+                    {
+                        "from": "2025-08-10",
+                        "to": "2025-08-12"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "9",
+            "category": ["Біля моря", "Гарні краєвиди"],
+            "attributes": {
+                "title": "Квартира біля моря",
+                "location": "Одеса, Україна",
+                "price": 2000,
+                "rating": 4.7,
+                "description": "Апартаменти з видом на море, 5 хвилин до пляжу, поруч кафе та магазини.",
+                "images": [
+                    "https://a0.muscache.com/im/pictures/prohost-api/Hosting-914195662425094931/original/f83fd40e-9c95-4d1c-bbdd-319e67817f9e.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/2dcd3ec4-27dd-49db-9d8a-3c86ea7566d3.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/c5ac5b46-5bc1-46e8-8fba-21019b1739d8.jpg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/9dae12fe-ceb5-4d73-82f9-cda57f6e28db.jpeg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/cf23391b-6bf8-4695-881e-4ef0110361a3.jpg?im_w=720"
+                ],
+                "_comment": "занятые даты:",
+                "booked_dates": [
+                    {
+                        "from": "2025-08-01",
+                        "to": "2025-08-05"
+                    },
+                    {
+                        "from": "2025-08-10",
+                        "to": "2025-08-12"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "10",
+            "category": ["Біля моря", "Гарні краєвиди"],
+            "attributes": {
+                "title": "Квартира біля моря",
+                "location": "Одеса, Україна",
+                "price": 2000,
+                "rating": 4.7,
+                "description": "Апартаменти з видом на море, 5 хвилин до пляжу, поруч кафе та магазини.",
+                "images": [
+                    "https://a0.muscache.com/im/pictures/prohost-api/Hosting-914195662425094931/original/f83fd40e-9c95-4d1c-bbdd-319e67817f9e.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/2dcd3ec4-27dd-49db-9d8a-3c86ea7566d3.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/c5ac5b46-5bc1-46e8-8fba-21019b1739d8.jpg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/9dae12fe-ceb5-4d73-82f9-cda57f6e28db.jpeg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/cf23391b-6bf8-4695-881e-4ef0110361a3.jpg?im_w=720"
+                ],
+                "_comment": "занятые даты:",
+                "booked_dates": [
+                    {
+                        "from": "2025-08-01",
+                        "to": "2025-08-05"
+                    },
+                    {
+                        "from": "2025-08-10",
+                        "to": "2025-08-12"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "11",
+            "category": ["Біля моря", "Гарні краєвиди"],
+            "attributes": {
+                "title": "Квартира біля моря",
+                "location": "Одеса, Україна",
+                "price": 2000,
+                "rating": 4.7,
+                "description": "Апартаменти з видом на море, 5 хвилин до пляжу, поруч кафе та магазини.",
+                "images": [
+                    "https://a0.muscache.com/im/pictures/prohost-api/Hosting-914195662425094931/original/f83fd40e-9c95-4d1c-bbdd-319e67817f9e.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/2dcd3ec4-27dd-49db-9d8a-3c86ea7566d3.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/c5ac5b46-5bc1-46e8-8fba-21019b1739d8.jpg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/9dae12fe-ceb5-4d73-82f9-cda57f6e28db.jpeg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/cf23391b-6bf8-4695-881e-4ef0110361a3.jpg?im_w=720"
+                ],
+                "_comment": "занятые даты:",
+                "booked_dates": [
+                    {
+                        "from": "2025-08-01",
+                        "to": "2025-08-05"
+                    },
+                    {
+                        "from": "2025-08-10",
+                        "to": "2025-08-12"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "12",
+            "category": ["Біля моря", "Гарні краєвиди"],
+            "attributes": {
+                "title": "Квартира біля моря",
+                "location": "Одеса, Україна",
+                "price": 2000,
+                "rating": 4.7,
+                "description": "Апартаменти з видом на море, 5 хвилин до пляжу, поруч кафе та магазини.",
+                "images": [
+                    "https://a0.muscache.com/im/pictures/prohost-api/Hosting-914195662425094931/original/f83fd40e-9c95-4d1c-bbdd-319e67817f9e.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/2dcd3ec4-27dd-49db-9d8a-3c86ea7566d3.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/c5ac5b46-5bc1-46e8-8fba-21019b1739d8.jpg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/9dae12fe-ceb5-4d73-82f9-cda57f6e28db.jpeg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/cf23391b-6bf8-4695-881e-4ef0110361a3.jpg?im_w=720"
+                ],
+                "_comment": "занятые даты:",
+                "booked_dates": [
+                    {
+                        "from": "2025-08-01",
+                        "to": "2025-08-05"
+                    },
+                    {
+                        "from": "2025-08-10",
+                        "to": "2025-08-12"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "13",
+            "category": "near-the-sea",
+            "attributes": {
+                "title": ["Біля моря", "Гарні краєвиди"],
+                "location": "Одеса, Україна",
+                "price": 2000,
+                "rating": 4.7,
+                "description": "Апартаменти з видом на море, 5 хвилин до пляжу, поруч кафе та магазини.",
+                "images": [
+                    "https://a0.muscache.com/im/pictures/prohost-api/Hosting-914195662425094931/original/f83fd40e-9c95-4d1c-bbdd-319e67817f9e.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/2dcd3ec4-27dd-49db-9d8a-3c86ea7566d3.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/c5ac5b46-5bc1-46e8-8fba-21019b1739d8.jpg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/9dae12fe-ceb5-4d73-82f9-cda57f6e28db.jpeg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/cf23391b-6bf8-4695-881e-4ef0110361a3.jpg?im_w=720"
+                ],
+                "_comment": "занятые даты:",
+                "booked_dates": [
+                    {
+                        "from": "2025-08-01",
+                        "to": "2025-08-05"
+                    },
+                    {
+                        "from": "2025-08-10",
+                        "to": "2025-08-12"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "14",
+            "category": ["Біля моря", "Гарні краєвиди"],
+            "attributes": {
+                "title": "Квартира біля моря",
+                "location": "Одеса, Україна",
+                "price": 2000,
+                "rating": 4.7,
+                "description": "Апартаменти з видом на море, 5 хвилин до пляжу, поруч кафе та магазини.",
+                "images": [
+                    "https://a0.muscache.com/im/pictures/prohost-api/Hosting-914195662425094931/original/f83fd40e-9c95-4d1c-bbdd-319e67817f9e.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/2dcd3ec4-27dd-49db-9d8a-3c86ea7566d3.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/c5ac5b46-5bc1-46e8-8fba-21019b1739d8.jpg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/9dae12fe-ceb5-4d73-82f9-cda57f6e28db.jpeg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/cf23391b-6bf8-4695-881e-4ef0110361a3.jpg?im_w=720"
+                ],
+                "_comment": "занятые даты:",
+                "booked_dates": [
+                    {
+                        "from": "2025-08-01",
+                        "to": "2025-08-05"
+                    },
+                    {
+                        "from": "2025-08-10",
+                        "to": "2025-08-12"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "15",
+            "category": ["Біля моря", "Гарні краєвиди"],
+            "attributes": {
+                "title": "Квартира біля моря",
+                "location": "Одеса, Україна",
+                "price": 2000,
+                "rating": 4.7,
+                "description": "Апартаменти з видом на море, 5 хвилин до пляжу, поруч кафе та магазини.",
+                "images": [
+                    "https://a0.muscache.com/im/pictures/prohost-api/Hosting-914195662425094931/original/f83fd40e-9c95-4d1c-bbdd-319e67817f9e.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/2dcd3ec4-27dd-49db-9d8a-3c86ea7566d3.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/c5ac5b46-5bc1-46e8-8fba-21019b1739d8.jpg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/9dae12fe-ceb5-4d73-82f9-cda57f6e28db.jpeg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/cf23391b-6bf8-4695-881e-4ef0110361a3.jpg?im_w=720"
+                ],
+                "_comment": "занятые даты:",
+                "booked_dates": [
+                    {
+                        "from": "2025-08-01",
+                        "to": "2025-08-05"
+                    },
+                    {
+                        "from": "2025-08-10",
+                        "to": "2025-08-12"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16",
+            "category": ["Біля моря", "Гарні краєвиди"],
+            "attributes": {
+                "title": "Квартира біля моря",
+                "location": "Одеса, Україна",
+                "price": 2000,
+                "rating": 4.7,
+                "description": "Апартаменти з видом на море, 5 хвилин до пляжу, поруч кафе та магазини.",
+                "images": [
+                    "https://a0.muscache.com/im/pictures/prohost-api/Hosting-914195662425094931/original/f83fd40e-9c95-4d1c-bbdd-319e67817f9e.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/2dcd3ec4-27dd-49db-9d8a-3c86ea7566d3.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/c5ac5b46-5bc1-46e8-8fba-21019b1739d8.jpg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/9dae12fe-ceb5-4d73-82f9-cda57f6e28db.jpeg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/cf23391b-6bf8-4695-881e-4ef0110361a3.jpg?im_w=720"
+                ],
+                "_comment": "занятые даты:",
+                "booked_dates": [
+                    {
+                        "from": "2025-08-01",
+                        "to": "2025-08-05"
+                    },
+                    {
+                        "from": "2025-08-10",
+                        "to": "2025-08-12"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "17",
+            "category": ["Біля моря", "Гарні краєвиди"],
+            "attributes": {
+                "title": "Квартира біля моря",
+                "location": "Одеса, Україна",
+                "price": 2000,
+                "rating": 4.7,
+                "description": "Апартаменти з видом на море, 5 хвилин до пляжу, поруч кафе та магазини.",
+                "images": [
+                    "https://a0.muscache.com/im/pictures/prohost-api/Hosting-914195662425094931/original/f83fd40e-9c95-4d1c-bbdd-319e67817f9e.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/2dcd3ec4-27dd-49db-9d8a-3c86ea7566d3.jpeg?im_w=1200",
+                    "https://a0.muscache.com/im/pictures/c5ac5b46-5bc1-46e8-8fba-21019b1739d8.jpg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/hosting/Hosting-53997815/original/9dae12fe-ceb5-4d73-82f9-cda57f6e28db.jpeg?im_w=720",
+                    "https://a0.muscache.com/im/pictures/cf23391b-6bf8-4695-881e-4ef0110361a3.jpg?im_w=720"
+                ],
+                "_comment": "занятые даты:",
+                "booked_dates": [
+                    {
+                        "from": "2025-08-01",
+                        "to": "2025-08-05"
+                    },
+                    {
+                        "from": "2025-08-10",
+                        "to": "2025-08-12"
+                    }
+                ]
+            }
+        }
+            
+    ]
+}

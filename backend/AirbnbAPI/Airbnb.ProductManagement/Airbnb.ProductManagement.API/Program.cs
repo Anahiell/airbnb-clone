@@ -40,6 +40,8 @@ public class Program
         builder.Services.AddMongoDbService(builder.Configuration.GetSection("MongoDb").Get<MongoDbSettings>() ??
                                            throw new ApplicationException("MongoDb settings not found."));
 
+        builder.Services.AddMassTransitConsumers(builder.Configuration);
+        
         builder.Services.AddTransient<IRepository<DomainProduct>, ProductRepository>();
         builder.Services.AddScoped<IRepository<AddressLegal>, AddressRepository>();
         builder.Services.AddScoped<IRepository<ApartmentType>, ApartmentTypeRepository>();

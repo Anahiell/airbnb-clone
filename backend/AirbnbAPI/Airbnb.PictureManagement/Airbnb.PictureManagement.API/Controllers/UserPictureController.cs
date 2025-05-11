@@ -36,7 +36,7 @@ public class UserPictureController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> GetUserPictureByIdAsync([FromQuery] GetUserPictureByIdQuery query, CancellationToken cancellationToken)
     {
         var result = await mediator.Send(query, cancellationToken);
-        return Ok(result);
+        return Ok(result.Value);
     }
 
     /// <summary>

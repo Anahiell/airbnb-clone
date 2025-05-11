@@ -24,6 +24,6 @@ public class PictureUpdatedProjection : INotificationHandler<ProductPictureUpdat
             Url = @event.Url
         };
 
-        await _repository.UpdateAsync(updatedPicture);
+        await _repository.UpsertAsync(updatedPicture);
     }
 }

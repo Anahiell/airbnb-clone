@@ -6,7 +6,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Commands.UpdateUserCommand;
 
 [SwaggerSchema("Команда для обновления пользователя")]
-public class UpdateUserCommand : ICommand<Result>
+public class UpdateUserCommand : ICommand<Result<string>>
 {
     [SwaggerSchema("ID пользователя для обновления")]
     public int Id { get; init; }

@@ -23,6 +23,8 @@ public class Program
         builder.Services.AddMongoDbService(builder.Configuration.GetSection("MongoDb").Get<MongoDbSettings>() ??
                                            throw new ApplicationException("MongoDb settings not found."));
 
+        builder.Services.AddMassTransitConsumers(builder.Configuration);
+        
         builder.Services.AddTransient<IRepository<DomainReview>, ReviewRepository>();
 
         // Добавляем стандартные сервисы

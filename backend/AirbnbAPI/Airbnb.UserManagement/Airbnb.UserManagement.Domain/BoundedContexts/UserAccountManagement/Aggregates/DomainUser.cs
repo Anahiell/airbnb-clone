@@ -12,6 +12,11 @@ public class DomainUser : IdentityUser<int>
     public DateTime DateOfBirth { get; private set; }
     public string PasswordHash { get; private set; }
 
+    public void UpdateEmail(string email)
+    {
+        Email = email;
+    }
+
     public bool CheckPassword(string password)
     {
         var hasher = new PasswordHasher<DomainUser>();
@@ -73,10 +78,22 @@ public class DomainUser : IdentityUser<int>
             case UserDeletedEvent e:
                 OnUserDeletedEvent(e);
                 break;
+            case UserRegisterEvent e:
+                OnUserRegisterEvent(e);
+                break;
         }
     }
 
     private void OnUserCreatedEvent(UserCreatedEvent @event)
+    {
+        Id = @event.AggregateId;
+        FullName = @event.FullName;
+        Email = @event.Email;
+        Roles = @event.Roles;
+        DateOfBirth = @event.DateOfBirth;
+    }
+
+    private void OnUserRegisterEvent(UserRegisterEvent @event)
     {
         Id = @event.AggregateId;
         FullName = @event.FullName;
