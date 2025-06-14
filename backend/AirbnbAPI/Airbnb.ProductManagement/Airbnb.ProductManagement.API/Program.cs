@@ -97,7 +97,7 @@ public class Program
         app.UseSwagger();
         app.UseSwaggerUI(c =>
         {
-            c.SwaggerEndpoint("/product/swagger/swagger.json", "Product API V1");
+            c.SwaggerEndpoint("/product/swagger/v1/swagger.json", "Product API V1");
             c.RoutePrefix = "swagger";
         });
         app.UseCors("AllowFrontend");
