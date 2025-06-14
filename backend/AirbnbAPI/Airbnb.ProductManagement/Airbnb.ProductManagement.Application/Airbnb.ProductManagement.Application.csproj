@@ -20,16 +20,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="BoundedContext\ProductFacilityManagement\Projections\" />
-      <Folder Include="BoundedContext\ProductFacilityManagement\Queries\" />
-      <Folder Include="BoundedContext\ProductFacilityManagement\QueryObjects\" />
-      <Folder Include="BoundedContext\ProductFeatureManagement\Commands\CreateFeatureCommand\" />
-      <Folder Include="BoundedContext\ProductFeatureManagement\Commands\DeleteFeatureCommand\" />
-      <Folder Include="BoundedContext\ProductFeatureManagement\Commands\UpdateFeatureCommand\" />
-      <Folder Include="BoundedContext\ProductFeatureManagement\Projections\" />
-      <Folder Include="BoundedContext\ProductFeatureManagement\Queries\" />
-      <Folder Include="BoundedContext\ProductFeatureManagement\QueryObjects\" />
-      <Folder Include="BoundedContext\Projections\Product\" />
+      <Folder Include="BoundedContext\ProductFeatureManagement\Queries\GetFeatureByIdQuery\" />
+      <Folder Include="BoundedContext\ProductFeatureManagement\Queries\GetFeaturePaginatedQuery\" />
+      <Folder Include="BoundedContext\ProductManagement\" />
     </ItemGroup>
 
 </Project>

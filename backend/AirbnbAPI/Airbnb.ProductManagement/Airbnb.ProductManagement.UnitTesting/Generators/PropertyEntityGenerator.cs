@@ -14,15 +14,15 @@ public class PropertyEntityGenerator : DataGenerator<DomainProduct>
     {
         yield return new DomainProduct()
         {
-            Id = 1,
+            // Id = 1,
         };
         yield return new DomainProduct()
         {
-            Id = 2,
+            // Id = 2,
         };
         yield return new DomainProduct()
         {
-            Id = 3,
+            // Id = 3,
         };
     }
 }

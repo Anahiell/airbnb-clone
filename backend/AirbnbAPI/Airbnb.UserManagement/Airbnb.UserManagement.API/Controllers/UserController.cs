@@ -49,7 +49,7 @@ public class UserController : ControllerBase
     public async Task<IActionResult> UpdateUserAsync([FromQuery] UpdateUserCommand command, CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(command, cancellationToken);
-        return Ok(result);
+        return Ok(result.Value);
     }
     
     /// <summary>

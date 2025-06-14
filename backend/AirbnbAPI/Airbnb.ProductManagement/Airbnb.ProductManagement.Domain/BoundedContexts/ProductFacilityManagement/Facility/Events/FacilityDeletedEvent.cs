@@ -2,7 +2,7 @@
 
 namespace Airbnb.Domain.BoundedContexts.ProductFacilityManagement.Facility.Events;
 
-public class FacilityDeletedEvent : IDomainEvent
+public class FacilityDeletedEvent : DomainEvent
 {
     public int AggregateId { get; }
 

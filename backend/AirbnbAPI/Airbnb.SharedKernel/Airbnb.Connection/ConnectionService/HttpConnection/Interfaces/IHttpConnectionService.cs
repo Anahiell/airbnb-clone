@@ -26,8 +26,8 @@ public interface IHttpConnectionService
     /// <summary>
     /// Выполняет PUT-запрос с телом и десериализует ответ
     /// </summary>
-    Task<TResponse> PutAsync<TRequest, TResponse>(string route, TRequest body, HttpConnectionData data);
-
+    Task<TResponse> PutAsync<TRequest, TResponse>(string route, HttpConnectionData data, TRequest? body = default,
+        object? query = null, bool serializeEnumsAsStrings = false);
     /// <summary>
     /// Выполняет DELETE-запрос и десериализует результат
     /// </summary>

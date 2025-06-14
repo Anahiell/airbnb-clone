@@ -161,24 +161,79 @@ public class HttpConnectionService : IHttpConnectionService
         return await DeserializeAsync<TResponse>(response);
     }
 
-    public async Task<TResponse> PutAsync<TRequest, TResponse>(string route, TRequest body, HttpConnectionData data)
+public async Task<TResponse> PutAsync<TRequest, TResponse>(
+    string route,
+    HttpConnectionData data,
+    TRequest? body = default,
+    object? query = null,
+    bool serializeEnumsAsStrings = false)
+{
+    if (query is not null)
     {
-        var client = CreateHttpClient(data);
-        var uri = BuildUri(route, data);
-
-        var json = JsonSerializer.Serialize(body);
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-        var request = new HttpRequestMessage(HttpMethod.Put, uri)
-        {
-            Content = content
-        };
-
-        AddTraceHeaders(request);
-
-        var response = await SendRequestAsync(request, client, data.CancellationToken);
-        return await DeserializeAsync<TResponse>(response);
+        route = QueryStringHelper.AddQueryStringFromObject(route, query);
     }
+
+    var client = CreateHttpClient(data);
+    var uri = BuildUri(route, data);
+    var request = new HttpRequestMessage(HttpMethod.Put, uri);
+
+    AddTraceHeaders(request);
+
+    if (body is not null)
+    {
+        var type = typeof(TRequest);
+        var fileProps = type
+            .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+            .Where(p => typeof(IFormFile).IsAssignableFrom(p.PropertyType))
+            .ToList();
+
+        if (fileProps.Count != 0)
+        {
+            var content = new MultipartFormDataContent();
+
+            foreach (var prop in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+            {
+                var value = prop.GetValue(body);
+
+                if (value is IFormFile file)
+                {
+                    var fileContent = new StreamContent(file.OpenReadStream());
+                    fileContent.Headers.ContentType = new MediaTypeHeaderValue(file.ContentType ?? "application/octet-stream");
+                    content.Add(fileContent, prop.Name, file.FileName);
+                }
+                else if (value != null)
+                {
+                    var stringValue = value.ToString();
+                    if (value is Enum || serializeEnumsAsStrings)
+                        stringValue = JsonSerializer.Serialize(value).Trim('"');
+
+                    content.Add(new StringContent(stringValue), prop.Name);
+                }
+            }
+
+            request.Content = content;
+        }
+        else
+        {
+            var options = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+            };
+
+            if (serializeEnumsAsStrings)
+            {
+                options.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+            }
+
+            var json = JsonSerializer.Serialize(body, options);
+            request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+        }
+    }
+
+    var response = await SendRequestAsync(request, client, data.CancellationToken);
+    return await DeserializeAsync<TResponse>(response);
+}
 
     public async Task<T> DeleteAsync<T>(string route, HttpConnectionData data)
     {
@@ -218,17 +273,28 @@ public class HttpConnectionService : IHttpConnectionService
 
     private static async Task<T> DeserializeAsync<T>(HttpResponseMessage response)
     {
+        var content = await response.Content.ReadAsStringAsync();
+
         if (!response.IsSuccessStatusCode)
+            throw new HttpRequestException($"Request failed with status code {response.StatusCode}: {content}");
+
+        var contentType = response.Content.Headers.ContentType?.MediaType;
+
+        if (typeof(T) == typeof(string))
         {
-            var error = await response.Content.ReadAsStringAsync();
-            throw new HttpRequestException($"Ошибка запроса: {response.StatusCode}, {error}");
+            return (T)(object)content.Trim();
         }
 
-        var stream = await response.Content.ReadAsStreamAsync();
-        return await JsonSerializer.DeserializeAsync<T>(stream, new JsonSerializerOptions
+        if (contentType == "application/json")
         {
-            PropertyNameCaseInsensitive = true
-        }) ?? throw new InvalidOperationException("Не удалось десериализовать ответ.");
+            return JsonSerializer.Deserialize<T>(content, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+            })!;
+        }
+
+        throw new NotSupportedException($"Unsupported content type: {contentType}");
     }
 }
 
