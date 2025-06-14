@@ -3,6 +3,14 @@ using Airbnb.Connection.ConnectionRealization;
 using Airbnb.Connection.ConnectionService.HttpConnection.Services;
 using Airbnb.Domain;
 using Airbnb.Domain.BoundedContexts.AddressManagement.Aggregates;
+using Airbnb.Domain.BoundedContexts.ProductAdditionalManagement.Interfaces;
+using Airbnb.Domain.BoundedContexts.ProductAdvantageManagement.Interfaces;
+using Airbnb.Domain.BoundedContexts.ProductCoordinateManagement.Interfaces;
+using Airbnb.Domain.BoundedContexts.ProductFacilityManagement.Facility.Interfaces;
+using Airbnb.Domain.BoundedContexts.ProductFacilityManagement.ProductFacility.Interfaces;
+using Airbnb.Domain.BoundedContexts.ProductFeatureManagement.Feature.Interfaces;
+using Airbnb.Domain.BoundedContexts.ProductFeatureManagement.ProductFeature.Interfaces;
+using Airbnb.Domain.BoundedContexts.ProductRulesManagement.Interfaces;
 using Airbnb.Domain.BoundedContexts.PropertyTypeManagement.Aggregates;
 using Airbnb.Infrastructure.Configuration;
 using Airbnb.Infrastructure.DataContext;
@@ -34,6 +42,18 @@ public class Program
         builder.Services.AddTransient<IRepository<DomainProduct>, ProductRepository>();
         builder.Services.AddScoped<IRepository<AddressLegal>, AddressRepository>();
         builder.Services.AddScoped<IRepository<ApartmentType>, ApartmentTypeRepository>();
+        
+        builder.Services.AddScoped<IFacilityRepository, FacilityRepository>();
+        builder.Services.AddScoped<IProductFacilityRepository, ProductFacilityRepository>();
+        builder.Services.AddScoped<IFeatureRepository, FeatureRepository>();
+        builder.Services.AddScoped<IProductFeatureRepository, ProductFeatureRepository>();
+        
+        builder.Services.AddScoped<IRuleRepository, RuleRepository>();
+        builder.Services.AddScoped<IAdditionalRepository, AdditionalRepository>();
+        builder.Services.AddScoped<IAdvantageRepository, AdvantageRepository>();
+        builder.Services.AddScoped<ICoordinateRepository, CoordinateRepository>();
+        
+        
 
         builder.Services.AddTransient<IProductDataAggregator, ProductDataAggregator>();
         // Добавляем стандартные сервисы
@@ -77,7 +97,7 @@ public class Program
         app.UseSwagger();
         app.UseSwaggerUI(c =>
         {
-            c.SwaggerEndpoint("/product/swagger/v1/swagger.json", "Product API V1");
+            c.SwaggerEndpoint("/product/swagger/swagger.json", "Product API V1");
             c.RoutePrefix = "swagger";
         });
         app.UseCors("AllowFrontend");
