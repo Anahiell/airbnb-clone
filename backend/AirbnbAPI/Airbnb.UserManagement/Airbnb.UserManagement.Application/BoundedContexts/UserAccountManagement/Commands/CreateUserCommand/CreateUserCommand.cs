@@ -14,9 +14,12 @@ public class CreateUserCommand : ICommand<Result<int>>
 
     [SwaggerSchema("Email пользователя")]
     public string Email { get; init; } = string.Empty;
+    
+    [SwaggerSchema("Username пользователя")]
+    public string Username { get; init; } = string.Empty;
 
-    [SwaggerSchema("Роль пользователя")]
-    public List<UserRole> Roles { get; init; } = new();
+    [SwaggerSchema("Роли пользователя")]
+    public List<string> Roles { get; init; } = new();
 
     [SwaggerSchema("Дата рождения пользователя")]
     public DateTime DateOfBirth { get; init; }

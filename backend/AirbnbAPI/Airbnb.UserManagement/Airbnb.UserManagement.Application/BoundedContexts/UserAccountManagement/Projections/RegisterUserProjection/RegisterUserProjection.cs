@@ -24,8 +24,9 @@ public class RegisterUserProjection : INotificationHandler<UserRegisterEvent>
             Id = @event.AggregateId,
             FullName = @event.FullName,
             Email = @event.Email,
-            // Role = @event.Role,
-            // CreatedAt = @event.DateOfBirth
+            Username = @event.Username,
+            IsDocumentVerified = false,
+            IsEmailVerified = false,
         };
 
         await _repository.InsertAsync(user);

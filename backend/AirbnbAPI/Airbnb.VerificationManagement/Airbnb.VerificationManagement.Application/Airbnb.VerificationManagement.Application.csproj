@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="BoundedContexts\DocumentManagement\Projections\DocumentCreatedProjection\" />
+      <Folder Include="BoundedContexts\DocumentManagement\Projections\DocumentDeletedProjection\" />
+      <Folder Include="BoundedContexts\DocumentManagement\Projections\DocumentUpdatedProjection\" />
+      <Folder Include="BoundedContexts\DocumentManagement\Queries\GetDocumentByIdQuery\" />
+      <Folder Include="BoundedContexts\DocumentManagement\Queries\GetDocumentPaginatedQuery\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Airbnb.SharedKernel\Airbnb.Application\Airbnb.Application.csproj" />
+      <ProjectReference Include="..\Airbnb.VerificationManagement.Domain\Airbnb.VerificationManagement.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="8.1.2" />
+    </ItemGroup>
+
+</Project>

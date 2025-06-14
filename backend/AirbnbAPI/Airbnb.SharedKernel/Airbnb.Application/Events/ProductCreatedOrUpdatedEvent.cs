@@ -17,4 +17,3 @@ public class ProductSignalRUpdatedEvent
     public decimal ProductPrice { get; set; }
     public bool IsActive { get; set; }
 }
-

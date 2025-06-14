@@ -19,4 +19,17 @@
       <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="7.3.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="BoundedContext\ProductFacilityManagement\Projections\" />
+      <Folder Include="BoundedContext\ProductFacilityManagement\Queries\" />
+      <Folder Include="BoundedContext\ProductFacilityManagement\QueryObjects\" />
+      <Folder Include="BoundedContext\ProductFeatureManagement\Commands\CreateFeatureCommand\" />
+      <Folder Include="BoundedContext\ProductFeatureManagement\Commands\DeleteFeatureCommand\" />
+      <Folder Include="BoundedContext\ProductFeatureManagement\Commands\UpdateFeatureCommand\" />
+      <Folder Include="BoundedContext\ProductFeatureManagement\Projections\" />
+      <Folder Include="BoundedContext\ProductFeatureManagement\Queries\" />
+      <Folder Include="BoundedContext\ProductFeatureManagement\QueryObjects\" />
+      <Folder Include="BoundedContext\Projections\Product\" />
+    </ItemGroup>
+
 </Project>

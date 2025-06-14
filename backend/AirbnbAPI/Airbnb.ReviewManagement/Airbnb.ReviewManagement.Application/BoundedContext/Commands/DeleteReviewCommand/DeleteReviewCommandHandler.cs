@@ -1,5 +1,7 @@
 ﻿using Airbnb.Application.Messaging;
 using Airbnb.Application.Results;
+using Airbnb.ProductManagement.Application.BoundedContext.Events.ProductEvent.ProductReview;
+using Airbnb.ProductManagement.Application.BoundedContext.ProductReviewUpdatedConsumer.ReviewConsumer;
 using Airbnb.ReviewManagement.Domain.BoundedContexts.ReviewManagement.Aggregates;
 using Airbnb.ReviewManagement.Domain.BoundedContexts.ReviewManagement.Events;
 using Airbnb.SharedKernel.Repositories;
@@ -7,7 +9,7 @@ using MediatR;
 
 namespace Airbnb.ReviewManagement.Application.BoundedContext.Commands.DeleteReviewCommand;
 
-public class DeleteReviewCommandHandler(IRepository<DomainReview> reviewRepository, IMediator mediator)
+public class DeleteReviewCommandHandler(IRepository<DomainReview> reviewRepository, IReviewEventDispatcher reviewEventDispatcher, IMediator mediator)
     : ICommandHandler<DeleteReviewCommand, Result>
 {
     public async Task<Result> Handle(DeleteReviewCommand request, CancellationToken cancellationToken)
@@ -19,6 +21,12 @@ public class DeleteReviewCommandHandler(IRepository<DomainReview> reviewReposito
         await reviewRepository.DeleteAsync(request.Id, cancellationToken);
 
         await mediator.Publish(new ReviewDeletedEvent(review.Id), cancellationToken);
+        
+        await reviewEventDispatcher.DispatchAsync(new ProductReviewDeletedEvent()
+        {
+            Id = review.Id,
+            ProductId = review.ProductId
+        }, cancellationToken);
 
         return Result.Success();
     }

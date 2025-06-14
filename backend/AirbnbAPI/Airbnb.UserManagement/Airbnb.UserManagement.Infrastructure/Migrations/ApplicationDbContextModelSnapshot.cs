@@ -22,6 +22,50 @@ namespace Airbnb.UserManagement.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Airbnb.UserManagement.Domain.BoundedContexts.LanguageManagement.Aggregates.DomainLanguage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Languages", (string)null);
+                });
+
+            modelBuilder.Entity("Airbnb.UserManagement.Domain.BoundedContexts.LanguageManagement.Aggregates.DomainUserLanguage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserLanguages", (string)null);
+                });
+
             modelBuilder.Entity("Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.Aggregates.DomainUser", b =>
                 {
                     b.Property<int>("Id")
@@ -52,6 +96,12 @@ namespace Airbnb.UserManagement.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<bool>("IsDocumentVerified")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsEmailVerified")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -74,10 +124,6 @@ namespace Airbnb.UserManagement.Infrastructure.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.PrimitiveCollection<string>("Roles")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -85,6 +131,7 @@ namespace Airbnb.UserManagement.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -93,6 +140,229 @@ namespace Airbnb.UserManagement.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("Airbnb.UserManagement.Domain.BoundedContexts.UserRoleManagement.Aggregates.DomainPermission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Permission")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Permission")
+                        .IsUnique();
+
+                    b.ToTable("Permissions", (string)null);
+                });
+
+            modelBuilder.Entity("Airbnb.UserManagement.Domain.BoundedContexts.UserRoleManagement.Aggregates.DomainUserPermission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("PermissionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PermissionId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserPermissions", (string)null);
+                });
+
+            modelBuilder.Entity("Airbnb.UserManagement.Domain.BoundedContexts.UserRoleManagement.Aggregates.DomainUserRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("DomainRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Roles", (string)null);
+                });
+
+            modelBuilder.Entity("Airbnb.UserManagement.Domain.BoundedContexts.LanguageManagement.Aggregates.DomainUserLanguage", b =>
+                {
+                    b.HasOne("Airbnb.UserManagement.Domain.BoundedContexts.LanguageManagement.Aggregates.DomainLanguage", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.Aggregates.DomainUser", "User")
+                        .WithMany("Languages")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Language");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.Aggregates.DomainUser", b =>
+                {
+                    b.OwnsOne("Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.ValueObjects.UserProfile", "Profile", b1 =>
+                        {
+                            b1.Property<int>("DomainUserId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("About")
+                                .HasMaxLength(500)
+                                .HasColumnType("nvarchar(500)")
+                                .HasColumnName("About");
+
+                            b1.Property<string>("BioTitle")
+                                .HasMaxLength(200)
+                                .HasColumnType("nvarchar(200)")
+                                .HasColumnName("BioTitle");
+
+                            b1.Property<DateTime?>("Birthdate")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ProfileBirthdate");
+
+                            b1.Property<string>("FavSong")
+                                .HasMaxLength(200)
+                                .HasColumnType("nvarchar(200)")
+                                .HasColumnName("FavSong");
+
+                            b1.Property<string>("FunFact")
+                                .HasMaxLength(200)
+                                .HasColumnType("nvarchar(200)")
+                                .HasColumnName("FunFact");
+
+                            b1.Property<string>("Hobbies")
+                                .HasMaxLength(200)
+                                .HasColumnType("nvarchar(200)")
+                                .HasColumnName("Hobbies");
+
+                            b1.Property<string>("LifeGoals")
+                                .HasMaxLength(200)
+                                .HasColumnType("nvarchar(200)")
+                                .HasColumnName("LifeGoals");
+
+                            b1.Property<string>("Location")
+                                .HasMaxLength(100)
+                                .HasColumnType("nvarchar(100)")
+                                .HasColumnName("Location");
+
+                            b1.Property<string>("Pets")
+                                .HasMaxLength(100)
+                                .HasColumnType("nvarchar(100)")
+                                .HasColumnName("Pets");
+
+                            b1.Property<string>("Profession")
+                                .HasMaxLength(100)
+                                .HasColumnType("nvarchar(100)")
+                                .HasColumnName("Profession");
+
+                            b1.Property<string>("School")
+                                .HasMaxLength(100)
+                                .HasColumnType("nvarchar(100)")
+                                .HasColumnName("School");
+
+                            b1.Property<string>("TimeSpentOn")
+                                .HasMaxLength(100)
+                                .HasColumnType("nvarchar(100)")
+                                .HasColumnName("TimeSpentOn");
+
+                            b1.HasKey("DomainUserId");
+
+                            b1.ToTable("Users");
+
+                            b1.WithOwner()
+                                .HasForeignKey("DomainUserId");
+                        });
+
+                    b.Navigation("Profile");
+                });
+
+            modelBuilder.Entity("Airbnb.UserManagement.Domain.BoundedContexts.UserRoleManagement.Aggregates.DomainUserPermission", b =>
+                {
+                    b.HasOne("Airbnb.UserManagement.Domain.BoundedContexts.UserRoleManagement.Aggregates.DomainPermission", null)
+                        .WithMany()
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.Aggregates.DomainUser", null)
+                        .WithMany("UserPermissions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Airbnb.UserManagement.Domain.BoundedContexts.UserRoleManagement.Aggregates.DomainUserRole", b =>
+                {
+                    b.HasOne("DomainRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.Aggregates.DomainUser", null)
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.Aggregates.DomainUser", b =>
+                {
+                    b.Navigation("Languages");
+
+                    b.Navigation("UserPermissions");
+
+                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

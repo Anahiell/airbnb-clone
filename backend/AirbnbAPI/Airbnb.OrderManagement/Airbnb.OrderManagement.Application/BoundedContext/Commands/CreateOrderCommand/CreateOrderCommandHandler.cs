@@ -3,12 +3,15 @@ using Airbnb.Application.Results;
 using Airbnb.OrderManagement.Application.BoundedContext.Services;
 using Airbnb.OrderManagement.Domain.BoundedContexts.OrderManagement.Aggregates;
 using Airbnb.OrderManagement.Domain.BoundedContexts.OrderManagement.Events;
+using Airbnb.ProductManagement.Application.BoundedContext.Events.ProductEvent.ProductOrder;
+using Airbnb.ProductManagement.Application.BoundedContext.ProductReviewUpdatedConsumer;
+using Airbnb.ProductManagement.Application.BoundedContext.ProductReviewUpdatedConsumer.OrderConsumer;
 using Airbnb.SharedKernel.Repositories;
 using MediatR;
 
 namespace Airbnb.OrderManagement.Application.BoundedContext.Commands.CreateOrderCommand;
 
-public class CreateOrderCommandHandler(IRepository<DomainOrder> orderRepository, IMediator mediator, ITimeZoneConverter timeZoneConverter)
+public class CreateOrderCommandHandler(IRepository<DomainOrder> orderRepository, IOrderEventDispatcher orderEventDispatcher , IMediator mediator, ITimeZoneConverter timeZoneConverter)
     : ICommandHandler<CreateOrderCommand, Result<int>>
 {
     public async Task<Result<int>> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
@@ -22,6 +25,10 @@ public class CreateOrderCommandHandler(IRepository<DomainOrder> orderRepository,
 
         await mediator.Publish(
             new OrderCreatedEvent(order.Id, order.ProductId, order.UserId, order.DateStart, order.DateEnd),
+            cancellationToken);
+
+        await orderEventDispatcher.DispatchAsync(
+            new ProductOrderUpdatedEvent(order.Id, order.ProductId, order.UserId, order.DateStart, order.DateEnd),
             cancellationToken);
 
         return Result<int>.Success(result);

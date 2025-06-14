@@ -33,7 +33,7 @@ public class MongoDbRepository<T> : BaseMongoRepository<T>, IProjectionRepositor
         return cursor.ToEnumerable();
     }
 
-    public async Task<T> FindByIdAsync(int id)
+    public async Task<T> FindByIdAsync(int id, CancellationToken cancellationToken = default)
     {
         return await _mongoDatabase.GetCollection<T>(CollectionName)
             .Find(x => x.Id == id)
@@ -56,12 +56,12 @@ public class MongoDbRepository<T> : BaseMongoRepository<T>, IProjectionRepositor
         }
     }
 
-    public async Task UpdateAsync(T entity)
+    public async Task UpdateAsync(T entity, CancellationToken cancellationToken = default)
     {
         try
         {
             var result = await _mongoDatabase.GetCollection<T>(CollectionName)
-                .ReplaceOneAsync(x => x.Id == entity.Id, entity);
+                .ReplaceOneAsync(x => x.Id == entity.Id, entity, cancellationToken: cancellationToken);
 
             if (result.MatchedCount != 1)
             {

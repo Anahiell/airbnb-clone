@@ -1,10 +1,16 @@
-﻿using System.Net;
+﻿
+
+using System.Collections;
+using System.Net;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Airbnb.Connection.ConnectionRealization;
 using Airbnb.SharedKernel.ConnectionService.HttpConnection;
 using Airbnb.SharedKernel.ConnectionService.HttpConnection.Logs.TraceIdLogic.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Polly;
 using Polly.Extensions.Http;
 
@@ -81,20 +87,75 @@ public class HttpConnectionService : IHttpConnectionService
         return await DeserializeAsync<T>(response);
     }
 
-    public async Task<TResponse> PostAsync<TRequest, TResponse>(string route, TRequest body, HttpConnectionData data)
+    public async Task<TResponse> PostAsync<TRequest, TResponse>(
+        string route,
+        HttpConnectionData data,
+        TRequest? body = default,
+        object? query = null,
+        bool serializeEnumsAsStrings = false)
     {
+        if (query is not null)
+        {
+            route = QueryStringHelper.AddQueryStringFromObject(route, query);
+        }
+
         var client = CreateHttpClient(data);
         var uri = BuildUri(route, data);
-
-        var json = JsonSerializer.Serialize(body);
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-        var request = new HttpRequestMessage(HttpMethod.Post, uri)
-        {
-            Content = content
-        };
+        var request = new HttpRequestMessage(HttpMethod.Post, uri);
 
         AddTraceHeaders(request);
+
+        if (body is not null)
+        {
+            var type = typeof(TRequest);
+            var fileProps = type
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(p => typeof(IFormFile).IsAssignableFrom(p.PropertyType))
+                .ToList();
+
+            if (fileProps.Count != 0)
+            {
+                var content = new MultipartFormDataContent();
+
+                foreach (var prop in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+                {
+                    var value = prop.GetValue(body);
+
+                    if (value is IFormFile file)
+                    {
+                        var fileContent = new StreamContent(file.OpenReadStream());
+                        fileContent.Headers.ContentType = new MediaTypeHeaderValue(file.ContentType ?? "application/octet-stream");
+                        content.Add(fileContent, prop.Name, file.FileName);
+                    }
+                    else if (value != null)
+                    {
+                        var stringValue = value.ToString();
+                        if (value is Enum || serializeEnumsAsStrings)
+                            stringValue = JsonSerializer.Serialize(value).Trim('"');
+
+                        content.Add(new StringContent(stringValue), prop.Name);
+                    }
+                }
+
+                request.Content = content;
+            }
+            else
+            {
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+                };
+
+                if (serializeEnumsAsStrings)
+                {
+                    options.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+                }
+
+                var json = JsonSerializer.Serialize(body, options);
+                request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+            }
+        }
 
         var response = await SendRequestAsync(request, client, data.CancellationToken);
         return await DeserializeAsync<TResponse>(response);
@@ -178,8 +239,24 @@ public static class QueryStringHelper
         var props = parameters
             .GetType()
             .GetProperties()
-            .Where(p => p.GetIndexParameters().Length == 0)
             .Where(p => p.CanRead && p.GetMethod?.GetParameters().Length == 0)
+            .Where(p => 
+            {
+                var val = p.GetValue(parameters);
+                if (val == null) return false;
+                var type = val.GetType();
+
+                if (typeof(Microsoft.AspNetCore.Http.IFormFile).IsAssignableFrom(type))
+                    return false;
+
+                if (typeof(System.Collections.IEnumerable).IsAssignableFrom(type) && type != typeof(string))
+                {
+                    var elemType = type.IsGenericType ? type.GetGenericArguments()[0] : null;
+                    if (elemType != null && typeof(Microsoft.AspNetCore.Http.IFormFile).IsAssignableFrom(elemType))
+                        return false;
+                }
+                return true;
+            })
             .ToDictionary(p => p.Name, p => p.GetValue(parameters)?.ToString());
 
         if (!props.Any()) return basePath;
@@ -190,5 +267,18 @@ public static class QueryStringHelper
 
         var separator = basePath.Contains('?') ? "&" : "?";
         return basePath + separator + query;
+    }
+    
+    public static string AddQueryStringFromDictionary(string uri, Dictionary<string, object?> values)
+    {
+        if (values == null || !values.Any())
+            return uri;
+
+        var query = string.Join("&", values
+            .Where(kv => kv.Value != null)
+            .Select(kv => $"{Uri.EscapeDataString(kv.Key)}={Uri.EscapeDataString(kv.Value!.ToString()!)}"));
+
+        var separator = uri.Contains("?") ? "&" : "?";
+        return uri + separator + query;
     }
 }

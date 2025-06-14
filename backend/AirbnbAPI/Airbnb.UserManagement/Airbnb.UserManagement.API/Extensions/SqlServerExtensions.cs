@@ -18,16 +18,23 @@ public static class SqlServerExtensions
             Password = settings.Password,
             UserID = settings.Username,
             Pooling = false,
-            TrustServerCertificate = true
+            TrustServerCertificate = true,
+            ConnectRetryCount = 5,
         };
 
         services.AddDbContext<ApplicationDbContext>(o =>
         {
-            o.UseSqlServer
-            (
+            o.UseSqlServer(
                 connectionString.ConnectionString,
-                b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
-            );
+                b =>
+                {
+                    b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName);
+                    b.EnableRetryOnFailure(
+                        maxRetryCount: 5,
+                        maxRetryDelay: TimeSpan.FromSeconds(10),
+                        errorNumbersToAdd: null
+                    );
+                });
             o.EnableDetailedErrors();
         });
 

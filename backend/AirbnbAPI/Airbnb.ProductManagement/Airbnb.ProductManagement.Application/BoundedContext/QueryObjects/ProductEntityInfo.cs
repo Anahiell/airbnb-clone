@@ -27,6 +27,96 @@ public class ProductEntityInfo : IQueryEntity
     public List<TagInfo>? Tags { get; set; }
     public List<OrderInfo>? Orders { get; set; }
     public List<PictureInfo>? Pictures { get; set; }
+    
+    public void UpdateOrder(OrderInfo newOrder)
+    {
+        Orders ??= new List<OrderInfo>();
+        var existing = Orders.FirstOrDefault(x => x.Id == newOrder.Id);
+
+        if (existing != null)
+        {
+            existing.DateStart = newOrder.DateStart;
+            existing.DateEnd = newOrder.DateEnd;
+            existing.UserId = newOrder.UserId;
+            existing.ProductId = newOrder.ProductId;
+        }
+        else
+        {
+            Orders.Add(newOrder);
+        }
+    }
+
+    public void RemoveOrder(int orderId)
+    {
+        Orders?.RemoveAll(o => o.Id == orderId);
+    }
+    
+    public void RemoveReviews()
+    {
+        Review = null;
+    }
+
+    public void RemoveTags()
+    {
+        Tags = null;
+    }
+
+    public void RemovePictures()
+    {
+        Pictures = null;
+    }
+    
+    public void RemoveOrder()
+    {
+        Orders = null;
+    }
+    public void UpdateReview(ReviewInfo updated)
+    {
+        Review ??= new List<ReviewInfo>();
+    
+        var existing = Review.FirstOrDefault(x => x.Id == updated.Id);
+        if (existing != null)
+        {
+            existing.Title = updated.Title;
+            existing.Description = updated.Description;
+            existing.Rating = updated.Rating;
+            existing.UpdatedAt = updated.UpdatedAt;
+        }
+        else
+        {
+            Review.Add(updated);
+        }
+    }
+
+    public void UpdatePicture(PictureInfo updatedPicture)
+    {
+        Pictures ??= new List<PictureInfo>();
+        
+        var existing = Pictures?.FirstOrDefault(p => p.Id == updatedPicture.Id);
+        if (existing != null)
+        {
+            existing.Url = updatedPicture.Url;
+        }
+        else
+        {
+            Pictures?.Add(updatedPicture);
+        }
+    }
+    
+    public void UpdateTag(TagInfo updatedTag)
+    {
+        Tags ??= new List<TagInfo>();
+        
+        var existing = Tags?.FirstOrDefault(t => t.Id == updatedTag.Id);
+        if (existing != null)
+        {
+            existing.TagName = updatedTag.TagName;
+        }
+        else
+        {
+            Tags?.Add(updatedTag);
+        }
+    }
 }
 
 public class OrderInfo

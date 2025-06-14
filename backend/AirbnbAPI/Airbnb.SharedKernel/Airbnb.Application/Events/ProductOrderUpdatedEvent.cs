@@ -1,6 +1,8 @@
-﻿namespace Airbnb.ProductManagement.Application.BoundedContext.Events;
+﻿using MediatR;
 
-public class ProductOrderUpdatedEvent
+namespace Airbnb.ProductManagement.Application.BoundedContext.Events;
+
+public class ProductOrderUpdatedEvent : INotification
 {
     public int ProductId { get; set; }
     public int UserId { get; set; }

@@ -26,7 +26,7 @@ public class GetUserByIdQueryHandler : IQueryHandler<GetUserByIdQuery, Result<Us
         {
             // return Result<UserEntityInfo>.Failure($"Пользователь с Id {request.Id} не найден.");
         }
-        Console.WriteLine("UserId:" + user.Id);
+
         var picture = await _connection.GetAsync<PictureInfo>(
             "api/v1/UserPicture/GetUserPictureByIdAsync",
             new HttpConnectionData { ClientName = "PictureService", CancellationToken = cancellationToken },

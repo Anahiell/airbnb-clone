@@ -1,5 +1,7 @@
 ﻿using Airbnb.Application.Messaging;
 using Airbnb.Application.Results;
+using Airbnb.ProductManagement.Application.BoundedContext.Events.ProductEvent.ProductReview;
+using Airbnb.ProductManagement.Application.BoundedContext.ProductReviewUpdatedConsumer.ReviewConsumer;
 using Airbnb.ReviewManagement.Domain.BoundedContexts.ReviewManagement.Aggregates;
 using Airbnb.ReviewManagement.Domain.BoundedContexts.ReviewManagement.Events;
 using Airbnb.SharedKernel.Repositories;
@@ -8,7 +10,7 @@ using MediatR;
 
 namespace Airbnb.ReviewManagement.Application.BoundedContext.Commands;
 
-public class CreateReviewCommandHandler(IRepository<DomainReview> reviewRepository, IBus bus, IMediator mediator)
+public class CreateReviewCommandHandler(IRepository<DomainReview> reviewRepository, IReviewEventDispatcher reviewEventDispatcher, IBus bus, IMediator mediator)
     : ICommandHandler<CreateReviewCommand, Result<int>>
 {
     public async Task<Result<int>> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
@@ -19,9 +21,9 @@ public class CreateReviewCommandHandler(IRepository<DomainReview> reviewReposito
 
         await mediator.Publish(new ReviewCreatedEvent(review.Id, review.Title, review.Description, review.Rating, review.CreatedAt, review.UserId, review.ProductId), cancellationToken);
 
-        await bus.Publish(new ProductManagement.Application.BoundedContext.Events.ReviewUpdatedEvent()
+        await reviewEventDispatcher.DispatchAsync(new ProductReviewUpdatedEvent()
         {
-            ReviewId = review.Id,
+            Id = review.Id,
             Title = review.Title,
             Description = review.Description,
             Rating = review.Rating,

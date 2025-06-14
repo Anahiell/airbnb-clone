@@ -30,8 +30,6 @@ public static class SqlServerServiceExtensions
             o.EnableDetailedErrors();
         });
 
-        services.AddScoped<IReviewRepository>();
-
         return services;
     }
 

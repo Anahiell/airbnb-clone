@@ -27,6 +27,8 @@ public class DomainProduct : AggregateRoot
 
     public int ApartmentTypeId { get; private set; }
 
+    
+
     public DomainProduct()
     {
     }

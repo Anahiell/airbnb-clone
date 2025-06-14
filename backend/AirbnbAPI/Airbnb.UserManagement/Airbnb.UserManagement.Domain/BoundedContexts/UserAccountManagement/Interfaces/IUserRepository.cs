@@ -6,6 +6,4 @@ namespace Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.Int
 public interface IUserRepository : IRepository<DomainUser>
 {
     Task<DomainUser?> GetByEmailAsync(string email, CancellationToken cancellationToken = default);
-
-    Task<IList<UserRole>> GetRolesAsync(DomainUser user);
 }

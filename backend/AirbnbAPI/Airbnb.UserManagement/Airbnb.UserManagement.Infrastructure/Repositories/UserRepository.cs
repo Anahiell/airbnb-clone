@@ -32,12 +32,6 @@ public class UserRepository : IUserRepository
         return await _context.Users.FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
     }
     
-    public async Task<IList<UserRole>> GetRolesAsync(DomainUser user)
-    {
-         var userRole = await _context.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
-         return userRole.Roles;
-    }
-    
     public async Task<int> AddAsync(DomainUser entity, CancellationToken cancellationToken = default)
     {
         await _context.Users.AddAsync(entity, cancellationToken);

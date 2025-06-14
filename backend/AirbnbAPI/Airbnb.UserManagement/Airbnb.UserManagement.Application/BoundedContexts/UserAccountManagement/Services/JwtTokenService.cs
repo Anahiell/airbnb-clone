@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.Aggregates;
+using Airbnb.UserManagement.Domain.BoundedContexts.UserRoleManagement.Aggregates;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -16,7 +17,7 @@ public class JwtTokenService : ITokenService
         _jwtSettings = jwtSettings.Value;
     }
 
-    public string GenerateJwt(DomainUser user, IList<UserRole> roles)
+    public string GenerateJwt(DomainUser user, IEnumerable<DomainUserRole> roles)
     {
         if (user == null) throw new ArgumentNullException(nameof(user));
         Console.WriteLine("Secret: " + _jwtSettings.Secret);

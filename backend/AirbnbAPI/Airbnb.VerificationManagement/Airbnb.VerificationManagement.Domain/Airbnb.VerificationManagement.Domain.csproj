@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="BoundedContexts\DocumentManagement\DriverLicenseManagement\Interfaces\" />
+      <Folder Include="BoundedContexts\DocumentManagement\DriverLicenseManagement\ValueObjects\" />
+      <Folder Include="BoundedContexts\DocumentManagement\PassportManagement\Interfaces\" />
+      <Folder Include="BoundedContexts\VerificationManagement\Interfaces\" />
+      <Folder Include="BoundedContexts\VerificationManagement\ValueObjects\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Airbnb.SharedKernel\Airbnb.Domain\Airbnb.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

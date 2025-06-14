@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using Airbnb.MongoRepository.Configuration;
 using Airbnb.PictureManagement.Application.BoundedContext.FileService;
+using Airbnb.PictureManagement.Application.BoundedContext.ProductPictureManagement.ProductPictureUpdatedConsumer.ProductPicturePublisher;
 using Airbnb.PictureManagement.Domain.BoundedContexts.PictureManagement.Aggregates;
 using Airbnb.PictureManagement.Infrastructure.Configuration;
 using Airbnb.PictureManagement.Infrastructure.DataContext;
@@ -26,6 +27,8 @@ public class Program
                                            throw new ApplicationException("MongoDb settings not found."));
 
         builder.Services.AddMassTransitConsumers(builder.Configuration);
+        
+        builder.Services.AddScoped<IProductPictureEventDispatcher, ProductPictureEventDispatcher>();
         
         builder.Services.AddTransient<IRepository<UserPicture>, UserPictureRepository>();
         builder.Services.AddTransient<IRepository<ProductPicture>, ProductPictureRepository>();

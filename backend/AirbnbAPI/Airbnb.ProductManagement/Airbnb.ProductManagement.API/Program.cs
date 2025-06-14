@@ -1,28 +1,17 @@
-using System.Reflection;
 using System.Text.Json.Serialization;
-using Airbnb.Application.Behaviors;
-using Airbnb.Application.Results;
 using Airbnb.Connection.ConnectionRealization;
 using Airbnb.Connection.ConnectionService.HttpConnection.Services;
 using Airbnb.Domain;
 using Airbnb.Domain.BoundedContexts.AddressManagement.Aggregates;
-using Airbnb.Domain.BoundedContexts.ProductManagement.Interfaces;
 using Airbnb.Domain.BoundedContexts.PropertyTypeManagement.Aggregates;
 using Airbnb.Infrastructure.Configuration;
 using Airbnb.Infrastructure.DataContext;
 using Airbnb.Infrastructure.Repositories;
 using Airbnb.MongoRepository.Configuration;
-using Airbnb.ProductManagement.Application.BoundedContext.Commands.CreateProduct;
-using Airbnb.ProductManagement.Application.BoundedContext.ProductEnricher;
 using Airbnb.ProductManagement.Application.BoundedContext.Queries;
 using Airbnb.SharedKernel.ConnectionService.HttpConnection;
-using Airbnb.SharedKernel.ConnectionService.HttpConnection.Logs.TraceIdLogic.Interfaces;
 using Airbnb.SharedKernel.Repositories;
 using AirbnbAPI.Extensions;
-using AirbnbAPI.Middleware;
-using FluentValidation;
-using FluentValidation.Validators;
-using ProductDataAggregator = Airbnb.ProductManagement.Application.BoundedContext.Queries.ProductDataAggregator;
 
 public class Program
 {
@@ -61,12 +50,6 @@ public class Program
         builder.Services.AddHttpClient();
         builder.Services.AddSingleton<IRouteProvider, RouteProvider>();
         builder.Services.AddScoped<IHttpConnectionService, HttpConnectionService>();
-
-        builder.Services.AddScoped<IProductEnricher, TagEnricher>();
-        builder.Services.AddScoped<IProductEnricher, PictureEnricher>();
-        builder.Services.AddScoped<IProductEnricher, OrderEnricher>();
-        builder.Services.AddScoped<IProductEnricher, ReviewEnricher>();
-        builder.Services.AddScoped<IProductDataAggregator, ProductDataAggregator>();
         
         // Конфигурация окружения
         builder.Configuration

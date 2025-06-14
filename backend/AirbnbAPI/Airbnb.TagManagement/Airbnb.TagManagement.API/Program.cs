@@ -2,9 +2,11 @@ using System.Text.Json.Serialization;
 using Airbnb.MongoRepository.Configuration;
 using Airbnb.SharedKernel.Repositories;
 using Airbnb.TagManagement.API.Extensions;
+using Airbnb.TagsManagement.Application.BoundedContext.ProductTagManagement.ProductTagUpdatedConsumer.Publisher;
 using Airbnb.TagsManagement.Domain.BoundedContexts.ProductTagManagement.Aggregates;
 using Airbnb.TagsManagement.Domain.BoundedContexts.ProductTagManagement.Interfaces;
 using Airbnb.TagsManagement.Domain.BoundedContexts.TagsManagement.Aggregates;
+using Airbnb.TagsManagement.Domain.BoundedContexts.TagsManagement.Interfaces;
 using Airbnb.TagsManagement.Infrastructure.Configuration;
 using Airbnb.TagsManagement.Infrastructure.DataContext;
 using Airbnb.TagsManagement.Infrastructure.Repositories;
@@ -27,6 +29,8 @@ public class Program
 
         builder.Services.AddMassTransitConsumers(builder.Configuration);
 
+        builder.Services.AddScoped<ITagEventDispatcher, TagEventDispatcher>();
+        
         builder.Services.AddTransient<IRepository<DomainTag>, TagRepository>();
         builder.Services.AddTransient<IProductTagRepository, ProductTagRepository>();
 

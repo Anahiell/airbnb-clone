@@ -1,12 +1,14 @@
 ﻿using Airbnb.Application.Messaging;
 using Airbnb.Application.Results;
 using Airbnb.PictureManagement.Application.BoundedContext.FileService;
+using Airbnb.PictureManagement.Application.BoundedContext.ProductPictureManagement.ProductPictureUpdatedConsumer.ProductPicturePublisher;
 using Airbnb.PictureManagement.Domain.BoundedContexts.PictureManagement.Aggregates;
 using Airbnb.PictureManagement.Domain.BoundedContexts.PictureManagement.Events;
 using Airbnb.PictureManagement.Domain.BoundedContexts.ProductPictureManagement.Events;
 using Airbnb.SharedKernel.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
+using ProductPictureUpdatedEvent = Airbnb.ProductManagement.Application.BoundedContext.Events.ProductEvent.ProductPicture.ProductPictureUpdatedEvent;
 
 namespace Airbnb.PictureManagement.Application.BoundedContext.Commands;
 
@@ -15,12 +17,13 @@ public class UploadProductImageCommandHandler : ICommandHandler<UploadProductPic
     private readonly IFileService _fileService;
     private readonly IRepository<ProductPicture> _productPictureRepository;
     private readonly IMediator _mediator;
-
-    public UploadProductImageCommandHandler(IWebHostEnvironment env, IRepository<ProductPicture> productPictureRepository, IMediator mediator, IFileService fileService)
+    private readonly IProductPictureEventDispatcher _productPictureEventDispatcher;
+    public UploadProductImageCommandHandler(IWebHostEnvironment env, IRepository<ProductPicture> productPictureRepository, IMediator mediator, IFileService fileService, IProductPictureEventDispatcher productPictureEventDispatcher)
     {
         _productPictureRepository = productPictureRepository;
         _mediator = mediator;
         _fileService = fileService;
+        _productPictureEventDispatcher = productPictureEventDispatcher;
     }
 
     public async Task<Result<List<int>>> Handle(UploadProductPictureCommand request, CancellationToken cancellationToken)
@@ -41,6 +44,10 @@ public class UploadProductImageCommandHandler : ICommandHandler<UploadProductPic
 
             await _mediator.Publish(new ProductPictureCreatedEvent(picture.Id, picture.PictureGuid, relativeUrl, request.ProductId, picture.CreatedAt), cancellationToken);
             createdIds.Add(id);
+
+            await _productPictureEventDispatcher.DispatchAsync(
+                new ProductPictureUpdatedEvent(picture.Id, picture.ProductId, picture.Url, picture.IsArchived,
+                    picture.CreatedAt), cancellationToken);
         }
 
         return Result<List<int>>.Success(createdIds);

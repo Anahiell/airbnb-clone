@@ -2,12 +2,14 @@
 using Airbnb.Application.Results;
 using Airbnb.OrderManagement.Domain.BoundedContexts.OrderManagement.Aggregates;
 using Airbnb.OrderManagement.Domain.BoundedContexts.OrderManagement.Events;
+using Airbnb.ProductManagement.Application.BoundedContext.Events.ProductEvent.ProductOrder;
+using Airbnb.ProductManagement.Application.BoundedContext.ProductReviewUpdatedConsumer.OrderConsumer;
 using Airbnb.SharedKernel.Repositories;
 using MediatR;
 
 namespace Airbnb.OrderManagement.Application.BoundedContext.Commands.DeleteOrderCommand;
 
-public class DeleteOrderCommandHandler(IRepository<DomainOrder> orderRepository, IMediator mediator)
+public class DeleteOrderCommandHandler(IRepository<DomainOrder> orderRepository, IOrderEventDispatcher orderEventDispatcher, IMediator mediator)
     : ICommandHandler<DeleteOrderCommand, Result>
 {
     public async Task<Result> Handle(DeleteOrderCommand request, CancellationToken cancellationToken)
@@ -20,6 +22,9 @@ public class DeleteOrderCommandHandler(IRepository<DomainOrder> orderRepository,
         await orderRepository.DeleteAsync(request.Id, cancellationToken);
 
         await mediator.Publish(new OrderDeletedEvent(order.Id), cancellationToken);
+
+        await orderEventDispatcher.DispatchAsync(new ProductOrderDeletedEvent(order.ProductId, order.Id),
+            cancellationToken);
 
         return Result.Success();
     }

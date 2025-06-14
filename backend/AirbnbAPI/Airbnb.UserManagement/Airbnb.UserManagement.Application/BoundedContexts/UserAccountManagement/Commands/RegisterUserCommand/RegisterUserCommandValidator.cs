@@ -23,9 +23,6 @@ public class RegisterUserCommandValidator : AbstractValidator<RegisterUserComman
         RuleFor(c => c.DateOfBirth)
             .NotEmpty().WithMessage("Дата рождения не может быть пустой")
             .Must(BeAValidAge).WithMessage("Пользователь должен быть старше 18 лет");
-
-        RuleFor(c => c.Roles)
-            .NotEmpty().WithMessage("Роли не могут быть пустыми");
     }
 
     private bool BeAValidAge(DateTime dateOfBirth)

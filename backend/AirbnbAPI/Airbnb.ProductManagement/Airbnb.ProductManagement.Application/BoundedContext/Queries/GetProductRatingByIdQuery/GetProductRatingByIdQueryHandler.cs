@@ -26,8 +26,6 @@ public class GetProductByIdQueryHandler : IQueryHandler<GetProductByIdQuery, Res
             // return Result<ProductEntityInfo>.Failure("Product not found");
         }
 
-        await _aggregator.EnrichAsync(new List<ProductEntityInfo> { product }, cancellationToken);
-
         return Result<ProductEntityInfo>.Success(product);
     }
 }

@@ -4,6 +4,9 @@ using Airbnb.ProductManagement.Application.BoundedContext.Events;
 using Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.Aggregates;
 using Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.Events;
 using Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.Interfaces;
+using Airbnb.UserManagement.Domain.BoundedContexts.UserRoleManagement.Aggregates;
+using Airbnb.UserManagement.Domain.BoundedContexts.UserRoleManagement.Events.UserRole;
+using Airbnb.UserManagement.Domain.BoundedContexts.UserRoleManagement.Interfaces;
 using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -15,11 +18,15 @@ public class RegisterUserCommandHandler : ICommandHandler<RegisterUserCommand, R
     private readonly IUserRepository _userRepository;
     private readonly IMediator _mediator;
     private readonly IBus _bus;
-    public RegisterUserCommandHandler(IUserRepository userRepository, IMediator mediator, IBus bus)
+    private readonly IRoleRepository _roleRepository;
+    private readonly IUserRoleRepository _userRoleRepository;
+    public RegisterUserCommandHandler(IUserRepository userRepository, IMediator mediator, IBus bus, IRoleRepository roleRepository, IUserRoleRepository userRoleRepository)
     {
         _userRepository = userRepository;
         _mediator = mediator;
         _bus = bus;
+        _roleRepository = roleRepository;
+        _userRoleRepository = userRoleRepository;
     }
 
     public async Task<Result<int>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
@@ -27,7 +34,13 @@ public class RegisterUserCommandHandler : ICommandHandler<RegisterUserCommand, R
         var existingUser = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
         if (existingUser != null)
         {
-            // return Result<int>.Failure("Пользователь с таким email уже существует.");
+            return Result<int>.Failure("Пользователь с таким email уже существует.");
+        }
+
+        var role = await _roleRepository.GetByNameAsync("Guest", cancellationToken);
+        if (role is null)
+        {
+            return Result<int>.Failure($"Роль 'Guest' не найдена.");
         }
 
         var hasher = new PasswordHasher<DomainUser>();
@@ -35,17 +48,21 @@ public class RegisterUserCommandHandler : ICommandHandler<RegisterUserCommand, R
         var newUser = new DomainUser(
             fullName: request.FullName,
             email: request.Email,
-            roles: request.Roles,
-            dateOfBirth: request.DateOfBirth
+            dateOfBirth: request.DateOfBirth,
+            username: request.Username
         );
-        
+
         var hashedPassword = hasher.HashPassword(newUser, request.Password);
         newUser.SetPassword(hashedPassword);
 
         var userId = await _userRepository.AddAsync(newUser, cancellationToken);
         
-        await _mediator.Publish(new UserRegisterEvent(newUser.Id, newUser.FullName, newUser.Email), cancellationToken);
+        await _mediator.Publish(new UserRegisterEvent(newUser.Id, newUser.FullName, newUser.UserName, newUser.Email, newUser.UserRoles, newUser.UserPermissions), cancellationToken);
 
+        var userRole = new DomainUserRole(newUser.Id, role.Id);
+        var userRoleId = await _userRoleRepository.AddAsync(userRole, cancellationToken);
+        await _mediator.Publish(new UserRoleCreatedEvent(userRoleId, userRole.UserId, userRole.RoleId, role.Name), cancellationToken);
+        
         using var memoryStream = new MemoryStream();
         await request.UserPicture.CopyToAsync(memoryStream, cancellationToken);
         var pictureData = memoryStream.ToArray();

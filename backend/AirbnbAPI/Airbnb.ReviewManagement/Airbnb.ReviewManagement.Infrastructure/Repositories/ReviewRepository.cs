@@ -1,11 +1,13 @@
-﻿using Airbnb.ReviewManagement.Domain.BoundedContexts.ReviewManagement.Aggregates;
+﻿using System.Linq.Expressions;
+using Airbnb.ReviewManagement.Domain.BoundedContexts.ReviewManagement.Aggregates;
+using Airbnb.ReviewManagement.Domain.BoundedContexts.ReviewManagement.Interfaces;
 using Airbnb.ReviewManagementInfrastructure.DataContext;
 using Airbnb.SharedKernel.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Airbnb.ReviewManagementInfrastructure.Repositories;
 
-public class ReviewRepository(AirbnbDbContext context) : IRepository<DomainReview>
+public class ReviewRepository(AirbnbDbContext context) : IReviewRepository
 {
     public async Task<int> AddAsync(DomainReview review, CancellationToken cancellationToken = default)
     {
@@ -35,6 +37,13 @@ public class ReviewRepository(AirbnbDbContext context) : IRepository<DomainRevie
         var entity = await context.DomainReview.FindAsync(id, cancellationToken);
         if (entity == null) return;
         context.DomainReview.Remove(entity);
+        await context.SaveChangesAsync(cancellationToken);
+    }
+    
+    public async Task DeleteWhereAsync(Expression<Func<DomainReview, bool>> predicate, CancellationToken cancellationToken = default)
+    {
+        var reviewsToDelete = context.Set<DomainReview>().Where(predicate);
+        context.RemoveRange(reviewsToDelete);
         await context.SaveChangesAsync(cancellationToken);
     }
 }

@@ -3,6 +3,7 @@ using Airbnb.Application.Results;
 using Airbnb.Domain;
 using Airbnb.Domain.BoundedContexts.ProductManagement.Events;
 using Airbnb.ProductManagement.Application.BoundedContext.Events;
+using Airbnb.ProductManagement.Application.BoundedContext.Events.ProductEvent.ProductReview;
 using Airbnb.SharedKernel.Repositories;
 using MassTransit;
 using MediatR;
@@ -39,7 +40,7 @@ public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand,
             );
 
         await _productRepository.UpdateAsync(product, cancellationToken);
-        
+
         await _bus.Publish(new ProductSignalRUpdatedEvent
         {
             ProductId = product.Id,
@@ -59,6 +60,7 @@ public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand,
             product.ApartmentTypeId,
             product.AddressLegalId
         ), cancellationToken);
+        
         return Result.Success();
     }
 }

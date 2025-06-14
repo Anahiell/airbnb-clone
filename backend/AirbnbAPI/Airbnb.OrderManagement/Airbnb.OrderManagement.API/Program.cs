@@ -6,6 +6,8 @@ using Airbnb.OrderManagement.Domain.BoundedContexts.OrderManagement.Aggregates;
 using Airbnb.OrderManagement.Infrastructure.Configuration;
 using Airbnb.OrderManagement.Infrastructure.DataContext;
 using Airbnb.OrderManagement.Infrastructure.Repositories;
+using Airbnb.ProductManagement.Application.BoundedContext.ProductReviewUpdatedConsumer;
+using Airbnb.ProductManagement.Application.BoundedContext.ProductReviewUpdatedConsumer.OrderConsumer;
 using Airbnb.SharedKernel.Repositories;
 using AirbnbAPI.Extensions;
 
@@ -24,6 +26,8 @@ public class Program
         builder.Services.AddReddisCacheServices();
         builder.Services.AddMongoDbService(builder.Configuration.GetSection("MongoDb").Get<MongoDbSettings>() ??
                                            throw new ApplicationException("MongoDb settings not found."));
+
+        builder.Services.AddScoped<IOrderEventDispatcher, OrderEventDispatcher>();
 
         builder.Services.AddMassTransitConsumers(builder.Configuration);
         

@@ -47,8 +47,6 @@ public class GetProductPaginatedQueryHandler : IQueryHandler<GetProductPaginated
 
         var result = await _repository.GetFilteredPaginatedAsync(filter, sort, request.Page, request.PageSize);
         var products = result.Items.ToList();
-
-        products = await _aggregator.EnrichAsync(request, products, cancellationToken);
         
         foreach (var product in products)
         {

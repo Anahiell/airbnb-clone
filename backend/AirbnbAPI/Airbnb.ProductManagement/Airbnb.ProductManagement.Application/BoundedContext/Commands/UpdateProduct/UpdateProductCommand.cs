@@ -1,5 +1,6 @@
 ﻿using Airbnb.Application.Messaging;
 using Airbnb.Application.Results;
+using Microsoft.AspNetCore.Http;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Airbnb.ProductManagement.Application.BoundedContext.Commands;
@@ -30,4 +31,11 @@ public class UpdateProductCommand : ICommand<Result>
 
     [SwaggerSchema("ID юридического адреса")]
     public int AddressLegalId { get; init; }
+    
+    public List<IFormFile> PictureFiles { get; init; }
+    public List<string> ProductTags { get; init; }
+    
+    public List<string> ProductReviews { get; init; }
+    
+    public List<string> ProductOrders { get; init; }
 }

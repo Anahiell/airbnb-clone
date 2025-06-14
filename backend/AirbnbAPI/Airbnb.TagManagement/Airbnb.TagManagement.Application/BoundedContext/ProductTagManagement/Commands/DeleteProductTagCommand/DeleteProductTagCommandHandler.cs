@@ -1,6 +1,7 @@
 ﻿using Airbnb.Application.Messaging;
 using Airbnb.Application.Results;
 using Airbnb.SharedKernel.Repositories;
+using Airbnb.TagsManagement.Application.BoundedContext.ProductTagManagement.ProductTagUpdatedConsumer.Publisher;
 using Airbnb.TagsManagement.Domain.BoundedContexts.ProductTagManagement.Aggregates;
 using Airbnb.TagsManagement.Domain.BoundedContexts.ProductTagManagement.Events;
 using Airbnb.TagsManagement.Domain.BoundedContexts.ProductTagManagement.Interfaces;
@@ -8,7 +9,7 @@ using MediatR;
 
 namespace Airbnb.TagsManagement.Application.BoundedContext.ProductTagManagement.Commands.DeleteProductTagCommand;
 
-public class DeleteProductTagCommandHandler(IProductTagRepository repository, IMediator mediator)
+public class DeleteProductTagCommandHandler(IProductTagRepository repository, IMediator mediator, ITagEventDispatcher tagEventDispatcher)
     : ICommandHandler<DeleteProductTagCommand, Result>
 {
     public async Task<Result> Handle(DeleteProductTagCommand request, CancellationToken cancellationToken)
@@ -22,6 +23,10 @@ public class DeleteProductTagCommandHandler(IProductTagRepository repository, IM
         await repository.DeleteAsync(request.Id, cancellationToken);
 
         await mediator.Publish(new ProductTagDeletedEvent(entity.Id), cancellationToken);
+
+        await tagEventDispatcher.DispatchAsync(
+            new ProductManagement.Application.BoundedContext.Events.ProductEvent.ProductTag.ProductTagDeletedEvent(
+                entity.ProductId, entity.TagId), cancellationToken);
 
         return Result.Success();
     }

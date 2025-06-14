@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Airbnb.ReviewManagement.Application.BoundedContext.Consumers;
 using MassTransit;
 
 namespace Airbnb.TagManagement.API.Extensions;
@@ -11,6 +12,7 @@ public static class MassTransitServiceExtensions
         {
             // Регистрируем обработчики событий
             x.AddConsumers(Assembly.GetExecutingAssembly());
+            x.AddConsumer<ProductReviewUpdatedConsumer>();
 
             // Настройки для консьюмера, если они есть
             x.UsingRabbitMq((context, cfg) =>

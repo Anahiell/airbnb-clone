@@ -20,7 +20,8 @@ public interface IHttpConnectionService
     /// <summary>
     /// Выполняет POST-запрос с телом и десериализует ответ
     /// </summary>
-    Task<TResponse> PostAsync<TRequest, TResponse>(string route, TRequest body, HttpConnectionData data);
+    Task<TResponse> PostAsync<TRequest, TResponse>(string route, HttpConnectionData data, TRequest? body = default,
+        object? query = null, bool serializeEnumsAsStrings = false);
 
     /// <summary>
     /// Выполняет PUT-запрос с телом и десериализует ответ

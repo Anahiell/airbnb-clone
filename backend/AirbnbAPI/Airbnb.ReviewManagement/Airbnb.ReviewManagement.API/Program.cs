@@ -1,6 +1,9 @@
 using System.Text.Json.Serialization;
 using Airbnb.MongoRepository.Configuration;
+using Airbnb.ProductManagement.Application.BoundedContext.ProductReviewUpdatedConsumer;
+using Airbnb.ProductManagement.Application.BoundedContext.ProductReviewUpdatedConsumer.ReviewConsumer;
 using Airbnb.ReviewManagement.Domain.BoundedContexts.ReviewManagement.Aggregates;
+using Airbnb.ReviewManagement.Domain.BoundedContexts.ReviewManagement.Interfaces;
 using Airbnb.ReviewManagementInfrastructure.Configuration;
 using Airbnb.ReviewManagementInfrastructure.DataContext;
 using Airbnb.ReviewManagementInfrastructure.Repositories;
@@ -23,9 +26,11 @@ public class Program
         builder.Services.AddMongoDbService(builder.Configuration.GetSection("MongoDb").Get<MongoDbSettings>() ??
                                            throw new ApplicationException("MongoDb settings not found."));
 
+        builder.Services.AddScoped<IReviewEventDispatcher, ReviewEventDispatcher>();
+
         builder.Services.AddMassTransitConsumers(builder.Configuration);
         
-        builder.Services.AddTransient<IRepository<DomainReview>, ReviewRepository>();
+        builder.Services.AddTransient<IReviewRepository, ReviewRepository>();
 
         // Добавляем стандартные сервисы
         builder.Services.AddControllers().AddJsonOptions(options =>

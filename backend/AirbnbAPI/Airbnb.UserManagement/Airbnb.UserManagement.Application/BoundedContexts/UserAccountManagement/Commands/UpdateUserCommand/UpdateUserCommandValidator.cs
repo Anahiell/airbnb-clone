@@ -16,9 +16,6 @@ public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
             .NotEmpty().WithMessage("Email не может быть пустым")
             .EmailAddress().WithMessage("Email должен быть в правильном формате");
 
-        RuleFor(c => c.Roles)
-            .IsInEnum().WithMessage("Роль должна быть валидной");
-
         RuleFor(c => c.DateOfBirth)
             .LessThan(DateTime.Now).WithMessage("Дата рождения не может быть в будущем");
     }

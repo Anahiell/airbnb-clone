@@ -17,9 +17,18 @@ public class UpdateUserCommand : ICommand<Result<string>>
     [SwaggerSchema("Email пользователя")]
     public string Email { get; init; } = string.Empty;
 
-    [SwaggerSchema("Роль пользователя")]
-    public List<UserRole> Roles { get; init; } = new();
+    [SwaggerSchema("Роли пользователя")]
+    public List<string?>? Roles { get; init; } = new();
+    
+    [SwaggerSchema("Права пользователя")]
+    public List<string?>? Permissions { get; init; } = new();
+    
+    [SwaggerSchema("Языки пользователя")]
+    public List<string?>? Languages  { get; init; } = new();
 
     [SwaggerSchema("Дата рождения пользователя")]
     public DateTime DateOfBirth { get; init; }
+    
+    [SwaggerSchema("Профиль пользователя")]
+    public UserProfileDto? Profile { get; init; }
 }

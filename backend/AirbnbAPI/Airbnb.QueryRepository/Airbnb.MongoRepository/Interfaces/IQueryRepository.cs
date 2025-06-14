@@ -6,5 +6,5 @@ public interface IQueryRepository<T>
 {
     Task<IEnumerable<T>> FindAllAsync();
     Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> predicate);
-    Task<T> FindByIdAsync(int id);
+    Task<T> FindByIdAsync(int id, CancellationToken cancellationToken = default);
 }

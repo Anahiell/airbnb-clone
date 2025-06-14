@@ -1,6 +1,10 @@
-﻿namespace Airbnb.ReviewManagement.Domain.BoundedContexts.ReviewManagement.Interfaces;
+﻿using System.Linq.Expressions;
+using Airbnb.ReviewManagement.Domain.BoundedContexts.ReviewManagement.Aggregates;
+using Airbnb.SharedKernel.Repositories;
 
-public class IReviewRepository
+namespace Airbnb.ReviewManagement.Domain.BoundedContexts.ReviewManagement.Interfaces;
+
+public interface IReviewRepository : IRepository<DomainReview>
 {
-    
+    Task DeleteWhereAsync(Expression<Func<DomainReview, bool>> predicate, CancellationToken cancellationToken = default);
 }

@@ -7,7 +7,9 @@ using Airbnb.SharedKernel.Repositories;
 using Airbnb.TagManagement.API.Extensions;
 using Airbnb.UserManagement.API.Extensions;
 using Airbnb.UserManagement.Application.BoundedContexts.UserAccountManagement.Services;
+using Airbnb.UserManagement.Domain.BoundedContexts.LanguageManagement.Interfaces;
 using Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.Aggregates;
+using Airbnb.UserManagement.Domain.BoundedContexts.UserRoleManagement.Interfaces;
 using Airbnb.UserManagement.Infrastructure.Configuration;
 using Airbnb.UserManagement.Infrastructure.DataContext;
 using Airbnb.UserManagement.Infrastructure.Repositories;
@@ -41,6 +43,12 @@ public class Program
         builder.Services.AddMassTransitConsumers(builder.Configuration);
 
         builder.Services.AddTransient<IRepository<DomainUser>, UserRepository>();
+        builder.Services.AddTransient<IUserLanguageRepository, UserLanguageRepository>();
+        builder.Services.AddTransient<ILanguageRepository, LanguageRepository>();
+        builder.Services.AddTransient<IUserRoleRepository, UserRoleRepository>();
+        builder.Services.AddTransient<IRoleRepository, RoleRepository>();
+        builder.Services.AddTransient<IUserPermissionRepository, UserPermissionRepository>();
+        builder.Services.AddTransient<IPermissionRepository, PermissionRepository>();
         
         // HTTP Connection
         builder.Services.AddOptions<HttpConnectionSettings>()
@@ -57,16 +65,24 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddProblemDetails();
 
-        builder.Services.AddSqlServerServices(
-            builder.Configuration.GetSection(builder.Environment.EnvironmentName).Get<SqlServerSettings>()
-            ?? throw new NullReferenceException());
+        if (!builder.Environment.IsEnvironment("IntegrationTesting"))
+        {
+            builder.Services.AddSqlServerServices(
+                builder.Configuration.GetSection(builder.Environment.EnvironmentName).Get<SqlServerSettings>()
+                ?? throw new NullReferenceException());
+        }
 
         var app = builder.Build();
-        
-        using (var scope = app.Services.CreateScope())
+
+        if (!builder.Environment.IsEnvironment("IntegrationTesting"))
         {
-            var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            app.UseSqlServerMigration(dbContext);
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                // Какая-то херня с Migration если локально запускать необходимо комментить, скорее всего связанно с
+                // лишней миграцей какой-то
+                app.UseSqlServerMigration(dbContext);
+            }
         }
 
         // Настройка HTTP запроса

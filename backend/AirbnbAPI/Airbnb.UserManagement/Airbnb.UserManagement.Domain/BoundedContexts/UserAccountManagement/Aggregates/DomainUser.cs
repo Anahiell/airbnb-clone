@@ -1,5 +1,9 @@
 ﻿using Airbnb.SharedKernel;
+using Airbnb.UserManagement.Domain.BoundedContexts.LanguageManagement.Aggregates;
 using Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.Events;
+using Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.ValueObjects;
+using Airbnb.UserManagement.Domain.BoundedContexts.UserRoleManagement.Aggregates;
+using Airbnb.UserManagement.Domain.BoundedContexts.UserRoleManagement.Events.UserRole;
 using Microsoft.AspNetCore.Identity;
 
 namespace Airbnb.UserManagement.Domain.BoundedContexts.UserAccountManagement.Aggregates;
@@ -8,9 +12,56 @@ public class DomainUser : IdentityUser<int>
 {
     public string FullName { get; private set; }
     public string Email { get; private set; }
-    public List<UserRole> Roles { get; private set; } = new();
     public DateTime DateOfBirth { get; private set; }
     public string PasswordHash { get; private set; }
+    public bool IsEmailVerified { get; private set; }
+    public bool IsDocumentVerified { get; private set; }
+    public ICollection<DomainUserLanguage> Languages { get; private set; } = new List<DomainUserLanguage>();
+    public UserProfile? Profile { get; private set; }
+    public ICollection<DomainUserRole> UserRoles { get; private set; } = new List<DomainUserRole>();
+    public ICollection<DomainUserPermission> UserPermissions { get; private set; } = new List<DomainUserPermission>();
+    public override string UserName { get; set; }
+
+    public void UpdatePermissions(IEnumerable<int> permissionIds)
+    {
+        ArgumentNullException.ThrowIfNull(permissionIds);
+
+        UserPermissions.Clear();
+
+        foreach (var languageId in permissionIds.Distinct())
+        {
+            UserPermissions.Add(new DomainUserPermission(Id, languageId));
+        }
+    }
+    
+    public void UpdateRoles(IEnumerable<int> roleIds)
+    {
+        ArgumentNullException.ThrowIfNull(roleIds);
+
+        UserRoles.Clear();
+
+        foreach (var languageId in roleIds.Distinct())
+        {
+            UserRoles.Add(new DomainUserRole(Id, languageId));
+        }
+    }
+    
+    public void UpdateLanguages(IEnumerable<int> languageIds)
+    {
+        ArgumentNullException.ThrowIfNull(languageIds);
+
+        Languages.Clear();
+
+        foreach (var languageId in languageIds.Distinct())
+        {
+            Languages.Add(new DomainUserLanguage(Id, languageId));
+        }
+    }
+
+    public void UpdateProfile(UserProfile? newProfile)
+    {
+        Profile = newProfile;
+    }
 
     public void UpdateEmail(string email)
     {
@@ -23,37 +74,38 @@ public class DomainUser : IdentityUser<int>
         var result = hasher.VerifyHashedPassword(this, PasswordHash, password);
         return result == PasswordVerificationResult.Success;
     }
-    
+
     public void SetPassword(string password)
     {
         var hasher = new PasswordHasher<DomainUser>();
         PasswordHash = hasher.HashPassword(this, password);
     }
-    
+
     public DomainUser()
     {
     }
 
-    public DomainUser(string fullName, string email, List<UserRole> roles, DateTime dateOfBirth)
+    public DomainUser(string fullName, string username, string email, DateTime dateOfBirth)
     {
         FullName = fullName;
         Email = email;
-        Roles  = roles;
+        UserRoles = new List<DomainUserRole>();
+        UserPermissions = new List<DomainUserPermission>();
         DateOfBirth = dateOfBirth;
-
-        RaiseEvent(new UserCreatedEvent(Id, fullName, email, roles, dateOfBirth));
+        UserName = username;
+        
+        RaiseEvent(new UserCreatedEvent(Id, fullName, UserName, email, UserRoles.ToList(), UserPermissions.ToList(), dateOfBirth));
     }
 
     #region Aggregate Methods
 
-    public void UpdateUser(string fullName, string email, List<UserRole> roles, DateTime dateOfBirth)
+    public void UpdateUser(string fullName, string email, DateTime dateOfBirth)
     {
         FullName = fullName;
         Email = email;
-        Roles = roles;
         DateOfBirth = dateOfBirth;
 
-        RaiseEvent(new UserUpdatedEvent(Id, fullName, email, roles, dateOfBirth));
+        RaiseEvent(new UserUpdatedEvent(Id, fullName, email, dateOfBirth, Profile, UserRoles.ToList(), UserPermissions.ToList(), Languages.ToList()));
     }
 
     public void DeleteUser()
@@ -89,7 +141,8 @@ public class DomainUser : IdentityUser<int>
         Id = @event.AggregateId;
         FullName = @event.FullName;
         Email = @event.Email;
-        Roles = @event.Roles;
+        UserRoles = @event.Roles;
+        UserPermissions = @event.Permissions;
         DateOfBirth = @event.DateOfBirth;
     }
 
@@ -98,7 +151,8 @@ public class DomainUser : IdentityUser<int>
         Id = @event.AggregateId;
         FullName = @event.FullName;
         Email = @event.Email;
-        Roles = @event.Roles;
+        UserRoles = @event.Roles;
+        UserPermissions = @event.Permissions;
         DateOfBirth = @event.DateOfBirth;
     }
 
@@ -107,7 +161,8 @@ public class DomainUser : IdentityUser<int>
         Id = @event.AggregateId;
         FullName = @event.FullName;
         Email = @event.Email;
-        Roles = @event.Roles;
+        UserRoles = @event.Roles;
+        UserPermissions = @event.Permissions;
         DateOfBirth = @event.DateOfBirth;
     }
 

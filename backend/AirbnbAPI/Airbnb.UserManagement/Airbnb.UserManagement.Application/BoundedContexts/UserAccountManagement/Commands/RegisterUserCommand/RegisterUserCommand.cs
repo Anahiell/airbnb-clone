@@ -14,6 +14,9 @@ public class RegisterUserCommand : ICommand<Result<int>>
 
     [SwaggerSchema("Email пользователя")]
     public string Email { get; init; } = string.Empty;
+    
+    [SwaggerSchema("Username пользователя")]
+    public string Username { get; init; } = string.Empty;
 
     [SwaggerSchema("Пароль пользователя")]
     public string Password { get; init; } = string.Empty;
@@ -21,9 +24,6 @@ public class RegisterUserCommand : ICommand<Result<int>>
     [SwaggerSchema("Дата рождения пользователя")]
     public DateTime DateOfBirth { get; init; }
 
-    [SwaggerSchema("Роли пользователя")]
-    public List<UserRole> Roles { get; init; } = new List<UserRole>();
-    
     [SwaggerSchema("Фотография пользователя")]
     public IFormFile UserPicture { get; init; }
 }

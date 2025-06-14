@@ -10,9 +10,6 @@ public static class UserFilterBuilder
         var builder = Builders<UserEntityInfo>.Filter;
         var filters = new List<FilterDefinition<UserEntityInfo>>();
 
-        if (request.Role.HasValue)
-            filters.Add(builder.Eq(r => r.Role, request.Role.Value));
-
         if (request.CreatedAfter.HasValue)
             filters.Add(builder.Gte(r => r.CreatedAt, request.CreatedAfter.Value));
 
