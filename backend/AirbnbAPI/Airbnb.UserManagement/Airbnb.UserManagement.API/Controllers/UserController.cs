@@ -46,7 +46,7 @@ public class UserController : ControllerBase
     [HttpPut]
     [Route("UpdateUser")]
     [SwaggerOperation(Summary = "Обновить пользователя", Description = "Обновляет существующего пользователя.")]
-    public async Task<IActionResult> UpdateUserAsync([FromQuery] UpdateUserCommand command, CancellationToken cancellationToken)
+    public async Task<IActionResult> UpdateUserAsync([FromBody] UpdateUserCommand command, CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(command, cancellationToken);
         return Ok(result.Value);

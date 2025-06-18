@@ -24,11 +24,17 @@ public static class SqlServerServiceExtensions
 
         services.AddDbContext<AirbnbDbContext>(o =>
         {
-            o.UseSqlServer
-            (
+            o.UseSqlServer(
                 connectionString.ConnectionString,
-                b => b.MigrationsAssembly(typeof(AirbnbDbContext).Assembly.FullName)
-            );
+                b =>
+                {
+                    b.MigrationsAssembly(typeof(AirbnbDbContext).Assembly.FullName);
+                    b.EnableRetryOnFailure(
+                        maxRetryCount: 5,
+                        maxRetryDelay: TimeSpan.FromSeconds(10),
+                        errorNumbersToAdd: null
+                    );
+                });
             o.EnableDetailedErrors();
         });
 

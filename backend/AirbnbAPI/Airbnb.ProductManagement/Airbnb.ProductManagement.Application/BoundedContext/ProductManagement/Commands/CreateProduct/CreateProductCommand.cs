@@ -59,8 +59,6 @@ public class CreateProductCommand : ICommand<Result<int>>
     [SwaggerSchema("Координаты долгота")]
     public string? Longitude { get; init; }
     
-    public List<IFormFile> PictureFiles { get; init; }
-    
     public List<string> ProductTags { get; init; }
     
     [SwaggerSchema("Правила гостей")]
@@ -78,7 +76,7 @@ public class CreateProductCommand : ICommand<Result<int>>
     [SwaggerSchema("Преимущества продукта")]
     public List<Advantages>? Advantages { get; init; }
     
-    [SwaggerSchema("Преимущества продукта")]
+    [SwaggerSchema("Особенности продукта")]
     public List<string>? Features { get; init; }
     
     [SwaggerSchema("Удобства продукта")]
@@ -108,3 +106,5 @@ public class Advantages
     [SwaggerSchema("Описание преимущества")]
     public string Description { get; init; } = null!;
 }
+
+public record ProductPicture(string PictureName, IFormFile File);

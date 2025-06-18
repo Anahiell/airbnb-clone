@@ -2,7 +2,7 @@
 
 namespace Airbnb.Domain.BoundedContexts.ProductAdvantageManagement.Events;
 
-public class ProductAdvantageUpdatedEvent : IDomainEvent
+public class ProductAdvantageUpdatedEvent : DomainEvent
 {
     public int AggregateId { get; }
     public string Title { get; }

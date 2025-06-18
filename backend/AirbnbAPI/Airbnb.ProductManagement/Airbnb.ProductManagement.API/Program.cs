@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Airbnb.Application.UseCases;
 using Airbnb.Connection.ConnectionRealization;
 using Airbnb.Connection.ConnectionService.HttpConnection.Services;
 using Airbnb.Domain;
@@ -10,8 +11,10 @@ using Airbnb.Domain.BoundedContexts.ProductFacilityManagement.Facility.Interface
 using Airbnb.Domain.BoundedContexts.ProductFacilityManagement.ProductFacility.Interfaces;
 using Airbnb.Domain.BoundedContexts.ProductFeatureManagement.Feature.Interfaces;
 using Airbnb.Domain.BoundedContexts.ProductFeatureManagement.ProductFeature.Interfaces;
+using Airbnb.Domain.BoundedContexts.ProductRoomManagement.Interfaces;
 using Airbnb.Domain.BoundedContexts.ProductRulesManagement.Interfaces;
 using Airbnb.Domain.BoundedContexts.PropertyTypeManagement.Aggregates;
+using Airbnb.Domain.BoundedContexts.RoomManagement.Interfaces;
 using Airbnb.Infrastructure.Configuration;
 using Airbnb.Infrastructure.DataContext;
 using Airbnb.Infrastructure.Repositories;
@@ -53,7 +56,10 @@ public class Program
         builder.Services.AddScoped<IAdvantageRepository, AdvantageRepository>();
         builder.Services.AddScoped<ICoordinateRepository, CoordinateRepository>();
         
-        
+        builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+        builder.Services.AddScoped<IProductRoomRepository, ProductRoomRepository>();
+
+        builder.Services.AddScoped<IUseCaseDispatcher, UseCaseDispatcher>();
 
         builder.Services.AddTransient<IProductDataAggregator, ProductDataAggregator>();
         // Добавляем стандартные сервисы

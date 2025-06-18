@@ -2,11 +2,16 @@
 
 namespace Airbnb.Domain.BoundedContexts.ProductAdditionalManagement.ValueObjects;
 
-public class HomeRule : ValueObject
+public class HomeRule : AggregateRoot
 {
     public int Id { get; private set; }
-    public string Type { get; private set; }
-    public string Text { get; private set; }
+    protected override void When(IDomainEvent @event)
+    {
+        throw new NotImplementedException();
+    }
+
+    public string Type { get; set; }
+    public string Text { get; set; }
 
     private HomeRule() { }
 
@@ -21,12 +26,5 @@ public class HomeRule : ValueObject
     {
         Type = "Default";
         Text = text;
-    }
-
-    protected override IEnumerable<object> GetEqualityComponents()
-    {
-        yield return Id;
-        yield return Type;
-        yield return Text;
     }
 }

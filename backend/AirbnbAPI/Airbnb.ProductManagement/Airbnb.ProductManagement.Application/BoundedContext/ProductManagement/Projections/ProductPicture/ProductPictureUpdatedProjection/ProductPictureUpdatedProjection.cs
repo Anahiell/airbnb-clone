@@ -26,7 +26,8 @@ public class ProductPictureUpdatedProjection : INotificationHandler<ProductPictu
         {
             Id = @event.PictureId,
             Url = @event.Url,
-            ProductId = @event.ProductId
+            ProductId = @event.ProductId,
+            RoomName = @event.RoomName,
         });
 
         await _productRepository.UpdateAsync(product, cancellationToken);

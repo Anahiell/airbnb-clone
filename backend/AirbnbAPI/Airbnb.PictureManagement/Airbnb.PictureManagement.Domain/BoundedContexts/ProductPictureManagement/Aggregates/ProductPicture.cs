@@ -11,6 +11,7 @@ namespace Airbnb.PictureManagement.Domain.BoundedContexts.PictureManagement.Aggr
         public int ProductId { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public bool IsArchived { get; private set; }
+        public int? RoomId { get; private set; }
 
         public ProductPicture() { }
 
@@ -23,14 +24,15 @@ namespace Airbnb.PictureManagement.Domain.BoundedContexts.PictureManagement.Aggr
             RaiseEvent(new ProductPictureArchivedEvent(Id));
         }
         
-        public ProductPicture(Guid pictureGuid, string url, int productId, DateTime createdAt)
+        public ProductPicture(Guid pictureGuid, string url, int productId, DateTime createdAt, int? roomId = null)
         {
             PictureGuid = pictureGuid;
             Url = url;
             ProductId = productId;
             CreatedAt = createdAt;
+            RoomId = roomId;
 
-            RaiseEvent(new ProductPictureCreatedEvent(Id, pictureGuid, url, productId, createdAt));
+            RaiseEvent(new ProductPictureCreatedEvent(Id, pictureGuid, url, productId, createdAt, roomId));
         }
 
         #region Aggregate Methods
@@ -81,6 +83,7 @@ namespace Airbnb.PictureManagement.Domain.BoundedContexts.PictureManagement.Aggr
             Url = @event.Url;
             ProductId = @event.ProductId;
             CreatedAt = @event.CreatedDate;
+            RoomId = @event.RoomId;
         }
 
         private void OnPictureUpdatedEvent(ProductPictureUpdatedEvent @event)

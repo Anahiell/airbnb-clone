@@ -2,7 +2,7 @@
 
 namespace Airbnb.Domain.BoundedContexts.ProductRulesManagement.Events;
 
-public class RuleUpdatedEvent : IDomainEvent
+public class RuleUpdatedEvent : DomainEvent
 {
     public int AggregateId { get; }
     public int MaxGuestsNumber { get; }

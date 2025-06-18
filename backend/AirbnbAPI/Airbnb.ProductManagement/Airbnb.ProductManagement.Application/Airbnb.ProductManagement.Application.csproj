@@ -16,13 +16,12 @@
     <ItemGroup>
       <PackageReference Include="MassTransit" Version="8.4.0" />
       <PackageReference Include="MassTransit.RabbitMQ" Version="8.4.0" />
-      <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="7.3.1" />
+      <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="9.0.1" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="BoundedContext\ProductFeatureManagement\Queries\GetFeatureByIdQuery\" />
-      <Folder Include="BoundedContext\ProductFeatureManagement\Queries\GetFeaturePaginatedQuery\" />
-      <Folder Include="BoundedContext\ProductManagement\" />
+      <Folder Include="BoundedContext\ProductRoomManagement\" />
+      <Folder Include="BoundedContext\RoomManagement\UseCases\" />
     </ItemGroup>
 
 </Project>

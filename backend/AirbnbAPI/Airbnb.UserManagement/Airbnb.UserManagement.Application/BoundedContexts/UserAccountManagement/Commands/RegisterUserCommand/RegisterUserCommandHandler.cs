@@ -43,8 +43,6 @@ public class RegisterUserCommandHandler : ICommandHandler<RegisterUserCommand, R
             return Result<int>.Failure($"Роль 'Guest' не найдена.");
         }
 
-        var hasher = new PasswordHasher<DomainUser>();
-
         var newUser = new DomainUser(
             fullName: request.FullName,
             email: request.Email,
@@ -52,8 +50,7 @@ public class RegisterUserCommandHandler : ICommandHandler<RegisterUserCommand, R
             username: request.Username
         );
 
-        var hashedPassword = hasher.HashPassword(newUser, request.Password);
-        newUser.SetPassword(hashedPassword);
+        newUser.SetPassword(request.Password);
 
         var userId = await _userRepository.AddAsync(newUser, cancellationToken);
         

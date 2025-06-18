@@ -12,18 +12,22 @@ public class AdditionalConfiguration : IEntityTypeConfiguration<Additional>
 
         builder.OwnsOne(x => x.CancelPolicy);
 
-        builder.OwnsMany(x => x.HomeRules, b =>
+        builder.OwnsMany(x => x.HomeRules, a =>
         {
-            b.WithOwner().HasForeignKey("AdditionalId");
-            b.Property(p => p.Id).ValueGeneratedNever();
-            b.HasKey(p => p.Id);
+            a.WithOwner().HasForeignKey("AdditionalId");
+            a.Property<int>("Id");
+            a.HasKey("Id");
+            a.Property(hr => hr.Type);
+            a.Property(hr => hr.Text);
         });
 
-        builder.OwnsMany(x => x.SafetyRules, b =>
+        builder.OwnsMany(x => x.SafetyRules, a =>
         {
-            b.WithOwner().HasForeignKey("AdditionalId");
-            b.Property(p => p.Id).ValueGeneratedNever();
-            b.HasKey(p => p.Id);
+            a.WithOwner().HasForeignKey("AdditionalId");
+            a.Property<int>("Id");
+            a.HasKey("Id");
+            a.Property(sr => sr.Type);
+            a.Property(sr => sr.Label);
         });
     }
 }

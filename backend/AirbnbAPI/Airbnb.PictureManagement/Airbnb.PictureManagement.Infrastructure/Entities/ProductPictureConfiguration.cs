@@ -19,6 +19,9 @@ public class ProductPictureConfiguration : IEntityTypeConfiguration<ProductPictu
             .IsRequired()
             .HasMaxLength(500);
 
+        builder.Property(p => p.RoomId)
+            .IsRequired(false);
+
         builder.Property(p => p.ProductId)
             .IsRequired();
 

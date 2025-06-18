@@ -2,7 +2,7 @@
 
 namespace Airbnb.Domain.BoundedContexts.ProductFeatureManagement.Feature.Events;
 
-public class FeatureUpdatedEvent : IDomainEvent
+public class FeatureUpdatedEvent : DomainEvent
 {
     public int AggregateId { get; }
     public string Name { get; }

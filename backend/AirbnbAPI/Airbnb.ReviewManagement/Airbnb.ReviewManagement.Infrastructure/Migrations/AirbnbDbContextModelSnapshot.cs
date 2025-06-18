@@ -30,12 +30,30 @@ namespace Airbnb.ReviewManagementInfrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("Accuracy")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Arrival")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Cleanliness")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Communication")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
+
+                    b.Property<int?>("Location")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PriceToQuality")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");

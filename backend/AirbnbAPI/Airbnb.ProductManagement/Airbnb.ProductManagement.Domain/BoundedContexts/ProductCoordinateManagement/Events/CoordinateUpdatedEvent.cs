@@ -2,7 +2,7 @@
 
 namespace Airbnb.Domain.BoundedContexts.ProductCoordinateManagement.Events;
 
-public class CoordinateUpdatedEvent : IDomainEvent
+public class CoordinateUpdatedEvent : DomainEvent
 {
     public int AggregateId { get; }
     public string Latitude { get; }

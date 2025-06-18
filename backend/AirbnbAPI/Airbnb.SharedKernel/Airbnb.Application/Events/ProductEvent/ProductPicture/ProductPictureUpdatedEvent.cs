@@ -5,5 +5,7 @@ public record ProductPictureUpdatedEvent(
     int PictureId,
     string Url,
     bool IsArchived,
-    DateTime UpdatedAt
+    DateTime UpdatedAt,
+    int? RoomId = null,
+    string? RoomName = null
 ) : IPictureEvent;

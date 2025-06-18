@@ -9,13 +9,15 @@ public class ProductPictureCreatedEvent : DomainEvent
     public string Url { get; }
     public int ProductId { get; }
     public DateTime CreatedDate { get; }
+    public int? RoomId { get; }
 
-    public ProductPictureCreatedEvent(int id, Guid aggregateId, string url, int productId, DateTime createdDate)
+    public ProductPictureCreatedEvent(int id, Guid aggregateId, string url, int productId, DateTime createdDate, int? roomId = null)
     {
         Id = id;
         AggregateId = aggregateId;
         Url = url;
         ProductId = productId;
         CreatedDate = createdDate;
+        RoomId = roomId;
     }
 }

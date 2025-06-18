@@ -1,33 +1,35 @@
 ﻿using Airbnb.Domain.BoundedContexts.PropertyTypeManagement.ValueObjects;
 using Airbnb.MongoRepository.Entities;
+using Airbnb.ProductManagement.Application.BoundedContext.ProductFacilityManagement.QueryObjects;
 
 namespace Airbnb.ProductManagement.Application.BoundedContext.QueryObjects;
 
 public class ProductEntityInfo : IQueryEntity
 {
     public string? Title { get; set; }
-
     public string? Description { get; set; }
     public int Price { get; set; }
-
     public double Rating { get; set; }
     public int UserId { get; set; }
-
     public bool Availability { get; set; }
-
     public int ApartmentTypeId { get; set; }
-
     public PropertyTypeEnum? ApartmentType { get; set; }
     public DateTime CreatedDate { get; set; }
-
     public int AddressLegalId { get; set; }
-    
     public string? AddressFull { get; set; }
     public List<ReviewInfo>? Review { get; set; }
     public List<TagInfo>? Tags { get; set; }
     public List<OrderInfo>? Orders { get; set; }
     public List<PictureInfo>? Pictures { get; set; }
-    
+    public RuleEntityInfo GuestRules { get; set; }
+    public CancelPolicyEntityInfo CancelPolicy { get; set; }
+    public List<HomeRulesEntityInfo> HomeRules { get; set; }
+    public List<SafetyRulesEntityInfo> SafetyRules { get; set; }
+    public List<AdvantagesEntityInfo> Advantages { get; set; }
+    public List<FeatureEntityInfo> Features { get; set; }
+    public List<FacilityEntityInfo> Facilities { get; set; }
+    public CoordinateEntityInfo Coordinates { get; set; }
+    public OwnerEntityInfo Owner { get; set; }
     public void UpdateOrder(OrderInfo newOrder)
     {
         Orders ??= new List<OrderInfo>();
@@ -134,6 +136,7 @@ public class PictureInfo
     public int ProductId { get; set; }
     public DateTime CreatedAt { get; set; }
     public int Id { get; set; }
+    public string? RoomName { get; set; }
 }
 
 public class ReviewInfo
@@ -153,3 +156,21 @@ public class TagInfo
     public string TagName { get; set; }
     public int Id { get; set; }
 }
+
+public class OwnerEntityInfo : IQueryEntity
+{
+    public string Name { get; set; } = default!;
+    
+    public PictureInfo Avatar { get; set; } = default!;
+    
+    public DateOnly RegistrationDate { get; set; }
+    
+    public bool IsVerificated { get; set; }
+    
+    public List<string> Languages { get; set; } = new();
+    
+    public int ResponseSpeed { get; set; }
+    
+    public string ResponseSpeedDuration { get; set; } = default!;
+}
+

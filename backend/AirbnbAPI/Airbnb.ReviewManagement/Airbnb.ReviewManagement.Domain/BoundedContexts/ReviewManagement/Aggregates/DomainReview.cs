@@ -11,12 +11,21 @@ public class DomainReview : AggregateRoot
     public DateTime CreatedAt { get; private set; }
     public int UserId { get; private set; }
     public int ProductId { get; private set; }
+    
+    public int? Cleanliness { get; private set; }
+    public int? Communication { get; private set; }
+    public int? Arrival { get; private set; }
+    public int? Accuracy { get; private set; }
+    public int? Location { get; private set; }
+    public int? PriceToQuality { get; private set; }
 
     public DomainReview()
     {
     }
 
-    public DomainReview(string title, string description, int rating, DateTime createdAt, int userId, int productId)
+    public DomainReview(string title, string description, int rating, DateTime createdAt, int userId, int productId,
+        int? cleanliness = null, int? communication = null, int? arrival = null, int? accuracy = null,
+        int? location = null, int? priceToQuality = null)
     {
         Title = title;
         Description = description;
@@ -24,13 +33,22 @@ public class DomainReview : AggregateRoot
         CreatedAt = createdAt;
         UserId = userId;
         ProductId = productId;
+        
+        Cleanliness = cleanliness;
+        Communication = communication;
+        Arrival = arrival;
+        Accuracy = accuracy;
+        Location = location;
+        PriceToQuality = priceToQuality;
 
         RaiseEvent(new ReviewCreatedEvent(Id, title, description, rating, createdAt, userId, productId));
     }
 
     #region Aggregate Methods
 
-    public void CreateReview(string title, string description, int rating, DateTime createdAt, int userId, int productId)
+    public void CreateReview(string title, string description, int rating, DateTime createdAt, int userId, int productId,
+        int? cleanliness = null, int? communication = null, int? arrival = null, int? accuracy = null,
+        int? location = null, int? priceToQuality = null)
     {
         Title = title;
         Description = description;
@@ -38,18 +56,36 @@ public class DomainReview : AggregateRoot
         CreatedAt = createdAt;
         UserId = userId;
         ProductId = productId;
+        
+        Cleanliness = cleanliness;
+        Communication = communication;
+        Arrival = arrival;
+        Accuracy = accuracy;
+        Location = location;
+        PriceToQuality = priceToQuality;
 
-        RaiseEvent(new ReviewCreatedEvent(Id, title, description, rating, createdAt, userId, productId));
+        RaiseEvent(new ReviewCreatedEvent(Id, title, description, rating, createdAt, userId, productId,
+            cleanliness, communication, arrival, accuracy, location, priceToQuality));
     }
 
-    public void UpdateReview(string title, string description, int rating, DateTime createdAt, int userId, int productId)
+    public void UpdateReview(string title, string description, int rating, DateTime createdAt, int userId, int productId,
+        int? cleanliness = null, int? communication = null, int? arrival = null, int? accuracy = null,
+        int? location = null, int? priceToQuality = null)
     {
         Title = title;
         Description = description;
         Rating = rating;
-        CreatedAt = createdAt; ;
+        CreatedAt = createdAt;
+        
+        Cleanliness = cleanliness;
+        Communication = communication;
+        Arrival = arrival;
+        Accuracy = accuracy;
+        Location = location;
+        PriceToQuality = priceToQuality;
 
-        RaiseEvent(new ReviewUpdatedEvent(Id, title, description, rating, createdAt, userId, productId));
+        RaiseEvent(new ReviewUpdatedEvent(Id, title, description, rating, createdAt, userId, productId,
+            cleanliness, communication, arrival, accuracy, location, priceToQuality));
     }
 
     public void DeleteReview()
@@ -86,6 +122,13 @@ public class DomainReview : AggregateRoot
         CreatedAt = @event.CreatedAt;
         UserId = @event.UserId;
         ProductId = @event.ProductId;
+        
+        Cleanliness = @event.Cleanliness;
+        Communication = @event.Communication;
+        Arrival = @event.Arrival;
+        Accuracy = @event.Accuracy;
+        Location = @event.Location;
+        PriceToQuality = @event.PriceToQuality;
     }
 
     private void OnReviewUpdatedEvent(ReviewUpdatedEvent @event)
@@ -97,6 +140,13 @@ public class DomainReview : AggregateRoot
         CreatedAt = @event.CreatedAt;
         UserId = @event.UserId;
         ProductId = @event.ProductId;
+        
+        Cleanliness = @event.Cleanliness;
+        Communication = @event.Communication;
+        Arrival = @event.Arrival;
+        Accuracy = @event.Accuracy;
+        Location = @event.Location;
+        PriceToQuality = @event.PriceToQuality;
     }
 
     private void OnReviewDeletedEvent(ReviewDeletedEvent @event)

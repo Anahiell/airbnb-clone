@@ -9,9 +9,11 @@ using Airbnb.Domain.BoundedContexts.ProductFacilityManagement.ProductFacility.Ag
 using Airbnb.Domain.BoundedContexts.ProductFeatureManagement.Feature.Aggregates;
 using Airbnb.Domain.BoundedContexts.ProductFeatureManagement.ProductFeature.Aggregates;
 using Airbnb.Domain.BoundedContexts.ProductManagement.ValueObjects.Address.AddressEnteties;
+using Airbnb.Domain.BoundedContexts.ProductRoomManagement.Aggregates;
 using Airbnb.Domain.BoundedContexts.ProductRulesManagement.Aggregates;
 using Airbnb.Domain.BoundedContexts.PropertyTypeManagement.Aggregates;
 using Airbnb.Domain.BoundedContexts.PropertyTypeManagement.ValueObjects;
+using Airbnb.Domain.BoundedContexts.RoomManagement.Aggregates;
 using Airbnb.Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,6 +34,9 @@ public class AirbnbDbContext(DbContextOptions<AirbnbDbContext> options) : DbCont
     public DbSet<Rule> GuestRules { get; private set; }
     public DbSet<Additional> AdditionalInfos { get; private set; }
     public DbSet<Advantage> Advantages { get; private set; }
+    
+    public DbSet<Room> Rooms { get; private set; }
+    public DbSet<ProductRoom> ProductRooms { get; private set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

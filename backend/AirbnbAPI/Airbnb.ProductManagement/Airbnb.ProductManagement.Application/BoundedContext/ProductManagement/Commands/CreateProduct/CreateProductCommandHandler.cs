@@ -1,5 +1,6 @@
 ﻿using Airbnb.Application.Messaging;
 using Airbnb.Application.Results;
+using Airbnb.Application.UseCases;
 using Airbnb.Domain;
 using Airbnb.Domain.BoundedContexts.AddressManagement.Aggregates;
 using Airbnb.Domain.BoundedContexts.CoordinatesManagement.Aggregates;
@@ -23,6 +24,14 @@ using Airbnb.Domain.BoundedContexts.ProductRulesManagement.Aggregates;
 using Airbnb.Domain.BoundedContexts.ProductRulesManagement.Interfaces;
 using Airbnb.Domain.BoundedContexts.PropertyTypeManagement.Aggregates;
 using Airbnb.ProductManagement.Application.BoundedContext.Events;
+using Airbnb.ProductManagement.Application.BoundedContext.ProductManagement.UseCases.Additional;
+using Airbnb.ProductManagement.Application.BoundedContext.ProductManagement.UseCases.Advantage;
+using Airbnb.ProductManagement.Application.BoundedContext.ProductManagement.UseCases.Coordinates;
+using Airbnb.ProductManagement.Application.BoundedContext.ProductManagement.UseCases.Facility;
+using Airbnb.ProductManagement.Application.BoundedContext.ProductManagement.UseCases.Feature;
+using Airbnb.ProductManagement.Application.BoundedContext.ProductManagement.UseCases.Room;
+using Airbnb.ProductManagement.Application.BoundedContext.ProductManagement.UseCases.Rule;
+using Airbnb.ProductManagement.Application.BoundedContext.ProductManagement.UseCases.User;
 using Airbnb.SharedKernel.Repositories;
 using MassTransit;
 using MediatR;
@@ -37,14 +46,7 @@ public class CreateProductCommandHandler(
     IBus bus,
     ILogger<CreateProductCommandHandler> _logger,
     IMediator mediator,
-    ICoordinateRepository coordinateRepository,
-    IRuleRepository ruleRepository,
-    IAdditionalRepository additionalRepository,
-    IAdvantageRepository advantageRepository,
-    IFeatureRepository featureRepository,
-    IProductFeatureRepository productFeatureRepository,
-    IFacilityRepository facilityRepository,
-    IProductFacilityRepository productFacilityRepository)
+    IUseCaseDispatcher useCaseDispatcher)
     : ICommandHandler<CreateProductCommand, Result<int>>
 {
     public async Task<Result<int>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
@@ -59,7 +61,7 @@ public class CreateProductCommandHandler(
             request.Block,
             request.Flat
         );
-        
+
         await addressRepository.AddAsync(address, cancellationToken);
 
         var product = new DomainProduct(
@@ -71,115 +73,79 @@ public class CreateProductCommandHandler(
             apartmentTypeId: (int)request.ApartmentType,
             addressLegalId: address.Id
         );
-        
+
         var apartmentType = await apartmentTypeRepository.GetByIdAsync((int)request.ApartmentType, cancellationToken);
-        
+
         if (apartmentType == null)
         {
             // return Result<int>.Failure("Invalid ApartmentTypeId.");
         }
+
+        var result = await productRepository.AddAsync(product, cancellationToken);
         
-        // Координаты
-        if (request.Longitude is not null && request.Latitude is not null)
+        // --- Координаты ---
+        if (request.Latitude is not null && request.Longitude is not null)
         {
-            await coordinateRepository.DeleteAsync(c => c.ProductId == product.Id, cancellationToken);
-            var coordinate = new Coordinate(request.Latitude, request.Longitude, product.Id);
-            await coordinateRepository.AddAsync(coordinate, cancellationToken);
+            await useCaseDispatcher.DispatchAsync(
+                new UpdateProductCoordinatesUseCase(result, request.Latitude, request.Longitude),
+                cancellationToken);
         }
-        
+
         // --- Правила ---
         if (request.GuestRules is not null)
         {
-            await ruleRepository.DeleteAsync(r => r.ProductId == product.Id, cancellationToken);
-            var rules = new Rule(product.Id, request.GuestRules.MaxGuestsNumber, request.GuestRules.PetsAllowed,
-                request.GuestRules.MaxPetsNumber, request.GuestRules.PetsAddedPrice);
-            await ruleRepository.AddAsync(rules, cancellationToken);
+            await useCaseDispatcher.DispatchAsync(new UpdateProductGuestRulesUseCase(result, request.GuestRules),
+                cancellationToken);
         }
 
         // --- Дополнительная информация ---
-        if (request.CancelPolicy is not null || request.HomeRules?.Any() == true || request.SafetyRules?.Any() == true)
+        if (request.CancelPolicy is not null || request.HomeRules is not null || request.SafetyRules is not null)
         {
-            await additionalRepository.DeleteAsync(a => a.ProductId == product.Id, cancellationToken);
-
-            var cancelPolicy = request.CancelPolicy is not null
-                ? new CancelPolicy(request.CancelPolicy.FreeCancelationDays, request.CancelPolicy.PartCancelationDays,
-                    request.CancelPolicy.PartCancelationPercent)
-                : null;
-
-            var homeRules = request.HomeRules?
-                .Select(r => new HomeRule(r))
-                .ToList();
-
-            var safetyRules = request.SafetyRules?
-                .Select(r => new SafetyRule(r))
-                .ToList();
-
-            var additional = new Additional(product.Id, cancelPolicy, homeRules, safetyRules);
-            await additionalRepository.AddAsync(additional, cancellationToken);
+            await useCaseDispatcher.DispatchAsync(
+                new UpdateProductAdditionalInfoUseCase(result, request.CancelPolicy, request.HomeRules,
+                    request.SafetyRules),
+                cancellationToken);
         }
 
         // --- Преимущества ---
-        if (request.Advantages?.Any() == true)
+        if (request.Advantages is not null)
         {
-            await advantageRepository.DeleteAsync(a => a.ProductId == product.Id, cancellationToken);
-
-            foreach (var item in request.Advantages.DistinctBy(x => new { x.Title, x.Description }))
-            {
-                var advantage = new Advantage(product.Id, item.Title, item.Description);
-                await advantageRepository.AddAsync(advantage, cancellationToken);
-            }
+            await useCaseDispatcher.DispatchAsync(new UpdateProductAdvantagesUseCase(result, request.Advantages),
+                cancellationToken);
         }
-        
+
         // --- Фичи ---
-        var featureNames = request.Features ?? Enumerable.Empty<string>();
-        var features = new List<Feature>();
-        foreach (var name in featureNames.Distinct(StringComparer.OrdinalIgnoreCase))
+        if (request.Features is not null)
         {
-            var f = await featureRepository.GetByNameAsync(name, cancellationToken);
-            if (f is not null) features.Add(f);
-        }
-
-        var missingFeatures = featureNames.Except(features.Select(f => f.Name)).ToList();
-        if (missingFeatures.Any())
-        {
-            return Result<int>.Failure($"Фичи не найдены: {string.Join(", ", missingFeatures)}");
-        }
-
-        await productFeatureRepository.DeleteAllByProductIdAsync(product.Id, cancellationToken);
-        foreach (var feature in features)
-        {
-            var pf = new ProductFeature(product.Id, feature.Id);
-            await productFeatureRepository.AddAsync(pf, cancellationToken);
+            await useCaseDispatcher.DispatchAsync(new UpdateProductFeaturesUseCase(result, request.Features),
+                cancellationToken);
         }
 
         // --- Удобства ---
-        var facilityNames = request.Facilities ?? Enumerable.Empty<string>();
-        var facilities = new List<Facility>();
-        foreach (var name in facilityNames.Distinct(StringComparer.OrdinalIgnoreCase))
+        if (request.Facilities is not null)
         {
-            var f = await facilityRepository.GetByNameAsync(name, cancellationToken);
-            if (f is not null) facilities.Add(f);
+            await useCaseDispatcher.DispatchAsync(new UpdateProductFacilitiesUseCase(result, request.Facilities),
+                cancellationToken);
+        }
+        
+        // --- Комнаты ---
+        /*
+        var roomResult = await useCaseDispatcher.DispatchAsync(new GetRoomIdsByPictureNamesUseCase(request.PictureName
+            .Select(p => p)
+            .ToList()), cancellationToken);
+
+        if (roomResult.IsSuccess)
+        {
+            return Result<int>.Failure(roomResult.Errors);
         }
 
-        var missingFacilities = facilityNames.Except(facilities.Select(f => f.Name)).ToList();
-        if (missingFacilities.Any())
-        {
-            return Result<int>.Failure($"Удобства не найдены: {string.Join(", ", missingFacilities)}");
-        }
-
-        await productFacilityRepository.DeleteAllByProductIdAsync(product.Id, cancellationToken);
-        foreach (var facility in facilities)
-        {
-            var pf = new ProductFacility(product.Id, facility.Id);
-            await productFacilityRepository.AddAsync(pf, cancellationToken);
-        }
-
-        var result = await productRepository.AddAsync(product, cancellationToken);
-
+        var roomDict = roomResult?.Value?
+            .ToDictionary(x => x.Name, x => x.Id, StringComparer.OrdinalIgnoreCase);
+        */
         await mediator.Publish(new ProductCreatedEvent(product.Id, request.ProductTitle, request.ProductDescription,
             request.ProductPrice, true, DateTime.UtcNow, request.UserId, apartmentType.Id,
             address.Id), cancellationToken);
-        
+
         // MassTransit
         await bus.Publish(new ProductTagUpdatedEvent
         {
@@ -193,20 +159,7 @@ public class CreateProductCommandHandler(
             ProductTitle = product.Title,
             ProductDescription = product.Description,
             ProductPrice = product.Price,
-        });
-
-        foreach (var file in request.PictureFiles)
-        {
-            using var memoryStream = new MemoryStream();
-            await file.CopyToAsync(memoryStream, cancellationToken);
-            var pictureData = memoryStream.ToArray();
-
-            await bus.Publish(new ProductPictureUpdatedEvent
-            {
-                ProductId = product.Id,
-                PictureData = pictureData
-            }, cancellationToken);
-        }
+        }, cancellationToken);
 
         return Result<int>.Success(result);
     }
