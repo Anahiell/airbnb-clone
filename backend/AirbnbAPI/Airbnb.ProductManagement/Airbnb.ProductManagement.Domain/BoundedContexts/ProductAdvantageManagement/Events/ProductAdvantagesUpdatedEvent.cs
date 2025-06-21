@@ -7,7 +7,8 @@ public class ProductAdvantagesUpdatedEvent : DomainEvent
     public int ProductId { get; }
     public List<(int Id, string Title, string Description)> Advantages { get; }
 
-    public ProductAdvantagesUpdatedEvent(int productId, List<(int Id, string Name, string IconName)> advantages)
+    public ProductAdvantagesUpdatedEvent(int productId, List<(int Id, string Name, string IconName)> advantages) 
+        : base(productId)
     {
         ProductId = productId;
         Advantages = advantages;

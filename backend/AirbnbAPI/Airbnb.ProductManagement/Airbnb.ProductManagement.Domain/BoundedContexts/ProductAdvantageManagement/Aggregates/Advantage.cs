@@ -13,7 +13,7 @@ namespace Airbnb.Domain.BoundedContexts.ProductAdvantageManagement.Aggregates;
         
         public Advantage(int productId, string title, string description)
         {
-            Create(productId, Title, Description);
+            Create(productId, title, description);
         }
 
         #region Aggregate Methods

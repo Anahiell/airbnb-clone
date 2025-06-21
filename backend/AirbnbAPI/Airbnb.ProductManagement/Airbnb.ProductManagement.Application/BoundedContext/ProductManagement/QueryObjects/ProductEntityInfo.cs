@@ -30,6 +30,20 @@ public class ProductEntityInfo : IQueryEntity
     public List<FacilityEntityInfo> Facilities { get; set; }
     public CoordinateEntityInfo Coordinates { get; set; }
     public OwnerEntityInfo Owner { get; set; }
+    
+    public ProductEntityInfo()
+    {
+        Coordinates = new CoordinateEntityInfo();
+        GuestRules = new RuleEntityInfo();
+        CancelPolicy = new CancelPolicyEntityInfo();
+        HomeRules = new List<HomeRulesEntityInfo>();
+        SafetyRules = new List<SafetyRulesEntityInfo>();
+        Advantages = new List<AdvantagesEntityInfo>();
+        Features = new List<FeatureEntityInfo>();
+        Facilities = new List<FacilityEntityInfo>();
+        Owner = new OwnerEntityInfo();
+    }
+
     public void UpdateOrder(OrderInfo newOrder)
     {
         Orders ??= new List<OrderInfo>();

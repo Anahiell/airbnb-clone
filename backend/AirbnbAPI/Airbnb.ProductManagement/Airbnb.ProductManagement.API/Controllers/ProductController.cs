@@ -78,7 +78,7 @@ namespace AirbnbAPI.Controllers
         [SwaggerResponse(200, "Успешный запрос", typeof(int))]
         [SwaggerResponse(400, "Ошибка Валидации", typeof(int))]
         [SwaggerResponse(500, "Ошибка Сервера", typeof(int))]
-        public async Task<IActionResult> CreatePropertyAsync([FromForm] CreateProductCommand command,
+        public async Task<IActionResult> CreatePropertyAsync([FromBody] CreateProductCommand command,
             CancellationToken cancellationToken)
         {
             var result = await mediator.Send(command, cancellationToken);

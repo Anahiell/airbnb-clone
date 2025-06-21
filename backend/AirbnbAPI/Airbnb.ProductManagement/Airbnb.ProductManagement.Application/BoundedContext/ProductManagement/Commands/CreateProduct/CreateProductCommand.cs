@@ -72,10 +72,10 @@ public class CreateProductCommand : ICommand<Result<int>>
 
     [SwaggerSchema("Правила безопасности")]
     public List<string>? SafetyRules { get; init; } = new();
-    
+
     [SwaggerSchema("Преимущества продукта")]
-    public List<Advantages>? Advantages { get; init; }
-    
+    public List<Advantage>? Advantages { get; init; } = new();
+
     [SwaggerSchema("Особенности продукта")]
     public List<string>? Features { get; init; }
     
@@ -98,7 +98,7 @@ public class GuestRules
     public int? PetsAddedPrice { get; private set; }
 }
 
-public class Advantages
+public class Advantage
 {
     [SwaggerSchema("Заголовок преимущества")]
     public string Title { get; init; } = null!;

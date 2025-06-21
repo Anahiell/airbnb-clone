@@ -82,6 +82,10 @@ public class CreateProductCommandHandler(
 
         var result = await productRepository.AddAsync(product, cancellationToken);
         
+        await mediator.Publish(new ProductCreatedEvent(product.Id, request.ProductTitle, request.ProductDescription,
+            request.ProductPrice, true, DateTime.UtcNow, request.UserId, apartmentType.Id,
+            address.Id), cancellationToken);
+        
         // --- Координаты ---
         if (request.Latitude is not null && request.Longitude is not null)
         {
@@ -126,10 +130,6 @@ public class CreateProductCommandHandler(
             await useCaseDispatcher.DispatchAsync(new UpdateProductFacilitiesUseCase(result, request.Facilities),
                 cancellationToken);
         }
-
-        await mediator.Publish(new ProductCreatedEvent(product.Id, request.ProductTitle, request.ProductDescription,
-            request.ProductPrice, true, DateTime.UtcNow, request.UserId, apartmentType.Id,
-            address.Id), cancellationToken);
 
         // MassTransit
         await bus.Publish(new ProductTagUpdatedEvent

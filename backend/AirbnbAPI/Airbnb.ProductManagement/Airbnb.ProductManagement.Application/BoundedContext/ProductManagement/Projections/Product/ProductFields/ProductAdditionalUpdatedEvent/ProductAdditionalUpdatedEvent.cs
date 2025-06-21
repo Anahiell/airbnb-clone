@@ -28,6 +28,7 @@ public class ProductAdditionalInfoUpdatedEventHandler(IProjectionRepository<Prod
         {
             homeRulesTexts.Add(new HomeRulesEntityInfo
             {
+                Id = homeRule.Id,
                 Type = homeRule.Type,
                 Text = homeRule.Text,
             });
@@ -39,6 +40,7 @@ public class ProductAdditionalInfoUpdatedEventHandler(IProjectionRepository<Prod
         {
             safetyRulesLabels.Add(new SafetyRulesEntityInfo
             {
+                Id = safetyRule.Id,
                 Label = safetyRule.Label,
             });
         }

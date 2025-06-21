@@ -46,7 +46,7 @@ public class UpdateProductAdditionalInfoUseCaseHandler : IUseCaseHandler<UpdateP
             await _additionalRepository.UpdateAsync(additional, cancellationToken);
         }
 
-        var evt = new AdditionalUpdatedEvent(additional.Id, cancelPolicy, homeRules, safetyRules);
+        var evt = new AdditionalUpdatedEvent(request.ProductId, cancelPolicy, homeRules, safetyRules);
         await _mediator.Publish(evt, cancellationToken);
 
         return Result<string>.Success("Доп. информация обновлена");

@@ -8,16 +8,17 @@ using MediatR;
 
 namespace Airbnb.ProductManagement.Application.BoundedContext.ProductManagement.UseCases.Advantage;
 
-public record UpdateProductAdvantagesUseCase(int ProductId, List<Advantages> Advantages) : IUseCase<Result<string>>;
+public record UpdateProductAdvantagesUseCase(int ProductId, List<BoundedContext.Commands.CreateProduct.Advantage> Advantages) : IUseCase<Result<string>>;
 
 public class UpdateProductAdvantagesUseCaseHandler : IUseCaseHandler<UpdateProductAdvantagesUseCase, Result<string>>
 {
     private readonly IAdvantageRepository _advantageRepository;
     private readonly IMediator _mediator;
 
-    public UpdateProductAdvantagesUseCaseHandler(IAdvantageRepository advantageRepository)
+    public UpdateProductAdvantagesUseCaseHandler(IAdvantageRepository advantageRepository, IMediator mediator)
     {
         _advantageRepository = advantageRepository;
+        _mediator = mediator;
     }
 
     public async Task<Result<string>> Handle(UpdateProductAdvantagesUseCase request, CancellationToken cancellationToken)

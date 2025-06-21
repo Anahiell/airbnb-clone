@@ -1,6 +1,8 @@
-﻿namespace Airbnb.ProductManagement.Application.BoundedContext.QueryObjects;
+﻿using Airbnb.MongoRepository.Entities;
 
-public class CancelPolicyEntityInfo
+namespace Airbnb.ProductManagement.Application.BoundedContext.QueryObjects;
+
+public class CancelPolicyEntityInfo : QueryEntity
 {
     public int FreeCancelationDays { get; set; }
     public int PartCancelationDays { get; set; }
