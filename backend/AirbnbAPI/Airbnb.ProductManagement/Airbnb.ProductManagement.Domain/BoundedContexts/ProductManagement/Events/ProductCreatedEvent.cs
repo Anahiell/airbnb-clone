@@ -12,9 +12,14 @@ public class ProductCreatedEvent : DomainEvent
     public DateTime CreatedDate { get; private set; }
     public int AppartmentTypeId { get; private set; }
     public int AddressLegalId { get; private set; }
+    public string? Region { get; init; }
+
+    public string? Country { get; init; }
+
+    public string? City { get; init; }
 
     public ProductCreatedEvent(int aggregateId, string productName, string productDescription, int productPrice,
-        bool productIsAvailable, DateTime createdDate, int userId, int apartmentTypeId, int addressLegalId)
+        bool productIsAvailable, DateTime createdDate, int userId, int apartmentTypeId, int addressLegalId, string? region = null, string? country = null, string? city = null)
         : base(aggregateId)
     {
         Title = productName;
@@ -25,5 +30,8 @@ public class ProductCreatedEvent : DomainEvent
         UserId = userId;
         AppartmentTypeId = apartmentTypeId;
         AddressLegalId = addressLegalId;
+        Region = region;
+        City = city;
+        Country = country;
     }
 }

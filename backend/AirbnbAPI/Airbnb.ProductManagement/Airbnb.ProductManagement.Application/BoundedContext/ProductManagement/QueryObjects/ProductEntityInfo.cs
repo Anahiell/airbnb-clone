@@ -1,4 +1,5 @@
-﻿using Airbnb.Domain.BoundedContexts.PropertyTypeManagement.ValueObjects;
+﻿using System.Text.Json.Serialization;
+using Airbnb.Domain.BoundedContexts.PropertyTypeManagement.ValueObjects;
 using Airbnb.MongoRepository.Entities;
 using Airbnb.ProductManagement.Application.BoundedContext.ProductFacilityManagement.QueryObjects;
 
@@ -6,7 +7,7 @@ namespace Airbnb.ProductManagement.Application.BoundedContext.QueryObjects;
 
 public class ProductEntityInfo : IQueryEntity
 {
-    public string? Title { get; set; }
+    public string Title { get; set; }
     public string? Description { get; set; }
     public int Price { get; set; }
     public double Rating { get; set; }
@@ -17,6 +18,9 @@ public class ProductEntityInfo : IQueryEntity
     public DateTime CreatedDate { get; set; }
     public int AddressLegalId { get; set; }
     public string? AddressFull { get; set; }
+    public string? City { get; set; }
+    public string? Region { get; set; }
+    public string? Country { get; set; }
     public List<ReviewInfo>? Review { get; set; }
     public List<TagInfo>? Tags { get; set; }
     public List<OrderInfo>? Orders { get; set; }
@@ -135,6 +139,55 @@ public class ProductEntityInfo : IQueryEntity
     }
 }
 
+public class Data : IQueryEntity
+{
+    public List<TagInfo>? Category { get; set; }
+
+    public Attribute? Attribute { get; set; }
+}
+
+public class Attribute
+{
+    public Attribute()
+    {
+        Images = [];
+        Features = [];
+        Advantages = [];
+        Facilities = [];
+        BookedDates = [];
+        Reviews = [];
+    }
+
+    public string? Title { get; set; }
+    public double Rating { get; set; }
+    public int ReviewsNumber { get; set; }
+    public string? City { get; set; }
+    public string? Region { get; set; }
+    public string? Country { get; set; }
+    public string? ShortDescription { get; set; }
+    public string? Description { get; set; }
+    public string? LocationDescription { get; set; }
+    public List<PictureInfo>? Images { get; set; }
+    public RuleEntityInfo GuestsRules { get; set; }
+    public int pricePerNight { get; set; }
+    [JsonPropertyName("priceForAddServices")]
+    public List<FeatureEntityInfo> Features { get; set; }
+    public List<AdvantagesEntityInfo> Advantages { get; set; }
+    public List<FacilityEntityInfo> Facilities { get; set; }
+    public List<OrderInfo>? BookedDates { get; set; }
+    public List<ReviewInfo>? Reviews { get; set; }
+    public CoordinateEntityInfo LocationCoordinates { get; set; }
+    public OwnerEntityInfo Owner { get; set; }
+    public ImportantInfo ImportantInfo { get; set; }
+}
+
+public class ImportantInfo
+{
+    public CancelPolicyEntityInfo CancelPolicy { get; set; }
+    public List<HomeRulesEntityInfo> HomeRules { get; set; }
+    public List<SafetyRulesEntityInfo> SafetyRules { get; set; }
+}
+
 public class OrderInfo
 {
     public int ProductId { get; set; }
@@ -148,7 +201,6 @@ public class PictureInfo
 {
     public string Url { get; set; }
     public int ProductId { get; set; }
-    public DateTime CreatedAt { get; set; }
     public int Id { get; set; }
     public string? RoomName { get; set; }
 }
@@ -186,10 +238,10 @@ public class OwnerEntityInfo : IQueryEntity
     public AvatarResponse? Url { get; set; }
 
     public List<RoleResponse> Roles { get; set; } = new();
-    
-    public List<string>? Languages { get; set; }
-    
-    public List<string>? Permissions { get; set; }
+
+    public List<string>? Languages { get; set; } = new();
+
+    public List<string>? Permissions { get; set; } = new();
 
     public DateTime CreatedAt { get; set; }
     

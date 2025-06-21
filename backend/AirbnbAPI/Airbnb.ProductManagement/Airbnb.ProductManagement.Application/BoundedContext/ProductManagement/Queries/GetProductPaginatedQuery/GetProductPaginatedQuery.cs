@@ -20,6 +20,7 @@ public class GetProductPaginatedQuery : ICachedQuery<Result<IEnumerable<ProductE
 
     public string? Country { get; set; }
     public string? City { get; set; }
+    public string? Region { get; set; }
     public decimal? MinPrice { get; set; }
     public decimal? MaxPrice { get; set; }
     [SwaggerParameter(Description = "Начало периода (например, 2025-05-08 или 2025-05-08T14:30:00)")]

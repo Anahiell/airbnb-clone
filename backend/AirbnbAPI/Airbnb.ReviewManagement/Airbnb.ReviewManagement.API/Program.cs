@@ -30,8 +30,9 @@ public class Program
 
         builder.Services.AddMassTransitConsumers(builder.Configuration);
         
-        builder.Services.AddTransient<IReviewRepository, ReviewRepository>();
-
+        // builder.Services.AddTransient<IReviewRepository, ReviewRepository>();
+        builder.Services.AddTransient<IRepository<DomainReview>, ReviewRepository>();
+        
         // Добавляем стандартные сервисы
         builder.Services.AddControllers().AddJsonOptions(options =>
             options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));;

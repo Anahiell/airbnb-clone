@@ -84,7 +84,7 @@ public class CreateProductCommandHandler(
         
         await mediator.Publish(new ProductCreatedEvent(product.Id, request.ProductTitle, request.ProductDescription,
             request.ProductPrice, true, DateTime.UtcNow, request.UserId, apartmentType.Id,
-            address.Id), cancellationToken);
+            address.Id, request.Region, request.Country, request.City), cancellationToken);
         
         // --- Координаты ---
         if (request.Latitude is not null && request.Longitude is not null)

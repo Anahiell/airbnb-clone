@@ -9,6 +9,15 @@ public static class ProductFilterBuilder
     {
         var builder = Builders<ProductEntityInfo>.Filter;
         var filters = new List<FilterDefinition<ProductEntityInfo>>();
+        
+        if (!string.IsNullOrWhiteSpace(request.Country))
+            filters.Add(builder.Eq(p => p.Country, request.Country));
+
+        if (!string.IsNullOrWhiteSpace(request.City))
+            filters.Add(builder.Eq(p => p.City, request.City));
+
+        if (!string.IsNullOrWhiteSpace(request.Region))
+            filters.Add(builder.Eq(p => p.Region, request.Region));
 
         if (request.MinPrice.HasValue)
             filters.Add(builder.Gte(p => p.Price, request.MinPrice.Value));

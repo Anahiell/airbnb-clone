@@ -35,6 +35,9 @@ public class ProductCreatedProjection : INotificationHandler<ProductCreatedEvent
             AddressLegalId = @event.AddressLegalId,
             ApartmentTypeId = @event.AppartmentTypeId,
             Owner = user,
+            City = @event.City,
+            Country = @event.Country,
+            Region = @event.Region,
         };
 
         await _repository.InsertAsync(product);
