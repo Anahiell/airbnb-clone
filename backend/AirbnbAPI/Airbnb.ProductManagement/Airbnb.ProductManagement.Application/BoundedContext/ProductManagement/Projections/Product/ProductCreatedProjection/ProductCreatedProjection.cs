@@ -33,6 +33,14 @@ public class ProductCreatedProjection : INotificationHandler<ProductCreatedEvent
             UserId = @event.UserId,
             AddressLegalId = @event.AddressLegalId,
             ApartmentTypeId = @event.AppartmentTypeId,
+            GuestRules = @event.GuestRules,
+            CancelPolicy = @event.CancelPolicy,
+            HomeRules = @event.HomeRules,
+            SafetyRules = @event.SafetyRules,
+            Advantages = @event.Advantages,
+            Features = @event.Features,
+            Facilities = @event.Facilities,
+            Coordinates = @event.Coordinates,
             Owner = user,
         };
 

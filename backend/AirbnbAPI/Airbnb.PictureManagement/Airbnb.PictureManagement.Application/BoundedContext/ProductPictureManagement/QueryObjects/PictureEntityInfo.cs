@@ -9,4 +9,6 @@ public class PictureEntityInfo : IQueryEntity
     public string Url { get; set; } = default!;
     public int? ProductId { get; set; }
     public DateTime CreatedAt { get; set; }
+    
+    public string? RoomName { get; set; }
 }

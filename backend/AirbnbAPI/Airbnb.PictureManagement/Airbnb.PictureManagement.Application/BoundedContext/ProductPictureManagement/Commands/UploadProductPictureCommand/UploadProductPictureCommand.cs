@@ -10,6 +10,9 @@ public class UploadProductPictureCommand : ICommand<Result<List<int>>>
 {
     [SwaggerSchema("Файлы изображений")]
     public List<IFormFile> Files { get; init; } = new();
+    
+    [SwaggerSchema("Назначения фотографий (например: 'комната', 'кухня')")]
+    public List<int> RoomIds { get; set; } = new();
 
     [SwaggerSchema("ID продукта (если картинки продукта)")]
     public int ProductId { get; init; }

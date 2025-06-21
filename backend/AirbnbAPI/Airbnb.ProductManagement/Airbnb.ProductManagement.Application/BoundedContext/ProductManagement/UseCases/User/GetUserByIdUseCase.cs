@@ -29,22 +29,6 @@ public class GetUserByIdUseCaseHandler : IUseCaseHandler<GetUserByIdUseCase, Own
             return null;
         }
 
-        var avatar = new PictureInfo
-        {
-            Url = user.Avatar.Url,
-        };
-
-        var dto = new OwnerEntityInfo
-        {
-            Name = user.Name,
-            Avatar = avatar,
-            RegistrationDate = user.RegistrationDate,
-            IsVerificated = user.IsVerificated,
-            Languages = user.Languages.Select(l => l).ToList(),
-            ResponseSpeed = 60,
-            ResponseSpeedDuration = "протягом години"
-        };
-
-        return dto;
+        return user;
     }
 }

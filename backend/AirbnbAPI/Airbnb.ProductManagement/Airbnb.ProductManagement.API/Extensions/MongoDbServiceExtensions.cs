@@ -4,6 +4,7 @@ using Airbnb.MongoRepository.Repositories;
 using Airbnb.ProductManagement.Application.BoundedContext.ProductFacilityManagement.QueryObjects;
 using Airbnb.ProductManagement.Application.BoundedContext.ProductFeatureManagement.QueryObjects;
 using Airbnb.ProductManagement.Application.BoundedContext.QueryObjects;
+using Airbnb.ProductManagement.Application.BoundedContext.RoomManagement.QueryObjects;
 using MongoDB.Driver;
 using FeatureEntityInfo = Airbnb.ProductManagement.Application.BoundedContext.ProductFeatureManagement.QueryObjects.FeatureEntityInfo;
 
@@ -26,6 +27,8 @@ public static class MongoDbServiceExtensions
         services.AddTransient<BaseMongoRepository<FeatureEntityInfo>, MongoDbRepository<FeatureEntityInfo>>();
         services.AddTransient<IProjectionRepository<FeatureEntityInfo>, MongoDbRepository<FeatureEntityInfo>>();
 
+        services.AddTransient<BaseMongoRepository<RoomEntityInfo>, MongoDbRepository<RoomEntityInfo>>();
+        services.AddTransient<IProjectionRepository<RoomEntityInfo>, MongoDbRepository<RoomEntityInfo>>();
 
         return services;
     }

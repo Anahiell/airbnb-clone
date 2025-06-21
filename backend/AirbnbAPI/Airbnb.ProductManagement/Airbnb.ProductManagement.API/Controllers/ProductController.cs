@@ -2,6 +2,7 @@
 using Airbnb.ProductManagement.Application.BoundedContext.Commands;
 using Airbnb.ProductManagement.Application.BoundedContext.Commands.ArchiveProduct;
 using Airbnb.ProductManagement.Application.BoundedContext.Commands.CreateProduct;
+using Airbnb.ProductManagement.Application.BoundedContext.ProductManagement.Commands.UploadProductImage;
 using Airbnb.ProductManagement.Application.BoundedContext.Queries;
 using Airbnb.ProductManagement.Application.BoundedContext.Queries.GetProductRatingByIdQuery;
 using MediatR;
@@ -83,6 +84,16 @@ namespace AirbnbAPI.Controllers
             var result = await mediator.Send(command, cancellationToken);
 
             return Ok(result.Value);
+        }
+        
+        [HttpPost("images")]
+        [SwaggerOperation(Summary = "Загрузить фотографии к продукту")]
+        [SwaggerResponse(200, "Фотографии успешно загружены")]
+        public async Task<IActionResult> UploadProductImages(UploadProductImageCommand command, CancellationToken cancellationToken)
+        {
+            var result = await mediator.Send(command, cancellationToken);
+
+            return Ok(result);
         }
 
         /// <summary>

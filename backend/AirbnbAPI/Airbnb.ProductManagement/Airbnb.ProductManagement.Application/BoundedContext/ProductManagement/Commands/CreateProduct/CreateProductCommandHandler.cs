@@ -44,7 +44,6 @@ public class CreateProductCommandHandler(
     IRepository<AddressLegal> addressRepository,
     IRepository<ApartmentType> apartmentTypeRepository,
     IBus bus,
-    ILogger<CreateProductCommandHandler> _logger,
     IMediator mediator,
     IUseCaseDispatcher useCaseDispatcher)
     : ICommandHandler<CreateProductCommand, Result<int>>
@@ -127,21 +126,7 @@ public class CreateProductCommandHandler(
             await useCaseDispatcher.DispatchAsync(new UpdateProductFacilitiesUseCase(result, request.Facilities),
                 cancellationToken);
         }
-        
-        // --- Комнаты ---
-        /*
-        var roomResult = await useCaseDispatcher.DispatchAsync(new GetRoomIdsByPictureNamesUseCase(request.PictureName
-            .Select(p => p)
-            .ToList()), cancellationToken);
 
-        if (roomResult.IsSuccess)
-        {
-            return Result<int>.Failure(roomResult.Errors);
-        }
-
-        var roomDict = roomResult?.Value?
-            .ToDictionary(x => x.Name, x => x.Id, StringComparer.OrdinalIgnoreCase);
-        */
         await mediator.Publish(new ProductCreatedEvent(product.Id, request.ProductTitle, request.ProductDescription,
             request.ProductPrice, true, DateTime.UtcNow, request.UserId, apartmentType.Id,
             address.Id), cancellationToken);

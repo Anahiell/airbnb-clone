@@ -1,6 +1,9 @@
 ﻿using Airbnb.ProductManagement.Application.BoundedContext.ProductFeatureManagement.Commands.CreateFeatureCommand;
 using Airbnb.ProductManagement.Application.BoundedContext.ProductFeatureManagement.Commands.DeleteFeatureCommand;
 using Airbnb.ProductManagement.Application.BoundedContext.ProductFeatureManagement.Commands.UpdateFeatureCommand;
+using Airbnb.ProductManagement.Application.BoundedContext.RoomManagement.Commands.CreateRoomCommand;
+using Airbnb.ProductManagement.Application.BoundedContext.RoomManagement.Commands.DeleteRoomCommand;
+using Airbnb.ProductManagement.Application.BoundedContext.RoomManagement.Commands.UpdateRoomCommand;
 using Airbnb.ProductManagement.Application.BoundedContext.RoomManagement.Queries.GetAllRoomsQuery;
 using Airbnb.ProductManagement.Application.BoundedContext.RoomManagement.Queries.GetRoomByIdQuery;
 using Airbnb.ProductManagement.Application.BoundedContext.RoomManagement.QueryObjects;
@@ -18,14 +21,14 @@ namespace AirbnbAPI.Controllers;
 public class RoomController(IMediator mediator) : ControllerBase
 {
     /// <summary>
-    /// Создать новую фичу (Feature).
+    /// Создать новую комнату (Room).
     /// </summary>
     [HttpPost]
-    [Route("CreateFeatureAsync")]
-    [SwaggerOperation(Summary = "Создать Feature", Description = "Создает новую фичу")]
+    [Route("CreateRoomAsync")]
+    [SwaggerOperation(Summary = "Создать Room", Description = "Создает новую комнату")]
     [SwaggerResponse(200, "Успешно создано", typeof(int))]
     [SwaggerResponse(400, "Ошибка валидации")]
-    public async Task<IActionResult> CreateFeatureAsync([FromQuery] CreateFeatureCommand command,
+    public async Task<IActionResult> CreateRoomAsync([FromQuery] CreateRoomCommand command,
         CancellationToken cancellationToken)
     {
         var result = await mediator.Send(command, cancellationToken);
@@ -33,14 +36,14 @@ public class RoomController(IMediator mediator) : ControllerBase
     }
 
     /// <summary>
-    /// Обновить существующую фичу (Feature).
+    /// Обновить существующую комнату (Room).
     /// </summary>
     [HttpPut]
-    [Route("UpdateFeatureAsync")]
-    [SwaggerOperation(Summary = "Обновить Feature", Description = "Обновляет фичу")]
+    [Route("UpdateRoomAsync")]
+    [SwaggerOperation(Summary = "Обновить Room", Description = "Обновляет комнату")]
     [SwaggerResponse(200, "Успешно обновлено")]
     [SwaggerResponse(400, "Ошибка валидации")]
-    public async Task<IActionResult> UpdateFeatureAsync([FromQuery] UpdateFeatureCommand command,
+    public async Task<IActionResult> UpdateRoomAsync([FromQuery] UpdateRoomCommand command,
         CancellationToken cancellationToken)
     {
         var result = await mediator.Send(command, cancellationToken);
@@ -48,14 +51,14 @@ public class RoomController(IMediator mediator) : ControllerBase
     }
 
     /// <summary>
-    /// Удалить фичу (Feature).
+    /// Удалить комнату (Room).
     /// </summary>
     [HttpDelete]
-    [Route("DeleteFeatureAsync")]
-    [SwaggerOperation(Summary = "Удалить Feature", Description = "Удаляет фичу по идентификатору")]
+    [Route("DeleteRoomAsync")]
+    [SwaggerOperation(Summary = "Удалить Room", Description = "Удаляет комнату по идентификатору")]
     [SwaggerResponse(200, "Успешно удалено")]
     [SwaggerResponse(404, "Feature не найден")]
-    public async Task<IActionResult> DeleteFeatureAsync([FromQuery] DeleteFeatureCommand command,
+    public async Task<IActionResult> DeleteRoomAsync([FromQuery] DeleteRoomCommand command,
         CancellationToken cancellationToken)
     {
         var result = await mediator.Send(command, cancellationToken);

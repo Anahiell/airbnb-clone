@@ -44,13 +44,13 @@ public class ProductPictureUpdatedConsumer : IConsumer<ProductPictureUpdatedEven
 
             var relativeUrl = await _fileService.SaveAsync(formFile, "Product", context.CancellationToken);
 
-            var picture = new ProductPicture(Guid.NewGuid(), relativeUrl, eventMessage.ProductId, DateTime.UtcNow);
+            var picture = new ProductPicture(Guid.NewGuid(), relativeUrl, eventMessage.ProductId, DateTime.UtcNow, eventMessage.RoomId);
             await _productPictureRepository.AddAsync(picture, context.CancellationToken);
 
             await _mediator.Publish(new ProductPictureCreatedEvent(
-                picture.Id, picture.PictureGuid, relativeUrl, picture.ProductId, picture.CreatedAt), context.CancellationToken);
+                picture.Id, picture.PictureGuid, relativeUrl, picture.ProductId, picture.CreatedAt, roomId: picture.RoomId,eventMessage.RoomName), context.CancellationToken);
 
-            _logger.LogInformation("Successfully processed and saved picture for ProductId: {ProductId}", eventMessage.ProductId);
+            _logger.LogInformation("Successfully processed and saved picture for ProductId: {ProductId}, for {RoomName}", eventMessage.ProductId, eventMessage.RoomName);
 
         }
         catch (Exception ex)

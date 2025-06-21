@@ -79,8 +79,6 @@ public class Program
             using (var scope = app.Services.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                // Какая-то херня с Migration если локально запускать необходимо комментить, скорее всего связанно с
-                // лишней миграцей какой-то
                 app.UseSqlServerMigration(dbContext);
             }
         }

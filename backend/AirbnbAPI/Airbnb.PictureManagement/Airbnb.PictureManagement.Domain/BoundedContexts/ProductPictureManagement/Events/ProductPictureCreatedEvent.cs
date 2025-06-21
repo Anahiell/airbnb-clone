@@ -10,8 +10,9 @@ public class ProductPictureCreatedEvent : DomainEvent
     public int ProductId { get; }
     public DateTime CreatedDate { get; }
     public int? RoomId { get; }
+    public string? RoomName { get; }
 
-    public ProductPictureCreatedEvent(int id, Guid aggregateId, string url, int productId, DateTime createdDate, int? roomId = null)
+    public ProductPictureCreatedEvent(int id, Guid aggregateId, string url, int productId, DateTime createdDate, int? roomId = null, string? roomName = null)
     {
         Id = id;
         AggregateId = aggregateId;
@@ -19,5 +20,6 @@ public class ProductPictureCreatedEvent : DomainEvent
         ProductId = productId;
         CreatedDate = createdDate;
         RoomId = roomId;
+        RoomName = roomName;
     }
 }

@@ -159,18 +159,43 @@ public class TagInfo
 
 public class OwnerEntityInfo : IQueryEntity
 {
-    public string Name { get; set; } = default!;
+    public string FullName { get; set; } = default!;
     
-    public PictureInfo Avatar { get; set; } = default!;
+    public string Username { get; set; } = default!;
     
-    public DateOnly RegistrationDate { get; set; }
+    public string Email { get; set; } = default!;
     
-    public bool IsVerificated { get; set; }
+    public bool IsEmailVerified { get; set; }
     
-    public List<string> Languages { get; set; } = new();
+    public bool IsDocumentVerified { get; set; }
+
+    public AvatarResponse? Url { get; set; }
+
+    public List<RoleResponse> Roles { get; set; } = new();
     
-    public int ResponseSpeed { get; set; }
+    public List<string>? Languages { get; set; }
     
-    public string ResponseSpeedDuration { get; set; } = default!;
+    public List<string>? Permissions { get; set; }
+
+    public DateTime CreatedAt { get; set; }
+    
+    public DateTime UpdatedAt { get; set; }
 }
 
+public class AvatarResponse
+{
+    public string Url { get; set; } = default!;
+    
+    public int UserId { get; set; }
+    
+    public DateTime CreatedAt { get; set; }
+    
+    public int Id { get; set; }
+}
+
+public class RoleResponse
+{
+    public int Id { get; set; }
+    
+    public string Name { get; set; } = default!;
+}
