@@ -1,5 +1,7 @@
 ﻿using System.Text.Json;
+using Airbnb.Application.UseCases;
 using Airbnb.Connection.ConnectionService.HttpConnection.Services;
+using Airbnb.ProductManagement.Application.BoundedContext.ProductManagement.UseCases.User;
 using Airbnb.ProductManagement.Application.BoundedContext.QueryObjects;
 using Airbnb.SharedKernel.ConnectionService.HttpConnection;
 
@@ -15,10 +17,12 @@ public interface IProductDataAggregator
 public class ProductDataAggregator : IProductDataAggregator
 {
     private readonly IHttpConnectionService  _connection;
+    private readonly IUseCaseDispatcher _dispatcher;
 
-    public ProductDataAggregator(IHttpConnectionService connection)
+    public ProductDataAggregator(IHttpConnectionService connection, IUseCaseDispatcher dispatcher)
     {
         _connection = connection;
+        _dispatcher = dispatcher;
     }
 
     public async Task<List<ProductEntityInfo>> EnrichAsync(GetProductPaginatedQuery request, List<ProductEntityInfo> products, CancellationToken cancellationToken)
@@ -72,6 +76,17 @@ public class ProductDataAggregator : IProductDataAggregator
                 "api/v1/Review/GetAllReviews",
                 new HttpConnectionData { ClientName = "ReviewService", CancellationToken = cancellationToken },
                 new { Page = 1, PageSize = 10, ProductId = product.Id });
+            
+            foreach (var review in reviews)
+            {
+                var user = await _dispatcher.DispatchAsync(
+                    new GetReviewUserByIdUseCase(review.UserId),
+                    cancellationToken);
+
+                review.User = user;
+            }
+
+            product.Review = reviews;
             
             var rating = await _connection.GetAsync<double>(
                 "api/v1/Review/GetProductRating",

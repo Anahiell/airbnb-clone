@@ -2,6 +2,7 @@
 using Airbnb.Domain.BoundedContexts.PropertyTypeManagement.ValueObjects;
 using Airbnb.MongoRepository.Entities;
 using Airbnb.ProductManagement.Application.BoundedContext.ProductFacilityManagement.QueryObjects;
+using Airbnb.ProductManagement.Application.BoundedContext.ProductManagement.UseCases.User;
 
 namespace Airbnb.ProductManagement.Application.BoundedContext.QueryObjects;
 
@@ -21,7 +22,7 @@ public class ProductEntityInfo : IQueryEntity
     public string? City { get; set; }
     public string? Region { get; set; }
     public string? Country { get; set; }
-    public List<ReviewInfo>? Review { get; set; }
+    public List<ReviewInfo?>? Review { get; set; }
     public List<TagInfo>? Tags { get; set; }
     public List<OrderInfo>? Orders { get; set; }
     public List<PictureInfo>? Pictures { get; set; }
@@ -137,6 +138,43 @@ public class ProductEntityInfo : IQueryEntity
             Tags?.Add(updatedTag);
         }
     }
+    
+    public Data ToData()
+    {
+        return new Data
+        {
+            Id = Id,
+            Category = Tags,
+            Attribute = new Attribute
+            {
+                Title = Title,
+                Rating = Rating,
+                ReviewsNumber = Review?.Count ?? 0,
+                City = City,
+                Region = Region,
+                Country = Country,
+                ShortDescription = Description,
+                Description = Description,
+                LocationDescription = AddressFull,
+                Images = Pictures ?? new(),
+                GuestsRules = GuestRules,
+                pricePerNight = Price,
+                Features = Features ?? new(),
+                Advantages = Advantages ?? new(),
+                Facilities = Facilities ?? new(),
+                BookedDates = Orders ?? new(),
+                Reviews = Review ?? new(),
+                LocationCoordinates = Coordinates,
+                Owner = Owner,
+                ImportantInfo = new ImportantInfo
+                {
+                    CancelPolicy = CancelPolicy,
+                    HomeRules = HomeRules,
+                    SafetyRules = SafetyRules
+                }
+            }
+        };
+    }
 }
 
 public class Data : IQueryEntity
@@ -215,6 +253,7 @@ public class ReviewInfo
     public int UserId { get; set; }
     public int ProductId { get; set; }
     public int Id { get; set; }
+    public ReviewUserEntityInfo? User { get; set; }
 }
 
 public class TagInfo

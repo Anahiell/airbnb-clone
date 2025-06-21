@@ -6,4 +6,16 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="TestData\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Airbnb.SharedKernel\Airbnb.IntegrationTesting\Airbnb.IntegrationTesting.csproj" />
+      <ProjectReference Include="..\Airbnb.ProductManagement.API\Airbnb.ProductManagement.API.csproj" />
+      <ProjectReference Include="..\Airbnb.ProductManagement.Application\Airbnb.ProductManagement.Application.csproj" />
+      <ProjectReference Include="..\Airbnb.ProductManagement.Domain\Airbnb.ProductManagement.Domain.csproj" />
+      <ProjectReference Include="..\Airbnb.ProductManagement.Infrastructure\Airbnb.ProductManagement.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

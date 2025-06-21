@@ -8,7 +8,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Airbnb.ProductManagement.Application.BoundedContext.Queries;
 
-public class GetProductPaginatedQuery : ICachedQuery<Result<IEnumerable<ProductEntityInfo>>>
+public class GetProductPaginatedQuery : ICachedQuery<Result<IEnumerable<Data>>>
 {
     [JsonIgnore]
     [SwaggerIgnore]
@@ -35,7 +35,7 @@ public class GetProductPaginatedQuery : ICachedQuery<Result<IEnumerable<ProductE
     public int PageSize { get; set; }
     public SortState SortOrder { get; set; }
     
-    public IEnumerable<object> ExtractCacheableItems(Result<IEnumerable<ProductEntityInfo>> response)
+    public IEnumerable<object> ExtractCacheableItems(Result<IEnumerable<Data>> response)
     {
         return response.Value?.Select(p => (object)p.Id) ?? [];
     }

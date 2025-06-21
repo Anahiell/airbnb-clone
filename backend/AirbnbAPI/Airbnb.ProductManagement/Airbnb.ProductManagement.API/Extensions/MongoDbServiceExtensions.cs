@@ -21,6 +21,9 @@ public static class MongoDbServiceExtensions
         services.AddTransient<BaseMongoRepository<ProductEntityInfo>, MongoDbRepository<ProductEntityInfo>>();
         services.AddTransient<IProjectionRepository<ProductEntityInfo>, MongoDbRepository<ProductEntityInfo>>();
         
+        services.AddTransient<BaseMongoRepository<Data>, MongoDbRepository<Data>>();
+        services.AddTransient<IProjectionRepository<Data>, MongoDbRepository<Data>>();
+        
         services.AddTransient<BaseMongoRepository<FacilityEntityInfo>, MongoDbRepository<FacilityEntityInfo>>();
         services.AddTransient<IProjectionRepository<FacilityEntityInfo>, MongoDbRepository<FacilityEntityInfo>>();
         
